@@ -28,7 +28,9 @@ Parkary
 # Collections
 
 # Parse Classes
+
 ## Parks  
+### Properties
 * lat
 * lng
 * address:
@@ -40,10 +42,11 @@ Parkary
 * name
 * images: [] (pointer)
 * description
-### Properties
+
 ## Images
 ### Properties
 * parkId
+
 ## Users
 ### Properties
 * username  
