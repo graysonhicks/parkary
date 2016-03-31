@@ -8,6 +8,18 @@ require('backbone-react-component');
 var bootstrap = require('bootstrap-sass/assets/javascripts/bootstrap.js');
 var router = require('./router.js');
 
+var InterfaceComponent = require('./components/interface.jsx').InterfaceComponent;
+
 $(function(){
   Backbone.history.start();
+
+  ReactDOM.render(
+    React.createElement(InterfaceComponent, {
+      router: router
+    }),
+    document.getElementById('main-container')
+    );
+
+
+
 });

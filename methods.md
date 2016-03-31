@@ -20,6 +20,10 @@ METHODS
 * search term should be location (using google) geopoint
 * navigate to results route
 
+### Navbars
+* Check current router
+* Run if/else to determine which navbar to display
+
 ### Main Header
 * login
   * on click, go to login screen
