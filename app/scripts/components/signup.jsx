@@ -4,25 +4,47 @@ var ReactDOM = require('react-dom');
 var _ = require('underscore');
 var Backbone = require('backbone');
 require('backbone-react-component');
+var LinkedStateMixin = require('react/lib/LinkedStateMixin');
+
 
 var SignUpFormComponent = React.createClass({
-  mixins: [Backbone.React.Component.mixin],
+  mixins: [Backbone.React.Component.mixin, LinkedStateMixin],
+  getInitialState: function(){
+    return {
+      username: '',
+      email: '',
+      password: ''
+    }
+  },
+  signUp: function(e){
+    e.preventDefault();
+    // console.log(this.state);
+    this.resetState();
+    this.props.signUp(this.state);
+  },
+  resetState: function(){
+    this.setState({
+      username: '',
+      email: '',
+      password: ''
+    });
+  },
   render: function(){
 
     return (
-    <div className="container signup-form-container">
-      <form>
+    <div className="container signup-form-container fade-in">
+      <form onSubmit={this.signUp}>
         <fieldset className="form-group login-form">
           <label className="form-label" htmlFor="signup-username">username</label>
-          <input type="text" className="form-control" id="signup-username" />
+          <input type="text" valueLink={this.linkState('username')} className="form-control" id="signup-username" />
         </fieldset>
         <fieldset className="form-group">
           <label className="form-label" htmlFor="signup-email">email</label>
-          <input type="email" className="form-control" id="signup-email" />
+          <input type="email" valueLink={this.linkState('email')} className="form-control" id="signup-email" />
         </fieldset>
         <fieldset className="form-group">
           <label className="form-label" htmlFor="signup-password">password</label>
-          <input type="password" className="form-control" id="signup-password" />
+          <input type="password" valueLink={this.linkState('password')} className="form-control" id="signup-password" />
         </fieldset>
         <fieldset className="form-group">
           <a className="login-signup-reminder" href="#login">Already have an account? Click here to login.</a>

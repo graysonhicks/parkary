@@ -1,4 +1,7 @@
 
+$maingray: #B3B3B3
+$darkgray: #575555
+
 #treelogo
   height: 35px
   width: 35px
@@ -17,8 +20,8 @@
   bottom: 10px
 
 .main-nav
-  background-color: #B3B3B3
-  border-color: #575555
+  background-color: $maingray
+  border-color: $darkgray
 
 #parkary-name
   color: white
@@ -57,7 +60,51 @@
     a
       color: white
       font-size: 16px
+      &:visited
+        color: white
 
 #account-link
+  padding-top: 13px
   font-weight: 900
   font-size: 20px
+  &:focus
+    background-color: $maingray
+  &:active
+    background-color: $maingray
+  &:visited
+    background-color: $maingray
+    color: white
+
+#login-dropdown
+  margin-top: 2px
+  background-color: $maingray
+  a.dropdown-menu-links
+    &:hover
+      background-color: $darkgray
+    &:focus
+      background-color: $darkgray
+  li
+    &:hover
+      background-color: $darkgray
+
+//
+.fade-enter
+  opacity: 0.01
+
+.fade-enter.fade-enter-active
+  opacity: 1
+  transition: opacity 300ms ease-in
+
+.fade-leave
+  opacity: 1
+
+.fade-appear
+  opacity: 0.01
+
+.fade-appear.fade-appear-active
+  opacity: 1
+  transition: opacity 300ms ease-in
+
+.fade-leave.fade-leave-active
+  opacity: 0.01
+  transition: opacity 300ms ease-in
