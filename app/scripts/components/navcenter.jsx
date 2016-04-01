@@ -30,7 +30,7 @@ var NavCenterComponent = React.createClass({
             </ul>
           </div>
         </div>
-      </ReactCSSTransitionGroup>
+       </ReactCSSTransitionGroup>
             )
           }
         });
