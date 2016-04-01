@@ -5,7 +5,7 @@ var _ = require('underscore');
 var Backbone = require('backbone');
 require('backbone-react-component');
 var LinkedStateMixin = require('react/lib/LinkedStateMixin');
-var ReactCSSTransitionGroup = require('../../../node_modules/react-addons-css-transition-group');
+var ReactCSSTransitionGroup = require('../../../../node_modules/react-addons-css-transition-group');
 
 var LoginFormComponent = React.createClass({
   mixins: [Backbone.React.Component.mixin, LinkedStateMixin],

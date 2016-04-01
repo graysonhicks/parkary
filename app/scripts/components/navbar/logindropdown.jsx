@@ -5,8 +5,6 @@ var _ = require('underscore');
 var Backbone = require('backbone');
 require('backbone-react-component');
 
-
-
 var LoginDropdownComponent = React.createClass({
   mixins: [Backbone.React.Component.mixin],
   render: function(){

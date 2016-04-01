@@ -6,9 +6,9 @@ var Backbone = require('backbone');
 require('backbone-react-component');
 var Parse = require('parse');
 
-var NavbarComponent = require('./navbar.jsx').NavbarComponent;
-var LoginSignUpFormComponent = require('./loginsignupform.jsx').LoginSignUpFormComponent;
-var SearchFormComponent = require('./searchform.jsx').SearchFormComponent;
+var NavbarComponent = require('./navbar/navbar.jsx').NavbarComponent;
+var LoginSignUpFormComponent = require('./forms/loginsignupform.jsx').LoginSignUpFormComponent;
+var SearchFormComponent = require('./forms/searchform.jsx').SearchFormComponent;
 var ParkGridComponent = require('./parkgrid.jsx').ParkGridComponent;
 var ParkCardComponent = require('./parkcard.jsx').ParkCardComponent;
 

@@ -4,7 +4,7 @@ var ReactDOM = require('react-dom');
 var _ = require('underscore');
 var Backbone = require('backbone');
 require('backbone-react-component');
-var ReactCSSTransitionGroup = require('../../../node_modules/react-addons-css-transition-group');
+var ReactCSSTransitionGroup = require('../../../../node_modules/react-addons-css-transition-group');
 var LoginDropdownComponent = require('./logindropdown.jsx').LoginDropdownComponent;
 
 var NavLeftComponent = React.createClass({
