@@ -14,7 +14,7 @@ var NavbarComponent = React.createClass({
   render: function(){
     var nav;
 
-    var leftNavPages = ["home", "parks", "profile", "park", "search"];
+    var leftNavPages = ["home", "parks", "profile", "park", "search", "map"];
     var centerNavPages = ["login", "signup"];
 
 

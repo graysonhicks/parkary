@@ -10,7 +10,11 @@ var NavbarComponent = require('./navbar/navbar.jsx').NavbarComponent;
 var LoginSignUpFormComponent = require('./forms/loginsignupform.jsx').LoginSignUpFormComponent;
 var SearchFormComponent = require('./forms/searchform.jsx').SearchFormComponent;
 var ParkGridComponent = require('./parkgrid.jsx').ParkGridComponent;
-var ParkCardComponent = require('./parkcard.jsx').ParkCardComponent;
+var ParkCardComponent = require('./parkcard/parkcard.jsx').ParkCardComponent;
+var ProfileComponent = require('./profile.jsx').ProfileComponent;
+var ParkMapComponent = require('./parkmap.jsx').ParkMapComponent;
+
+
 
 Parse.initialize("parkary");
 Parse.serverURL = 'http://parkary.herokuapp.com';
@@ -89,6 +93,11 @@ var InterfaceComponent = React.createClass({
         <ParkGridComponent page={this.state.router.current} />
       )
     }
+    if(this.state.router.current == "map"){
+      body = (
+        <ParkMapComponent page={this.state.router.current} />
+      )
+    }
     if(this.state.router.current == "home"){
       body = (
         <ParkGridComponent page={this.state.router.current} />
@@ -97,6 +106,11 @@ var InterfaceComponent = React.createClass({
     if(this.state.router.current == "park"){
       body = (
         <ParkCardComponent page={this.state.router.current} />
+      )
+    }
+    if(this.state.router.current == "profile"){
+      body = (
+        <ProfileComponent page={this.state.router.current} />
       )
     }
     return(

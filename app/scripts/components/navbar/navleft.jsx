@@ -25,7 +25,7 @@ var NavLeftComponent = React.createClass({
             <LoginDropdownComponent logout={this.props.logout} user={this.props.user}  />
           </ul>
         )}
-      if(this.props.page =="parks"){
+      if((this.props.page =="parks")||(this.props.page =="map")){
         accountLinks = (
         <ul className="nav navbar-nav navbar-right right-nav">
           <li><a id="search-link" href="#search">search</a></li>
