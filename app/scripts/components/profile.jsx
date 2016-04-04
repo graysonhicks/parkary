@@ -12,6 +12,7 @@ var ProfileComponent = React.createClass({
         return (
         <div className="container-fluid profile-container">
           <div className="panel panel-default profile-card center-block">
+            <i className="pull-right fa fa-times"></i>
             <div className="panel-body">
                <div className="container-fluid">
                  <div className="row">

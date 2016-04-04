@@ -17,6 +17,7 @@ var ParkCardComponent = React.createClass({
         return (
         <div className="container-fluid park-card-container">
           <div className="panel panel-default park-card center-block">
+            <i className="pull-right fa fa-times"></i>
             <div className="panel-body">
              <div className="container-fluid">
                <div className="row">

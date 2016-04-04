@@ -12,7 +12,9 @@ var ParkCardInfoComponent = React.createClass({
   render: function(){
         return (
                   <div>
+                    <div>
                     <MainInfoComponent />
+                    </div>
                     <div>
                     <AmenitiesInfoComponent />
                     </div>
