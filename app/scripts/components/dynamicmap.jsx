@@ -17,43 +17,18 @@ var Icon = {
 }
 
 var ParkMap = React.createClass({
- getInitialState: function(){
+  getInitialState: function(){
    return {
-     markers: [{
-       position: {
-         lat: 32.7765,
-         lng: -79.9311,
-       },
-       key: 'one'
-     },
-     {
-       position: {
-         lat: 34.0007,
-         lng: -81.0348,
-       },
-       key: 'two'
-     },
-     {
-       position: {
-         lat: 34.8526,
-         lng: -82.3940,
-       },
-       key: 'three'
-     },
-     {
-       position: {
-         lat: -52.0112183,
-         lng: -121.52067570000001,
-       },
-       key: 'four'
-     }
-   ]
+     markers: this.props.parks
     }
   },
   render: function(){
-    
+    console.log(this.props.location);
+    console.log(this.props.parks);
     var markers = this.state.markers.map(function(marker, index){
+     console.log(marker.get("location"));
      marker.icon = Icon;
+     marker.position = this.props.location;
      return (
          <Marker
            {...marker}
@@ -91,7 +66,7 @@ var DynamicMapComponent = React.createClass({
   render: function(){
   return (
     <div className="">
-      <ParkMap location={this.props.location}/>
+      <ParkMap parks={this.props.parks} location={this.props.location}/>
     </div>
     )
   }

@@ -9,20 +9,21 @@ var ParkTileComponent = require('./parktile.jsx').ParkTileComponent;
 var Toggle = require('bootstrap-toggle');
 
 
+
 var ParkGridComponent = React.createClass({
   mixins: [Backbone.React.Component.mixin],
   render: function(){
+      var gridItem = function(park){
+        console.log(park);
+        return(
+        <div key={park.id}>
+          <ParkTileComponent park={park} />
+        </div>
+      )}
         return (
         <ReactCSSTransitionGroup transitionName="fade" transitionAppear={true} transitionAppearTimeout={600} transitionEnterTimeout={500} transitionLeaveTimeout={300}>
           <div className="row thumbnail-row">
-            <ParkTileComponent />
-            <ParkTileComponent />
-            <ParkTileComponent />
-            <ParkTileComponent />
-            <ParkTileComponent />
-            <ParkTileComponent />
-            <ParkTileComponent />
-            <ParkTileComponent />
+            {this.props.parks.map(gridItem.bind(this))}
           </div>
         </ReactCSSTransitionGroup>
          )

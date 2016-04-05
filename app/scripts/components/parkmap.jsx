@@ -19,7 +19,7 @@ var ParkMapComponent = React.createClass({
             <div className="panel panel-default">
               <div className="panel-body">
                 <div className="col-md-9 map-column">
-                    <DynamicMapComponent location={this.props.location} />
+                  <DynamicMapComponent parks={this.props.parks} location={this.props.location} />
                 </div>
                 <div className="col-md-3">
                   <span>Greenville, SC Parks</span>

@@ -8,7 +8,7 @@ require('backbone-react-component');
 
 var Router = Backbone.Router.extend({
   routes: {
-    "": "home",
+    "": "search",
     "login": "login",
     "profile": "profile",
     "park": "park",

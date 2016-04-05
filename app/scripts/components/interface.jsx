@@ -13,7 +13,6 @@ var ParkGridComponent = require('./parkgrid.jsx').ParkGridComponent;
 var ParkCardComponent = require('./parkcard/parkcard.jsx').ParkCardComponent;
 var ProfileComponent = require('./profile.jsx').ProfileComponent;
 var ParkMapComponent = require('./parkmap.jsx').ParkMapComponent;
-var ParseReact = require('parse-react');
 
 
 Parse.initialize("parkary");
@@ -24,7 +23,8 @@ var InterfaceComponent = React.createClass({
   getInitialState: function(){
   return {
     router: this.props.router,
-    user: null
+    user: null,
+    parks: []
     }
   },
   componentWillMount: function(){
@@ -46,6 +46,7 @@ var InterfaceComponent = React.createClass({
     var parseGeo = new Parse.GeoPoint({latitude: locationObj.lat, longitude: locationObj.lng});
     (new Parse.Query('Parks')).withinMiles("location", parseGeo, 10).find({
       success: function(parks){
+        console.log(parks);
         self.setState({
           "location": locationObj,
           "parks": parks
@@ -108,12 +109,19 @@ var InterfaceComponent = React.createClass({
     }
     if(this.state.router.current == "parks"){
       body = (
-        <ParkGridComponent page={this.state.router.current} />
+        <ParkGridComponent
+          parks={this.state.parks}
+          page={this.state.router.current}
+        />
       )
     }
     if(this.state.router.current == "map"){
       body = (
-        <ParkMapComponent location={this.state.location} page={this.state.router.current} />
+        <ParkMapComponent
+          location={this.state.location}
+          parks={this.state.parks}
+          page={this.state.router.current}
+        />
       )
     }
     if(this.state.router.current == "home"){
