@@ -41,6 +41,13 @@ var InterfaceComponent = React.createClass({
   componentWillUnmount: function(){
     this.state.router.off('route', this.callback);
   },
+  parseLocationQuery: function(){
+    console.log(this.state.location);
+  },
+  setLocationObj: function(locationObj){
+    this.setState({"location": locationObj});
+    console.log(this.state.location);
+  },
   signUp: function(userObj){
     var user = new Parse.User();
     user.set("username", userObj.username);
@@ -85,7 +92,11 @@ var InterfaceComponent = React.createClass({
     }
     if(this.state.router.current == "search"){
       body = (
-        <SearchFormComponent page={this.state.router.current} />
+        <SearchFormComponent
+          parseLocationQuery={this.parseLocationQuery}
+          setLocationObj={this.setLocationObj}
+          page={this.state.router.current}
+        />
       )
     }
     if(this.state.router.current == "parks"){
@@ -95,7 +106,7 @@ var InterfaceComponent = React.createClass({
     }
     if(this.state.router.current == "map"){
       body = (
-        <ParkMapComponent page={this.state.router.current} />
+        <ParkMapComponent location={this.state.location} page={this.state.router.current} />
       )
     }
     if(this.state.router.current == "home"){

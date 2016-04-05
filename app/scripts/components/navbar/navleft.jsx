@@ -6,9 +6,18 @@ var Backbone = require('backbone');
 require('backbone-react-component');
 var ReactCSSTransitionGroup = require('../../../../node_modules/react-addons-css-transition-group');
 var LoginDropdownComponent = require('./logindropdown.jsx').LoginDropdownComponent;
+var Switch = require('react-bootstrap-switch');
 
 var NavLeftComponent = React.createClass({
   mixins: [Backbone.React.Component.mixin],
+  toggle: function(state){
+    console.log(state);
+    if(state === false){
+      Backbone.history.navigate("parks", {trigger: true});
+    } else {
+      Backbone.history.navigate("map", {trigger: true});
+    }
+  },
   render: function(){
       var accountLinks;
 
@@ -28,6 +37,7 @@ var NavLeftComponent = React.createClass({
       if((this.props.page =="parks")||(this.props.page =="map")){
         accountLinks = (
         <ul className="nav navbar-nav navbar-right right-nav">
+          <li><Switch size="small" onColor="success" offColor="primary" onText="GRID" offText="MAP" onChange={this.toggle}/></li>
           <li><a id="search-link" href="#search">search</a></li>
           <li><a id="search-link" href="#">filter by</a></li>
           <li><a id="search-link" href="#">sort by</a></li>

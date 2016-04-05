@@ -9,7 +9,8 @@ require('backbone-react-component');
 var GoogleSearchComponent = React.createClass({
   mixins: [Backbone.React.Component.mixin],
   handleSubmit: function(){
-    Backbone.history.navigate("parks", {trigger: true})
+    this.props.parseLocationQuery();
+    Backbone.history.navigate("map", {trigger: true})
   },
   render: function(){
         return(

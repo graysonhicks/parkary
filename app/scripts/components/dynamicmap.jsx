@@ -11,6 +11,7 @@ var GoogleMap = google.GoogleMap;
 var GoogleMapLoader = google.GoogleMapLoader;
 var Marker = google.Marker;
 
+
 var Icon = {
   url: "images/mapmarker.png"
 }
@@ -60,6 +61,7 @@ var ParkMap = React.createClass({
    }.bind(this));
     return (
       <section style={{height: "525px"}}>
+
       <GoogleMapLoader
         containerElement={
           <div
@@ -71,8 +73,8 @@ var ParkMap = React.createClass({
         }
         googleMapElement={
          <GoogleMap
-            defaultZoom={8}
-            defaultCenter={{ lat: 34.0007, lng: -81.0348 }}
+            defaultZoom={12}
+            defaultCenter={this.props.location}
           >
           {markers}
           </GoogleMap>
@@ -88,7 +90,7 @@ var DynamicMapComponent = React.createClass({
   render: function(){
   return (
     <div className="">
-      <ParkMap />
+      <ParkMap location={this.props.location}/>
     </div>
     )
   }

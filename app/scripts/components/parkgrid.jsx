@@ -5,8 +5,9 @@ var _ = require('underscore');
 var Backbone = require('backbone');
 require('backbone-react-component');
 var ReactCSSTransitionGroup = require('../../../node_modules/react-addons-css-transition-group');
-
 var ParkTileComponent = require('./parktile.jsx').ParkTileComponent;
+var Toggle = require('bootstrap-toggle');
+
 
 var ParkGridComponent = React.createClass({
   mixins: [Backbone.React.Component.mixin],

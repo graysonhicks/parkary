@@ -4,6 +4,7 @@ var ReactDOM = require('react-dom');
 var _ = require('underscore');
 var Backbone = require('backbone');
 require('backbone-react-component');
+var Switch = require('react-bootstrap-switch');
 var ReactCSSTransitionGroup = require('../../../node_modules/react-addons-css-transition-group');
 
 var DynamicMapComponent = require('./dynamicmap.jsx').DynamicMapComponent;
@@ -17,7 +18,7 @@ var ParkMapComponent = React.createClass({
             <div className="panel panel-default">
               <div className="panel-body">
                 <div className="col-md-9 map-column">
-                    <DynamicMapComponent />
+                    <DynamicMapComponent location={this.props.location} />
                 </div>
                 <div className="col-md-3">
                   <span>Greenville, SC Parks</span>
