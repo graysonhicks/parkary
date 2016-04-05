@@ -9,7 +9,6 @@ var LoginDropdownComponent = React.createClass({
   mixins: [Backbone.React.Component.mixin],
   render: function(){
     var dropdown;
-    console.log(this.props.user);
     if(this.props.user){
       dropdown = (
         <ul id="login-dropdown" className="dropdown-menu">

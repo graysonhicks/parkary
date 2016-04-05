@@ -13,7 +13,7 @@ var ParkGridComponent = require('./parkgrid.jsx').ParkGridComponent;
 var ParkCardComponent = require('./parkcard/parkcard.jsx').ParkCardComponent;
 var ProfileComponent = require('./profile.jsx').ProfileComponent;
 var ParkMapComponent = require('./parkmap.jsx').ParkMapComponent;
-
+var ParseReact = require('parse-react');
 
 
 Parse.initialize("parkary");
@@ -41,12 +41,18 @@ var InterfaceComponent = React.createClass({
   componentWillUnmount: function(){
     this.state.router.off('route', this.callback);
   },
-  parseLocationQuery: function(){
-    console.log(this.state.location);
-  },
   setLocationObj: function(locationObj){
-    this.setState({"location": locationObj});
-    console.log(this.state.location);
+    var self = this;
+    var parseGeo = new Parse.GeoPoint({latitude: locationObj.lat, longitude: locationObj.lng});
+    (new Parse.Query('Parks')).withinMiles("location", parseGeo, 10).find({
+      success: function(parks){
+        self.setState({
+          "location": locationObj,
+          "parks": parks
+        })
+      }
+    })
+
   },
   signUp: function(userObj){
     var user = new Parse.User();
@@ -91,6 +97,7 @@ var InterfaceComponent = React.createClass({
       )
     }
     if(this.state.router.current == "search"){
+      console.log(this.state.parks);
       body = (
         <SearchFormComponent
           parseLocationQuery={this.parseLocationQuery}

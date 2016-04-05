@@ -51,6 +51,7 @@ var ParkMap = React.createClass({
     }
   },
   render: function(){
+    
     var markers = this.state.markers.map(function(marker, index){
      marker.icon = Icon;
      return (
