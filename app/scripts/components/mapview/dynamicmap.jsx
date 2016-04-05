@@ -23,12 +23,16 @@ var ParkMap = React.createClass({
     }
   },
   render: function(){
-    console.log(this.props.location);
-    console.log(this.props.parks);
+
     var markers = this.state.markers.map(function(marker, index){
-     console.log(marker.get("location"));
+     var markerLocation = marker.get("location");
+     console.log(this.props.location);
+     var position = {}
+     position.lat = markerLocation.latitude;
+     position.lng = markerLocation.longitude;
+     console.log(position);
      marker.icon = Icon;
-     marker.position = this.props.location;
+     marker.position = position;
      return (
          <Marker
            {...marker}

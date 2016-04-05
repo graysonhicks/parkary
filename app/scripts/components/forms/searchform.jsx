@@ -24,7 +24,9 @@ var SearchFormComponent = React.createClass({
           var place = searchInput.getPlace();
           var lat = place.geometry.location.lat();
           var lng = place.geometry.location.lng();
+          var name = place.name;
           var locationObj = {
+            "name": name,
             "lat": lat,
             "lng": lng
           };
