@@ -52,7 +52,6 @@ var InterfaceComponent = React.createClass({
         })
       }
     })
-
   },
   signUp: function(userObj){
     var user = new Parse.User();
@@ -108,6 +107,7 @@ var InterfaceComponent = React.createClass({
     if(this.state.router.current == "parks"){
       body = (
         <ParkGridComponent
+          currentPark={this.state.currentPark}
           parks={this.state.parks}
           page={this.state.router.current}
         />
@@ -129,7 +129,10 @@ var InterfaceComponent = React.createClass({
     }
     if(this.state.router.current == "park"){
       body = (
-        <ParkCardComponent page={this.state.router.current} />
+        <ParkCardComponent
+          parkId={this.state.router.parkId}
+          page={this.state.router.current}
+        />
       )
     }
     if(this.state.router.current == "profile"){

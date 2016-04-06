@@ -7,7 +7,6 @@ require('backbone-react-component');
 var Switch = require('react-bootstrap-switch');
 var ReactCSSTransitionGroup = require('../../../../node_modules/react-addons-css-transition-group');
 
-
 var DynamicMapComponent = require('./dynamicmap.jsx').DynamicMapComponent;
 var MapSidebarComponent = require('./mapsidebar.jsx').MapSidebarComponent;
 

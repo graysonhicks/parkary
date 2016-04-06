@@ -19,20 +19,28 @@ var Icon = {
 var ParkMap = React.createClass({
   getInitialState: function(){
    return {
-     markers: this.props.parks
+     markers: this.props.parks,
+     zoom: 12,
+     center: this.props.location
     }
   },
+  handleMarkerClick: function() {
+    this.setState({
+      zoom: 16
+    });
+  },
   render: function(){
-
-    var markers = this.state.markers.map(function(marker, index){
+  var zoom = this.state.zoom;
+  var center = this.state.center;
+  var markers = this.state.markers.map(function(marker, index){
      var markerLocation = marker.get("location");
-     console.log(this.props.location);
      var position = {}
      position.lat = markerLocation.latitude;
      position.lng = markerLocation.longitude;
-     console.log(position);
      marker.icon = Icon;
      marker.position = position;
+     marker.defaultPosition={center}
+     marker.onClick = this.handleMarkerClick;
      return (
          <Marker
            {...marker}
@@ -53,8 +61,10 @@ var ParkMap = React.createClass({
         }
         googleMapElement={
          <GoogleMap
-            defaultZoom={12}
-            defaultCenter={this.props.location}
+            zoom={zoom}
+            ref="map"
+            center={center}
+            onCenterChanged={this.handleMapCenterChanged}
           >
           {markers}
           </GoogleMap>

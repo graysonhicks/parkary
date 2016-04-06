@@ -13,7 +13,7 @@ var SidebarItemComponent = React.createClass({
           <div className="row">
             <div className="col-md-8">
               <img className="mapped-park-image" src="images/park2.jpg"></img>
-              <span className="mapped-park-name">{park.get("name")}</span>
+              <span className="mapped-park-name"><a href={"#park/" + park.id}>{park.get("name")}</a></span>
             </div>
             <div className="col-md-4 mapped-park-rating-container">
               <span className="mapped-park-rating">

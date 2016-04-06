@@ -13,10 +13,10 @@ var ParkCardInfoComponent = React.createClass({
         return (
                   <div>
                     <div>
-                    <MainInfoComponent />
+                      <MainInfoComponent park={this.props.park}/>
                     </div>
                     <div>
-                    <AmenitiesInfoComponent />
+                      <AmenitiesInfoComponent park={this.props.park}/>
                     </div>
                   </div>
                )

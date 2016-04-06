@@ -9,15 +9,13 @@ var ParkTileComponent = require('./parktile.jsx').ParkTileComponent;
 var Toggle = require('bootstrap-toggle');
 
 
-
 var ParkGridComponent = React.createClass({
   mixins: [Backbone.React.Component.mixin],
   render: function(){
       var gridItem = function(park){
-        console.log(park);
         return(
         <div key={park.id}>
-          <ParkTileComponent park={park} />
+          <ParkTileComponent currentPark={this.props.currentPark} park={park} />
         </div>
       )}
         return (

@@ -11,7 +11,7 @@ var Router = Backbone.Router.extend({
     "": "search",
     "login": "login",
     "profile": "profile",
-    "park": "park",
+    "park/(:id)": "park",
     "parks": "parks",
     "signup": "signup",
     "search": "search",
@@ -22,23 +22,19 @@ var Router = Backbone.Router.extend({
     this.current = "home";
   },
   login: function(){
-    console.log('login');
     this.current = "login";
   },
   signup: function(){
-    console.log('signup');
     this.current = "signup";
   },
   profile: function(){
-    console.log('profile');
     this.current = "profile";
   },
-  park: function(){
-    console.log('park');
+  park: function(id){
+    this.parkId = id;
     this.current = "park";
   },
   parks: function(){
-    console.log('park');
     this.current = "parks";
   },
   map: function(){

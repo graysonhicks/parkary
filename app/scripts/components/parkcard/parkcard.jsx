@@ -4,7 +4,7 @@ var ReactDOM = require('react-dom');
 var _ = require('underscore');
 var Backbone = require('backbone');
 require('backbone-react-component');
-
+var Parse = require('parse');
 
 var LocationComponent = require('./staticmap.jsx').LocationComponent;
 var ParkImageCarouselComponent = require('./parkimagecarousel.jsx').ParkImageCarouselComponent;
@@ -13,7 +13,22 @@ var ReviewsComponent = require('./reviews.jsx').ReviewsComponent;
 
 var ParkCardComponent = React.createClass({
   mixins: [Backbone.React.Component.mixin],
+  getInitialState: function() {
+	    return {
+	        park: null
+	    };
+	},
+  componentWillMount: function(){
+    var query = new Parse.Query("Parks");
+    query.get(this.props.parkId).then(function(park){
+      this.setState({"park": park});
+    }.bind(this));
+
+  },
   render: function(){
+  if(!this.state.park){
+    return (<h1>Loading</h1>)
+  }
         return (
         <div className="container-fluid park-card-container">
           <div className="panel panel-default park-card center-block">
@@ -25,7 +40,7 @@ var ParkCardComponent = React.createClass({
                     <ParkImageCarouselComponent />
                   </div>
                   <div className="col-md-6 info-column">
-                    <ParkCardInfoComponent />
+                    <ParkCardInfoComponent park={this.state.park}/>
                   </div>
                 </div>
                </div>
