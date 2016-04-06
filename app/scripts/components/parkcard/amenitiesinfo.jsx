@@ -44,10 +44,8 @@ var AmenitiesInfoComponent = React.createClass({
           </ul>
         </div>
              )
-
-
-              }
-            });
+          }
+      });
 
 module.exports = {
   AmenitiesInfoComponent: AmenitiesInfoComponent

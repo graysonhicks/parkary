@@ -13,7 +13,7 @@ var ParkGridComponent = require('./parkgrid.jsx').ParkGridComponent;
 var ParkCardComponent = require('./parkcard/parkcard.jsx').ParkCardComponent;
 var ProfileComponent = require('./profile.jsx').ProfileComponent;
 var ParkMapComponent = require('./mapview/parkmap.jsx').ParkMapComponent;
-
+var AddChangeComponent = require('./forms/addchangepark.jsx').AddChangeComponent;
 
 Parse.initialize("parkary");
 Parse.serverURL = 'http://parkary.herokuapp.com';
@@ -138,6 +138,11 @@ var InterfaceComponent = React.createClass({
     if(this.state.router.current == "profile"){
       body = (
         <ProfileComponent page={this.state.router.current} />
+      )
+    }
+    if(this.state.router.current == "add"){
+      body = (
+        <AddChangeComponent page={this.state.router.current} />
       )
     }
     return(

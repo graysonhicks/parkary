@@ -14,38 +14,38 @@ var Parks = Backbone.Collection.extend({
 
 var Park = Backbone.Model.extend({
   defaults: {
-    name: ,
-    lat: ,
-    lng: ,
-    address: ,
-    size: ,
-    dateFounded: ,
-    description: ,
-    amenities: [
-      shelter: ,
-      playground: ,
-      waterFeature: ,
-      dogPark: ,
-      tennis: ,
-      basketball: ,
-      grassyArea: ,
-      baseball: ,
-      soccer: ,
-      trail:
-    ],
-    reviews: [
-      {
-        user: ,
-        rating: ,
-        comments:
-      }
+        name: "",
+        lat: 0,
+        lng: 0,
+        address: "",
+        size: 0,
+        dateFounded: "",
+        description: "",
+        amenities: [
+          shelter: false,
+          playground: false,
+          waterFeature: false,
+          dogPark: false,
+          tennis: false,
+          basketball: false,
+          grassyArea: false,
+          baseball: false,
+          soccer: false,
+          trail: false
+        ],
+        reviews: [
+          {
+            user: "",
+            rating: 0,
+            comments: ""
+          }
 
-    ],
-    images: [
-      {
-        url: ,
-        description:
-      }
-    ]
+        ],
+        images: [
+          {
+            url: "",
+            description: ""
+          }
+        ]
   }
 });
