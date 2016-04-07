@@ -8,13 +8,17 @@ require('backbone-react-component');
 var ParkTileComponent = React.createClass({
   mixins: [Backbone.React.Component.mixin],
   render: function(){
+    if(!this.props.park){
+      return (<h1>Loading</h1>)
+    }
     var park = this.props.park;
     var images = park.get("images");
+    var mainImage = images[0];
         return (
             <div className="col-sm-6 col-md-3 thumbnail-columns">
               <a href={"#park/" + park.id}>
               <div className="thumbnail">
-                <img className="thumbnail-images" src="images/park.jpg" alt="" />
+                <img className="thumbnail-images" src={mainImage.url()} alt="" />
                 <div className="caption">
                   <span className="park-name">{park.get("name")}</span>
                   <span className="pull-right park-rating">

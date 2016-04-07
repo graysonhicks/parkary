@@ -20,6 +20,7 @@ var ParkCardComponent = React.createClass({
 	},
   componentWillMount: function(){
     var query = new Parse.Query("Parks");
+    query.include("amenities");
     query.get(this.props.parkId).then(function(park){
       this.setState({"park": park});
     }.bind(this));
@@ -37,7 +38,7 @@ var ParkCardComponent = React.createClass({
              <div className="container-fluid">
                <div className="row">
                   <div className="col-md-6 image-column">
-                    <ParkImageCarouselComponent />
+                    <ParkImageCarouselComponent park={this.state.park}/>
                   </div>
                   <div className="col-md-6 info-column">
                     <ParkCardInfoComponent park={this.state.park}/>

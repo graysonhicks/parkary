@@ -11,7 +11,6 @@ var MapSidebarComponent = React.createClass({
   mixins: [Backbone.React.Component.mixin],
   render: function(){
       var sidebarItem = function(park){
-        console.log(park);
         return(
         <div key={park.id}>
           <SidebarItemComponent park={park} />

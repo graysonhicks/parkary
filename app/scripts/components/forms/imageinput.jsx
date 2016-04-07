@@ -15,11 +15,9 @@ var ImageInputComponent = React.createClass({
   },
   handleRemove: function(e){
     e.preventDefault();
-    console.log(this.props.count);
     this.props.removeImage(this.props.count - 1)
   },
   render: function(){
-    console.log(this.props);
     return (
       <div>
         <input ref={"image" + this.props.count} onChange={this.handleChange} type="file" className="form-control" id="add-park-image" />

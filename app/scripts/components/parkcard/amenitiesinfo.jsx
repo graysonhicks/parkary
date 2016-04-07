@@ -16,13 +16,11 @@ var AmenitiesInfoComponent = React.createClass({
   mixins: [Backbone.React.Component.mixin],
 	componentWillMount: function() {
 		var self = this;
-		var Amenities = Parse.Object.extend("Amenities");
-		var query = new Parse.Query( Amenities );
-		query.find().then(function(amenities){
-			self.setState({"amenities": amenities});
-		}, function(error){
-			console.log(error);
-		});
+		var relation = this.props.park.relation("amenities");
+    var query = relation.query().find().then(function(obj){
+      self.setState({"amenities": obj})
+    });
+
 	},
   render: function(){
     if(!this.state.amenities){
