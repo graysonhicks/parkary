@@ -14,11 +14,16 @@ var AddCheckboxComponent = React.createClass({
       addedAmenities: this.props.addedAmenities
     }
   },
+  handleCheck: function(e){
+    var checked = e.target.checked;
+    console.log(checked);
+    this.props.handleCheck(this.props.amenity, checked);
+  },
   render: function(){
     return (
       <div className="checkbox col-md-6">
         <label className="add-park-form-checkbox-labels">
-          <input type="checkbox" onChange={this.props.handleCheck} value={this.props.amenity.id}/> {this.props.amenity.get("Title")}
+          <input type="checkbox" onChange={this.handleCheck} value={this.props.amenity.id}/> {this.props.amenity.get("Title")}
         </label>
       </div>
         )

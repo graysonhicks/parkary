@@ -40,48 +40,47 @@ var AddChangeComponent = React.createClass({
 			console.log(error);
 		});
 	},
-  handleCheck: function(e){
-		var self = this;
-		var Amenities = Parse.Object.extend("Amenities");
-		var query = new Parse.Query( Amenities );
+  handleCheck: function(amenity, checked){
     var addedAmenities = this.state.addedAmenities;
-    var objectId = e.target.value;
-    if(e.target.checked){
-      query.get(objectId, {
-        success: function(object) {
-          addedAmenities.push(object);
-        },
-        error: function(object, error) {
-          console.log(error);
-        }
-      });
+
+    if(checked){
+      addedAmenities.push(amenity);
     } else {
-      query.get(objectId, {
-        success: function(object) {
-          for(var i = 0; i < addedAmenities.length; i++) {
-              if (addedAmenities[i].id == objectId) {
-                addedAmenities.splice(i, 1);
-              }
-          }
-        },
-        error: function(object, error) {
-          console.log(error);
+      for(var i = 0; i < addedAmenities.length; i++) {
+            if (addedAmenities[i] == amenity) {
+              addedAmenities.splice(i, 1);
+            }
         }
-      });
-    }
+  }
   },
   handleSubmit: function(e){
     e.preventDefault();
-    var newParkData = _.omit(this.state, ["allAmenities", "images", "addedAmenities"]);
-    var Park = Parse.Object.extend("Parks");
+    var Park = Parse.Object.extend("Parks"); //move to model file
     var park = new Park();
-    this.state.addedAmenities.map(function(amenity){
-      var relation = park.relation("Amenities");
+    var gp = new Parse.GeoPoint({
+                latitude: parseFloat(this.state.lat),
+                longitude: parseFloat(this.state.lng)
+            });
+    console.log(gp);
+    var newParkData = _.omit(this.state, ["allAmenities", "images", "addedAmenities", "lat", "lng"]);
+    var relation = park.relation("amenities");
+
+    this.state.addedAmenities.forEach(function(amenity){
       relation.add(amenity);
+    });
+
+    park.set(newParkData);
+    park.set("location", gp);
+    park.save(null, {
+      success:function(newPark) {
+        console.log(newPark);
+      },
+      error:function(obj, error) {
+        console.log(error);
+      }
     });
   },
   render: function(){
-    console.log(this.state);
       var newAmenity = function(amenity){
         return (
           <div key={amenity.objectId}>
@@ -92,6 +91,7 @@ var AddChangeComponent = React.createClass({
     return (
   <ReactCSSTransitionGroup transitionName="fade" transitionAppear={true} transitionAppearTimeout={500} transitionEnterTimeout={500} transitionLeaveTimeout={300}>
     <div className="container add-park-form-container col-md-12">
+      <h2 className="add-park-form-heading text-center">Add a Park</h2>
       <form id="add-park-form" onSubmit={this.handleSubmit}>
         <div className="col-md-4">
           <fieldset className="form-group add-park-form">
