@@ -13,6 +13,7 @@ Parse.initialize("parkary");
 Parse.serverURL = 'http://parkary.herokuapp.com';
 
 var AddCheckboxComponent = require('./parkcheckbox.jsx').AddCheckboxComponent;
+var ImageInputComponent = require('./imageinput.jsx').ImageInputComponent;
 
 var AddChangeComponent = React.createClass({
   mixins: [Backbone.React.Component.mixin, LinkedStateMixin],
@@ -27,7 +28,8 @@ var AddChangeComponent = React.createClass({
         description: "",
         allAmenities: [],
         addedAmenities: [],
-        images: []
+        images: [],
+        imageCount: 1
     }
   },
 	componentWillMount: function() {
@@ -40,6 +42,11 @@ var AddChangeComponent = React.createClass({
 			console.log(error);
 		});
 	},
+  removeImage: function(index){
+    var images = this.state.images;
+    images.splice(index, 1);
+    this.setState({"images": images});
+  },
   handleCheck: function(amenity, checked){
     var addedAmenities = this.state.addedAmenities;
 
@@ -51,26 +58,48 @@ var AddChangeComponent = React.createClass({
               addedAmenities.splice(i, 1);
             }
         }
-  }
+    }
+  },
+  handleFile: function(file){
+    var images = this.state.images;
+    var name = Parse.User.current().id + Date.now() + ".jpg";
+    var image = new Parse.File(name, file);
+    images.push(image);
+    this.setState({"images": images})
+    console.log(this.state.images);
   },
   handleSubmit: function(e){
     e.preventDefault();
     var Park = Parse.Object.extend("Parks"); //move to model file
     var park = new Park();
+    // set GeoPoint
     var gp = new Parse.GeoPoint({
                 latitude: parseFloat(this.state.lat),
                 longitude: parseFloat(this.state.lng)
             });
-    console.log(gp);
-    var newParkData = _.omit(this.state, ["allAmenities", "images", "addedAmenities", "lat", "lng"]);
+    // Map Parse File Images
+
+    var parseFileImages = this.state.images.map(function(image){
+      image.save();
+      return image;
+     }
+    );
+
+
+    // Build object
+    var newParkData = _.omit(this.state, ["allAmenities", "images", "addedAmenities", "lat", "lng", "imageCount"]);
+    // Add checked amenities to park relation
+
     var relation = park.relation("amenities");
 
     this.state.addedAmenities.forEach(function(amenity){
       relation.add(amenity);
     });
-
+    // Set to Parse Park
+    park.set("images", parseFileImages);
     park.set(newParkData);
     park.set("location", gp);
+    //Save
     park.save(null, {
       success:function(newPark) {
         console.log(newPark);
@@ -81,6 +110,13 @@ var AddChangeComponent = React.createClass({
     });
   },
   render: function(){
+      var imageInputs = [];
+
+      for(var i=0; i<= this.state.images.length; i++){
+        var count = i;
+        imageInputs.push(<ImageInputComponent removeImage={this.removeImage} handleFile={this.handleFile} key={count} count={count} ref={"formset"+count}/>);
+      }
+
       var newAmenity = function(amenity){
         return (
           <div key={amenity.objectId}>
@@ -125,9 +161,8 @@ var AddChangeComponent = React.createClass({
             <textarea valueLink={this.linkState('description')} rows="5" placeholder="limit to 200 characters" className="form-control" id="add-park-description" />
           </fieldset>
           <fieldset className="form-group add-park-form">
-            <label className="form-label" htmlFor="add-park-image">image url</label>
-            <input valueLink={this.linkState('image')} rows="5" className="form-control" id="add-park-image" />
-            <span className="glyphicon glyphicon-plus-sign add-image-url-btn pull-right" aria-hidden="true"></span>
+            <label className="form-label" htmlFor="add-park-image">images</label>
+            {imageInputs}
           </fieldset>
         </div>
         <div className="col-md-4">
