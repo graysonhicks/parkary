@@ -68,6 +68,7 @@
     ]
   },
   "dependencies": {
+    "react-google-maps": "^4.9.1",
     "react-googlemaps": "^0.4.0"
   }
 }
