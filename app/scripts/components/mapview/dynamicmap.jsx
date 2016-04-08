@@ -39,7 +39,7 @@ var ParkMap = React.createClass({
      position.lng = markerLocation.longitude;
      marker.icon = Icon;
      marker.position = position;
-     marker.defaultPosition={center}
+     marker.defaultPosition= center;
      marker.onClick = this.handleMarkerClick;
      return (
          <Marker
