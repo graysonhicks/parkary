@@ -24,9 +24,16 @@ var ParkMap = React.createClass({
      center: this.props.location
     }
   },
-  handleMarkerClick: function() {
+  handleMarkerClick: function(marker) {
+    var currentMarkerLocation = marker.get('location');
+    console.log(currentMarkerLocation);
+    var newCenter = {
+      lat: currentMarkerLocation.latitude,
+      lng: currentMarkerLocation.longitude
+    }
     this.setState({
-      zoom: 16
+      zoom: 16,
+      center: newCenter
     });
   },
   render: function(){
@@ -39,14 +46,14 @@ var ParkMap = React.createClass({
      position.lng = markerLocation.longitude;
      marker.icon = Icon;
      marker.position = position;
-     marker.defaultPosition= center;
-     marker.onClick = this.handleMarkerClick;
+     marker.onClick = this.handleMarkerClick.bind(this, marker);
      return (
          <Marker
            {...marker}
          />
      )
    }.bind(this));
+   console.log(center);
     return (
       <section style={{height: "525px"}}>
 
