@@ -34,7 +34,7 @@ var ParkMap = React.createClass({
   var center = this.state.center;
   var markers = this.state.markers.map(function(marker, index){
      var markerLocation = marker.get("location");
-     var position = {}
+     var position = {};
      position.lat = markerLocation.latitude;
      position.lng = markerLocation.longitude;
      marker.icon = Icon;
@@ -55,7 +55,7 @@ var ParkMap = React.createClass({
           <div
             {...this.props}
             style={{
-              height: "100%",
+              height: "100%"
             }}
           />
         }
