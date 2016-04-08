@@ -16,15 +16,16 @@ var SidebarItemComponent = React.createClass({
     var mainImage = images[0];
     return (
           <div className="row park-sidebar-list-item">
-            <div className="col-md-8">
+            <div className="col-md-9">
+              <span className="mapped-park-number">{this.props.counter}.</span>
               <img className="mapped-park-image" src={mainImage.url()}></img>
               <span className="mapped-park-name"><a href={"#park/" + park.id}>{park.get("name")}</a></span>
             </div>
-            <div className="col-md-4 mapped-park-rating-container">
-              <span className="mapped-park-rating">
-                <span className="glyphicon glyphicon-star park-stars park-card-stars" aria-hidden="true"></span>
-                <span className="glyphicon glyphicon-star park-stars park-card-stars" aria-hidden="true"></span>
-                <span className="glyphicon glyphicon-star park-stars park-card-stars" aria-hidden="true"></span>
+            <div className="col-md-3 mapped-park-rating-container">
+              <span className="mapped-park-rating pull-right">
+                <span className="glyphicon glyphicon-star park-stars park-card-stars mapped-park-stars" aria-hidden="true"></span>
+                <span className="glyphicon glyphicon-star park-stars park-card-stars mapped-park-stars" aria-hidden="true"></span>
+                <span className="glyphicon glyphicon-star park-stars park-card-stars mapped-park-stars" aria-hidden="true"></span>
                </span>
             </div>
           </div>

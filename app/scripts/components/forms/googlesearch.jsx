@@ -10,7 +10,7 @@ var GoogleSearchComponent = React.createClass({
   mixins: [Backbone.React.Component.mixin],
   handleSubmit: function(e){
     e.preventDefault();
-    Backbone.history.navigate("map", {trigger: true})
+    this.props.mapUrl();
   },
   render: function(){
         return(

@@ -16,7 +16,7 @@ var ParkTileComponent = React.createClass({
     var mainImage = images[0];
         return (
             <div className="col-sm-6 col-md-3 thumbnail-columns">
-              <a href={"#park/" + park.id}>
+              <a className="thumbnail-link" href={"#park/" + park.id}>
               <div className="thumbnail">
                 <img className="thumbnail-images" src={mainImage.url()} alt="" />
                 <div className="caption">

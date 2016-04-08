@@ -11,22 +11,29 @@ var GoogleMap = google.GoogleMap;
 var GoogleMapLoader = google.GoogleMapLoader;
 var Marker = google.Marker;
 
-
-var Icon = {
-  url: "images/mapmarker.png"
-}
-
 var ParkMap = React.createClass({
   getInitialState: function(){
-   return {
+   var state = {
      markers: this.props.parks,
      zoom: 12,
-     center: this.props.location
+     center: {
+       lat: parseFloat(this.props.lat),
+       lng: parseFloat(this.props.lng)
+     }
+    }
+    console.log('ParkMap state:', state);
+    return state;
+  },
+  componentWillReceiveProps: function(nextProps){
+    if(nextProps.parks){
+      this.setState({
+        markers: nextProps.parks
+      });
     }
   },
   handleMarkerClick: function(marker) {
     var currentMarkerLocation = marker.get('location');
-    console.log(currentMarkerLocation);
+
     var newCenter = {
       lat: currentMarkerLocation.latitude,
       lng: currentMarkerLocation.longitude
@@ -37,9 +44,18 @@ var ParkMap = React.createClass({
     });
   },
   render: function(){
+    console.log('statecenter', this.state.center);
+    console.log('propcenter', this.props.lat);
+    console.log('markers', this.state.markers);
+    console.log('parks', this.props.parks);
   var zoom = this.state.zoom;
   var center = this.state.center;
+
   var markers = this.state.markers.map(function(marker, index){
+      var counter = index + 1;
+      var Icon = {
+        url: "images/mapmarker" + counter + ".png"
+      }
      var markerLocation = marker.get("location");
      var position = {};
      position.lat = markerLocation.latitude;
@@ -53,7 +69,7 @@ var ParkMap = React.createClass({
          />
      )
    }.bind(this));
-   console.log(center);
+
     return (
       <section style={{height: "525px"}}>
 
@@ -85,9 +101,16 @@ var ParkMap = React.createClass({
 var DynamicMapComponent = React.createClass({
   mixins: [Backbone.React.Component.mixin],
   render: function(){
+    if(!this.props.park){
+      <h1>loading</h1>
+    }
   return (
     <div className="">
-      <ParkMap parks={this.props.parks} location={this.props.location}/>
+      <ParkMap
+        parks={this.props.parks}
+        lat={this.props.lat}
+        lng={this.props.lng}
+      />
     </div>
     )
   }

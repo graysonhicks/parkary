@@ -20,7 +20,13 @@ var NavbarComponent = React.createClass({
 
     if(leftNavPages.indexOf(this.props.page)>(-1)) {
       nav = (
-      <NavLeftComponent user={this.props.user} logout={this.props.logout} page={this.props.page} />
+      <NavLeftComponent
+        lat={this.props.lat}
+        lng={this.props.lng}
+        user={this.props.user}
+        logout={this.props.logout}
+        page={this.props.page}
+      />
       )
     }
     if(centerNavPages.indexOf(this.props.page)>(-1)){

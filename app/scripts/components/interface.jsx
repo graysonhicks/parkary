@@ -53,6 +53,11 @@ var InterfaceComponent = React.createClass({
       }
     })
   },
+  mapUrl: function(){
+    var lat = this.state.location.lat;
+    var lng = this.state.location.lng;
+    Backbone.history.navigate("map/" + lat + "/" + lng, {trigger: true});
+  },
   signUp: function(userObj){
     var user = new Parse.User();
     user.set("username", userObj.username);
@@ -98,6 +103,7 @@ var InterfaceComponent = React.createClass({
     if(this.state.router.current == "search"){
       body = (
         <SearchFormComponent
+          mapUrl={this.mapUrl}
           parseLocationQuery={this.parseLocationQuery}
           setLocationObj={this.setLocationObj}
           page={this.state.router.current}
@@ -116,6 +122,8 @@ var InterfaceComponent = React.createClass({
     if(this.state.router.current == "map"){
       body = (
         <ParkMapComponent
+          lat={this.props.router.lat}
+          lng={this.props.router.lng}
           location={this.state.location}
           parks={this.state.parks}
           page={this.state.router.current}
@@ -147,7 +155,13 @@ var InterfaceComponent = React.createClass({
     }
     return(
       <div>
-       <NavbarComponent user={this.state.user} logout={this.logout} page={this.state.router.current} />
+       <NavbarComponent
+         user={this.state.user}
+         logout={this.logout}
+         page={this.state.router.current}
+         lat={this.props.router.lat}
+         lng={this.props.router.lng}
+        />
          {body}
       </div>
       )

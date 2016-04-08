@@ -10,12 +10,17 @@ var SidebarItemComponent = require('./sidebaritem.jsx').SidebarItemComponent;
 var MapSidebarComponent = React.createClass({
   mixins: [Backbone.React.Component.mixin],
   render: function(){
+    var counter = 0;
       var sidebarItem = function(park){
+        counter++;
         return(
         <div key={park.id}>
-          <SidebarItemComponent park={park} />
+          <SidebarItemComponent counter={counter} park={park} />
         </div>
       )}
+    if(!this.props.location){
+      return(<h1>Loading</h1>)
+    }
     return (
     <div>
       <span>{this.props.location.name} Parks</span>

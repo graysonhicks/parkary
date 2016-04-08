@@ -38,7 +38,10 @@ var SearchFormComponent = React.createClass({
     <ReactCSSTransitionGroup transitionName="fade" transitionAppear={true} transitionAppearTimeout={500} transitionEnterTimeout={500} transitionLeaveTimeout={300}>
       <div className="panel panel-default search-form-panel center-block">
         <div className="container main-search-form-container">
-          <GoogleSearchComponent parseLocationQuery={this.props.parseLocationQuery} />
+          <GoogleSearchComponent
+            mapUrl={this.props.mapUrl}
+            parseLocationQuery={this.props.parseLocationQuery}
+          />
         </div>
       </div>
     </ReactCSSTransitionGroup>

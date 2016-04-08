@@ -15,7 +15,9 @@ var NavLeftComponent = React.createClass({
     if(state === false){
       Backbone.history.navigate("parks", {trigger: true});
     } else {
-      Backbone.history.navigate("map", {trigger: true});
+      var lat = this.props.lat;
+      var lng = this.props.lng;
+      Backbone.history.navigate("map/" + lat + "/" + lng, {trigger: true});
     }
   },
   render: function(){
