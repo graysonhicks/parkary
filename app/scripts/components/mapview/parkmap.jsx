@@ -25,11 +25,22 @@ var ParkMapComponent = React.createClass({
   componentWillMount: function(){
     // check if location has been set by searchbar, if not, do new query and set
     if(!this.state.location){
+      this.search();
+    }
+  },
+  search: function(center){
       var self = this;
-      var parseGeo = new Parse.GeoPoint({
-        latitude: parseFloat(self.props.lat),
-        longitude: parseFloat(self.props.lng)
-      });
+      var parseGeo;
+      console.log(center);
+      if(center){
+        parseGeo = new Parse.GeoPoint(center);
+        console.log(parseGeo);
+      } else {
+        parseGeo = new Parse.GeoPoint({
+          latitude: parseFloat(self.props.lat),
+          longitude: parseFloat(self.props.lng)
+        })
+      }
       // new query if not done by search bar
       (new Parse.Query('Parks')).withinMiles("location", parseGeo, 10).find({
         success: function(parks){
@@ -39,9 +50,9 @@ var ParkMapComponent = React.createClass({
           })
         }
       })
-    }
   },
   render: function(){
+    console.log(this.state.parks);
         return (
         <ReactCSSTransitionGroup transitionName="fade" transitionAppear={true} transitionAppearTimeout={600} transitionEnterTimeout={500} transitionLeaveTimeout={300}>
           <div className="container map-container">
@@ -49,6 +60,7 @@ var ParkMapComponent = React.createClass({
               <div className="panel-body">
                 <div className="col-md-9 map-column">
                   <DynamicMapComponent
+                    search={this.search}
                     lat={this.props.lat}
                     lng={this.props.lng}
                     parks={this.state.parks}

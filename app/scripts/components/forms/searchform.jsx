@@ -20,7 +20,7 @@ var SearchFormComponent = React.createClass({
     (document.getElementById('park-form-name')), {
         types: ['geocode']
     });
-    google.maps.event.addListener(searchInput, 'place_changed', function () {
+    google.maps.event.addListener(searchInput, 'place_changed', function (){
           var place = searchInput.getPlace();
           var lat = place.geometry.location.lat();
           var lng = place.geometry.location.lng();

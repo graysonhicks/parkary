@@ -31,6 +31,15 @@ var ParkMap = React.createClass({
       });
     }
   },
+  handleDrag: function(){
+    var newCenter = this.refs.map.getCenter();
+
+    this.props.search({
+      latitude: newCenter.lat(),
+      longitude: newCenter.lng()
+    });
+
+  },
   handleMarkerClick: function(marker) {
     var currentMarkerLocation = marker.get('location');
 
@@ -44,12 +53,8 @@ var ParkMap = React.createClass({
     });
   },
   render: function(){
-    console.log('statecenter', this.state.center);
-    console.log('propcenter', this.props.lat);
-    console.log('markers', this.state.markers);
-    console.log('parks', this.props.parks);
-  var zoom = this.state.zoom;
-  var center = this.state.center;
+    var zoom = this.state.zoom;
+    var center = this.state.center;
 
   var markers = this.state.markers.map(function(marker, index){
       var counter = index + 1;
@@ -84,10 +89,11 @@ var ParkMap = React.createClass({
         }
         googleMapElement={
          <GoogleMap
+            onDrag={this.handleDrag}
+            id="map"
             zoom={zoom}
             ref="map"
-            center={center}
-            onCenterChanged={this.handleMapCenterChanged}
+            defaultCenter={center}
           >
           {markers}
           </GoogleMap>
@@ -107,6 +113,7 @@ var DynamicMapComponent = React.createClass({
   return (
     <div className="">
       <ParkMap
+        search={this.props.search}
         parks={this.props.parks}
         lat={this.props.lat}
         lng={this.props.lng}
