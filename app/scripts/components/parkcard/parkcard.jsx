@@ -36,7 +36,7 @@ var ParkCardComponent = React.createClass({
             <i className="pull-right fa fa-times"></i>
             <div className="panel-body">
              <div className="container-fluid">
-               <div className="row">
+               <div className="row top-park-card-row">
                   <div className="col-md-6 image-column">
                     <ParkImageCarouselComponent park={this.state.park}/>
                   </div>
@@ -46,7 +46,7 @@ var ParkCardComponent = React.createClass({
                 </div>
                </div>
                <div className="container-fluid">
-                 <div className="row">
+                 <div className="row bottom-park-card-row">
                    <ReviewsComponent />
                    <div className="col-md-6 map-column">
                    <LocationComponent />

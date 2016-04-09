@@ -31,10 +31,10 @@ var ParkMapComponent = React.createClass({
   search: function(center){
       var self = this;
       var parseGeo;
-      console.log(center);
+
       if(center){
         parseGeo = new Parse.GeoPoint(center);
-        console.log(parseGeo);
+
       } else {
         parseGeo = new Parse.GeoPoint({
           latitude: parseFloat(self.props.lat),
@@ -52,7 +52,6 @@ var ParkMapComponent = React.createClass({
       })
   },
   render: function(){
-    console.log(this.state.parks);
         return (
         <ReactCSSTransitionGroup transitionName="fade" transitionAppear={true} transitionAppearTimeout={600} transitionEnterTimeout={500} transitionLeaveTimeout={300}>
           <div className="container map-container">

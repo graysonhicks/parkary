@@ -21,7 +21,6 @@ var ParkMap = React.createClass({
        lng: parseFloat(this.props.lng)
      }
     }
-    console.log('ParkMap state:', state);
     return state;
   },
   componentWillReceiveProps: function(nextProps){
@@ -33,11 +32,30 @@ var ParkMap = React.createClass({
   },
   handleDrag: function(){
     var newCenter = this.refs.map.getCenter();
-
+    var newZoom = this.refs.map.getZoom();
+    console.log(this.state.zoom);
     this.props.search({
       latitude: newCenter.lat(),
       longitude: newCenter.lng()
     });
+    this.setState({
+      center: newCenter,
+      zoom: newZoom
+    });
+
+  },
+  handleZoom: function(){
+    var newCenter = this.refs.map.getCenter();
+    var newZoom = this.refs.map.getZoom();
+    this.props.search({
+      latitude: newCenter.lat(),
+      longitude: newCenter.lng()
+    });
+    this.setState({
+      center: newCenter,
+      zoom: newZoom
+    });
+
 
   },
   handleMarkerClick: function(marker) {
@@ -47,12 +65,14 @@ var ParkMap = React.createClass({
       lat: currentMarkerLocation.latitude,
       lng: currentMarkerLocation.longitude
     }
+
     this.setState({
       zoom: 16,
       center: newCenter
     });
   },
   render: function(){
+
     var zoom = this.state.zoom;
     var center = this.state.center;
 
@@ -93,6 +113,8 @@ var ParkMap = React.createClass({
             id="map"
             zoom={zoom}
             ref="map"
+            center={center}
+            onZoomChanged={this.handleZoom}
             defaultCenter={center}
           >
           {markers}
