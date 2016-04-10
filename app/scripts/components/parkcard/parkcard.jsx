@@ -22,9 +22,15 @@ var ParkCardComponent = React.createClass({
     var query = new Parse.Query("Parks");
     query.include("amenities");
     query.get(this.props.parkId).then(function(park){
-      this.setState({"park": park});
+       var markerLocation = park.get("location");
+       var position = {};
+       position.lat = markerLocation.latitude;
+       position.lng = markerLocation.longitude;
+      this.setState({
+        "park": park,
+        "location": position
+      });
     }.bind(this));
-
   },
   render: function(){
   if(!this.state.park){
@@ -49,7 +55,7 @@ var ParkCardComponent = React.createClass({
                  <div className="row bottom-park-card-row">
                    <ReviewsComponent />
                    <div className="col-md-6 map-column">
-                   <LocationComponent />
+                   <LocationComponent location={this.state.location} park={this.state.park}/>
                    </div>
                  </div>
                </div>

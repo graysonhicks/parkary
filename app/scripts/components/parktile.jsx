@@ -11,6 +11,7 @@ var ParkTileComponent = React.createClass({
     if(!this.props.park){
       return (<h1>Loading</h1>)
     }
+
     var park = this.props.park;
     var images = park.get("images");
     var mainImage = images[0];

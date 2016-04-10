@@ -104,7 +104,6 @@ var InterfaceComponent = React.createClass({
       body = (
         <SearchFormComponent
           mapUrl={this.mapUrl}
-          parseLocationQuery={this.parseLocationQuery}
           setLocationObj={this.setLocationObj}
           page={this.state.router.current}
         />
@@ -113,7 +112,8 @@ var InterfaceComponent = React.createClass({
     if(this.state.router.current == "parks"){
       body = (
         <ParkGridComponent
-          currentPark={this.state.currentPark}
+          lat={this.props.router.lat}
+          lng={this.props.router.lng}
           parks={this.state.parks}
           page={this.state.router.current}
         />

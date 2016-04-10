@@ -33,7 +33,7 @@ var ParkMap = React.createClass({
   handleDrag: function(){
     var newCenter = this.refs.map.getCenter();
     var newZoom = this.refs.map.getZoom();
-    console.log(this.state.zoom);
+
     this.props.search({
       latitude: newCenter.lat(),
       longitude: newCenter.lng()
@@ -55,12 +55,10 @@ var ParkMap = React.createClass({
       center: newCenter,
       zoom: newZoom
     });
-
-
   },
   handleMarkerClick: function(marker) {
     var currentMarkerLocation = marker.get('location');
-
+    console.log(marker);
     var newCenter = {
       lat: currentMarkerLocation.latitude,
       lng: currentMarkerLocation.longitude

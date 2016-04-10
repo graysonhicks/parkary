@@ -17,7 +17,6 @@ var NavbarComponent = React.createClass({
     var leftNavPages = ["home", "parks", "profile", "park", "search", "map"];
     var centerNavPages = ["login", "signup"];
 
-
     if(leftNavPages.indexOf(this.props.page)>(-1)) {
       nav = (
       <NavLeftComponent

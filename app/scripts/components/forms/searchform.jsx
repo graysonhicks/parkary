@@ -40,7 +40,6 @@ var SearchFormComponent = React.createClass({
         <div className="container main-search-form-container">
           <GoogleSearchComponent
             mapUrl={this.props.mapUrl}
-            parseLocationQuery={this.props.parseLocationQuery}
           />
         </div>
       </div>

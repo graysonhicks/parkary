@@ -19,40 +19,16 @@ var ParkMap = React.createClass({
  getInitialState: function(){
    return {
      markers: [{
-       position: {
-         lat: 32.7765,
-         lng: -79.9311,
-       },
+       position: this.props.location,
        key: 'one'
-     },
-     {
-       position: {
-         lat: 34.0007,
-         lng: -81.0348,
-       },
-       key: 'two'
-     },
-     {
-       position: {
-         lat: 34.8526,
-         lng: -82.3940,
-       },
-       key: 'three'
-     },
-     {
-       position: {
-         lat: -52.0112183,
-         lng: -121.52067570000001,
-       },
-       key: 'four'
-     }
-   ]
+     }]
     }
   },
   render: function(){
-
+    console.log(this.props.location);
     var markers = this.state.markers.map(function(marker, index){
      marker.icon = Icon;
+
      return (
          <Marker
            {...marker}
@@ -73,8 +49,8 @@ var ParkMap = React.createClass({
         }
         googleMapElement={
          <GoogleMap
-            defaultZoom={16}
-            defaultCenter={{ lat: 34.0007, lng: -81.0348 }}
+            defaultZoom={15}
+            defaultCenter={this.props.location}
           >
           {markers}
           </GoogleMap>
@@ -90,8 +66,9 @@ var LocationComponent = React.createClass({
   mixins: [Backbone.React.Component.mixin],
   render: function(){
   return (
+
     <div className="">
-      <ParkMap />
+      <ParkMap location={this.props.location} park={this.props.park}/>
     </div>
     )
   }

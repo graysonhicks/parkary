@@ -11,9 +11,10 @@ var Switch = require('react-bootstrap-switch');
 var NavLeftComponent = React.createClass({
   mixins: [Backbone.React.Component.mixin],
   toggle: function(state){
-    console.log(state);
     if(state === false){
-      Backbone.history.navigate("parks", {trigger: true});
+      var lat = this.props.lat;
+      var lng = this.props.lng;
+      Backbone.history.navigate("parks/" + lat + "/" + lng, {trigger: true});
     } else {
       var lat = this.props.lat;
       var lng = this.props.lng;
@@ -22,7 +23,6 @@ var NavLeftComponent = React.createClass({
   },
   render: function(){
       var accountLinks;
-
       if(this.props.page == "search"){
         accountLinks = (
           <ul className="nav navbar-nav navbar-right right-nav">
@@ -37,9 +37,19 @@ var NavLeftComponent = React.createClass({
           </ul>
         )}
       if((this.props.page =="parks")||(this.props.page =="map")){
+        var switchState;
+        var labelText;
+        if(this.props.page == "parks"){
+          switchState = false;
+          labelText = "GRID";
+        }
+        if(this.props.page == "map"){
+          switchState = true;
+          labelText = "MAP";
+        }
         accountLinks = (
         <ul className="nav navbar-nav navbar-right right-nav">
-          <li><Switch size="small" onColor="success" offColor="primary" onText="GRID" offText="MAP" onChange={this.toggle}/></li>
+          <li><Switch size="small" onColor="success" labelText={labelText} state={switchState} offColor="primary" onText="GRID" offText="MAP" onChange={this.toggle}/></li>
           <li><a id="search-link" href="#search">search</a></li>
           <li><a id="search-link" href="#">filter by</a></li>
           <li><a id="search-link" href="#">sort by</a></li>
