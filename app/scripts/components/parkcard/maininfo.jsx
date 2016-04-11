@@ -5,7 +5,7 @@ var _ = require('underscore');
 var Backbone = require('backbone');
 require('backbone-react-component');
 var Parse = require('parse');
-
+var Rater = require('react-rater').default;
 
 Parse.initialize("parkary");
 Parse.serverURL = 'http://parkary.herokuapp.com';
@@ -27,10 +27,7 @@ var MainInfoComponent = React.createClass({
         </div>
         <div className="col-md-6 park-card-rating-and-social-container">
           <div className="park-card-rating">
-            <span className="glyphicon glyphicon-star park-stars park-card-stars" aria-hidden="true"></span>
-            <span className="glyphicon glyphicon-star park-stars park-card-stars" aria-hidden="true"></span>
-            <span className="glyphicon glyphicon-star park-stars park-card-stars" aria-hidden="true"></span>
-            <span className="glyphicon glyphicon-star park-stars park-card-stars" aria-hidden="true"></span>
+            <Rater className="park-card-stars" total={5} rating={4}/>
           </div>
           <div className="park-card-social-icons">
             <i className="fa fa-envelope social-icons"></i>

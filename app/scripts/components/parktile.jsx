@@ -4,6 +4,7 @@ var ReactDOM = require('react-dom');
 var _ = require('underscore');
 var Backbone = require('backbone');
 require('backbone-react-component');
+var Rater = require('react-rater').default;
 
 var ParkTileComponent = React.createClass({
   mixins: [Backbone.React.Component.mixin],
@@ -23,15 +24,12 @@ var ParkTileComponent = React.createClass({
                 <div className="caption">
                   <span className="park-name">{park.get("name")}</span>
                   <span className="pull-right park-rating">
-                    <span className="glyphicon glyphicon-star park-stars" aria-hidden="true"></span>
-                    <span className="glyphicon glyphicon-star park-stars" aria-hidden="true"></span>
-                    <span className="glyphicon glyphicon-star park-stars" aria-hidden="true"></span>
-                    <span className="glyphicon glyphicon-star park-stars" aria-hidden="true"></span>
+                    <Rater className="park-stars" interactive={false} total={5} rating={4}/>
                   </span>
                   <p className="park-description">{park.get("description")}</p>
                 </div>
               </div>
-              </a>
+            </a>
             </div>
          )
         }

@@ -4,6 +4,7 @@ var ReactDOM = require('react-dom');
 var _ = require('underscore');
 var Backbone = require('backbone');
 require('backbone-react-component');
+var Rater = require('react-rater').default;
 
 var SidebarItemComponent = React.createClass({
   mixins: [Backbone.React.Component.mixin],
@@ -18,18 +19,19 @@ var SidebarItemComponent = React.createClass({
     if(park === this.props.activeMarker){
       active = "active";
     };
+    var icon = {
+      url: "images/mapmarker" + this.props.counter + ".png"
+    }
     return (
           <div className={"row park-sidebar-list-item " + active}>
-            <div className="col-md-9">
-              <span className="mapped-park-number">{this.props.counter}.</span>
+            <div className="col-md-9 park-sidebar-list-item-col">
+              <span className="mapped-park-number"><img src={icon.url} /></span>
               <img className="mapped-park-image" src={mainImage.url()}></img>
               <span className="mapped-park-name"><a href={"#park/" + park.id}>{park.get("name")}</a></span>
             </div>
             <div className="col-md-3 mapped-park-rating-container">
               <span className="mapped-park-rating pull-right">
-                <span className="glyphicon glyphicon-star park-stars park-card-stars mapped-park-stars" aria-hidden="true"></span>
-                <span className="glyphicon glyphicon-star park-stars park-card-stars mapped-park-stars" aria-hidden="true"></span>
-                <span className="glyphicon glyphicon-star park-stars park-card-stars mapped-park-stars" aria-hidden="true"></span>
+                <Rater className="mapped-park-stars" interactive={false} total={5} rating={4}/>
                </span>
             </div>
           </div>

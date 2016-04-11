@@ -62,7 +62,7 @@ var ParkMapComponent = React.createClass({
         <ReactCSSTransitionGroup transitionName="fade" transitionAppear={true} transitionAppearTimeout={600} transitionEnterTimeout={500} transitionLeaveTimeout={300}>
           <div className="container map-container">
             <div className="panel panel-default">
-              <div className="panel-body">
+              <div className="panel-body map-panel-body">
                 <div className="col-md-9 map-column">
                   <DynamicMapComponent
                     search={this.search}

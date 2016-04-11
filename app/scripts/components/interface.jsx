@@ -56,7 +56,7 @@ var InterfaceComponent = React.createClass({
   mapUrl: function(){
     var lat = this.state.location.lat;
     var lng = this.state.location.lng;
-    Backbone.history.navigate("map/" + lat + "/" + lng, {trigger: true});
+    Backbone.history.navigate("parks/" + lat + "/" + lng, {trigger: true});
   },
   signUp: function(userObj){
     var user = new Parse.User();
