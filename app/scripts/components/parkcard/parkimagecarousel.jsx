@@ -16,7 +16,7 @@ var ParkImageCarouselComponent = React.createClass({
       direction: null
     }
   },
-  handleSelect: (selectedIndex, selectedDirection) {
+  handleSelect: function(selectedIndex, selectedDirection) {
     this.setState({
       index: selectedIndex,
       direction: selectedDirection
