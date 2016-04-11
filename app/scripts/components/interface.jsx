@@ -43,12 +43,14 @@ var InterfaceComponent = React.createClass({
   },
   setLocationObj: function(locationObj){
     var self = this;
+    self.setState({"pending": true})
     var parseGeo = new Parse.GeoPoint({latitude: locationObj.lat, longitude: locationObj.lng});
-    (new Parse.Query('Parks')).withinMiles("location", parseGeo, 10).find({
+    (new Parse.Query('Parks')).withinMiles("location", parseGeo, 10).include("reviews").find({
       success: function(parks){
         self.setState({
           "location": locationObj,
-          "parks": parks
+          "parks": parks,
+          "pending": false
         })
       }
     })
@@ -107,6 +109,7 @@ var InterfaceComponent = React.createClass({
           setLocationObj={this.setLocationObj}
           page={this.state.router.current}
           location={this.state.location}
+          pending={this.state.pending}
         />
       )
     }

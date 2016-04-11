@@ -24,6 +24,7 @@ var SearchFormComponent = React.createClass({
             setLocationObj={this.props.setLocationObj}
             mapUrl={this.props.mapUrl}
             location={this.props.location}
+            pending={this.props.pending}
           />
         </div>
       </div>

@@ -28,11 +28,10 @@ var AmenitiesInfoComponent = React.createClass({
         <h1>Loading</h1>
       )
     }
+
     var newAmenity = function(amenity){
       return (
-        <div key={amenity.objectId}>
-          <AmenityItemComponent amenity={amenity}/>
-        </div>
+        <AmenityItemComponent key={amenity.objectId} amenity={amenity}/>
       )
     }
       return (

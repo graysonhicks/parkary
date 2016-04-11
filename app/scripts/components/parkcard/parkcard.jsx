@@ -10,6 +10,7 @@ var LocationComponent = require('./staticmap.jsx').LocationComponent;
 var ParkImageCarouselComponent = require('./parkimagecarousel.jsx').ParkImageCarouselComponent;
 var ParkCardInfoComponent = require('./parkcardinfo.jsx').ParkCardInfoComponent;
 var ReviewsComponent = require('./reviews.jsx').ReviewsComponent;
+var LoadingComponent = require('./../loadingpanel.jsx').LoadingComponent;
 
 var ParkCardComponent = React.createClass({
   mixins: [Backbone.React.Component.mixin],
@@ -34,7 +35,7 @@ var ParkCardComponent = React.createClass({
   },
   render: function(){
   if(!this.state.park){
-    return (<h1>Loading</h1>)
+    return (<LoadingComponent />)
   }
         return (
         <div className="container-fluid park-card-container">

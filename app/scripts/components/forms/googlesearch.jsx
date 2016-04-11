@@ -32,6 +32,7 @@ var GoogleSearchComponent = React.createClass({
   },
   render: function(){
     var activeForm;
+    var loading;
 
     if(this.props.location){
       activeForm = "";
