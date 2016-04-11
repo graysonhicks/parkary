@@ -58,7 +58,7 @@ var ParkMap = React.createClass({
   },
   handleMarkerClick: function(marker) {
     var currentMarkerLocation = marker.get('location');
-    console.log(marker);
+
     var newCenter = {
       lat: currentMarkerLocation.latitude,
       lng: currentMarkerLocation.longitude
@@ -68,6 +68,7 @@ var ParkMap = React.createClass({
       zoom: 16,
       center: newCenter
     });
+    this.props.setActiveMarker(marker);
   },
   render: function(){
 
@@ -133,6 +134,7 @@ var DynamicMapComponent = React.createClass({
   return (
     <div className="">
       <ParkMap
+        setActiveMarker={this.props.setActiveMarker}
         search={this.props.search}
         parks={this.props.parks}
         lat={this.props.lat}

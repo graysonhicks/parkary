@@ -19,7 +19,8 @@ var ParkMapComponent = React.createClass({
   getInitialState: function(){
     return {
       location: this.props.location,
-      parks: this.props.parks
+      parks: this.props.parks,
+      activeMarker: null
     }
   },
   componentWillMount: function(){
@@ -27,6 +28,11 @@ var ParkMapComponent = React.createClass({
     if(!this.state.location){
       this.search();
     }
+  },
+  setActiveMarker: function(marker){
+    this.setState({
+      activeMarker: marker
+    })
   },
   search: function(center){
       var self = this;
@@ -63,12 +69,14 @@ var ParkMapComponent = React.createClass({
                     lat={this.props.lat}
                     lng={this.props.lng}
                     parks={this.state.parks}
+                    setActiveMarker={this.setActiveMarker}
                   />
                 </div>
                 <div className="col-md-3">
                   <MapSidebarComponent
                     location={this.state.location}
                     parks={this.state.parks}
+                    activeMarker={this.state.activeMarker}
                   />
                   </div>
                 </div>

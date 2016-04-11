@@ -14,8 +14,12 @@ var SidebarItemComponent = React.createClass({
     var park = this.props.park;
     var images = park.get("images");
     var mainImage = images[0];
+    var active = "";
+    if(park === this.props.activeMarker){
+      active = "active";
+    };
     return (
-          <div className="row park-sidebar-list-item">
+          <div className={"row park-sidebar-list-item " + active}>
             <div className="col-md-9">
               <span className="mapped-park-number">{this.props.counter}.</span>
               <img className="mapped-park-image" src={mainImage.url()}></img>

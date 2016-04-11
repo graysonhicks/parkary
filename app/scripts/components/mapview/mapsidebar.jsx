@@ -15,7 +15,7 @@ var MapSidebarComponent = React.createClass({
         counter++;
         return(
         <div key={park.id}>
-          <SidebarItemComponent counter={counter} park={park} />
+          <SidebarItemComponent activeMarker={this.props.activeMarker} counter={counter} park={park} />
         </div>
       )}
     if(!this.props.location){

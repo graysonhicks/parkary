@@ -106,6 +106,7 @@ var InterfaceComponent = React.createClass({
           mapUrl={this.mapUrl}
           setLocationObj={this.setLocationObj}
           page={this.state.router.current}
+          location={this.state.location}
         />
       )
     }
