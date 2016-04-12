@@ -18,10 +18,6 @@ var Router = Backbone.Router.extend({
     "map/(:lat)(/:lng)": "map",
     "add": "add"
   },
-  home: function(){
-    console.log('home');
-    this.current = "home";
-  },
   login: function(){
     this.current = "login";
   },

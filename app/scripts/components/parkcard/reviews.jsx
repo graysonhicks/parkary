@@ -11,6 +11,7 @@ var ExistingReviewComponent = require('./existingreview.jsx').ExistingReviewComp
 var ReviewsComponent = React.createClass({
   mixins: [Backbone.React.Component.mixin],
   getInitialState: function(){
+    // addReview determines to show or hide add review form
     return {
       addReview: false
     }

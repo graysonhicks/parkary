@@ -14,14 +14,15 @@ Parse.serverURL = 'http://parkary.herokuapp.com';
 var ExistingReviewComponent = React.createClass({
   mixins: [Backbone.React.Component.mixin],
   componentWillMount: function(){
+    // query reviews that go with current park
     var self = this;
     var query = new Parse.Query("Reviews").equalTo("parkId", this.props.park).find({
         success: function(results) {
+          // set them in state
           self.setState({
             "reviews": results
           });
         },
-
         error: function(error) {
           console.log(error);
         }
@@ -29,14 +30,22 @@ var ExistingReviewComponent = React.createClass({
   },
   render: function(){
     var reviews = this.state.reviews;
+    // Return early if park not received yet
     if(!this.props.park){
-      return(<h1>Loading</h1>)
+      return(
+      <div>
+        <h4>Loading...</h4>
+        <i className="fa fa-spinner fa-spin fa-2x reviews-loading-spinner" aria-hidden="true"></i>
+      </div>
+    )
     }
+    // If there are still no reviews after the query has set the state, show that there are none
     if(!reviews){
       return(<div>No reviews yet for this park!</div>)
     }
-    console.log(reviews);
+    // mapped review with fields set
     var existingReview = function(review){
+      console.log('map');
       return(
       <div className="review">
         <div className="row">
@@ -63,7 +72,8 @@ var ExistingReviewComponent = React.createClass({
       </div>
     )
     }
-
+    // map over reviews
+    console.log(reviews);
     return (
           <div>
           {reviews.map(existingReview.bind(this))}

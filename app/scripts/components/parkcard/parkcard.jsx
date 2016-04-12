@@ -20,13 +20,16 @@ var ParkCardComponent = React.createClass({
 	    };
 	},
   componentWillMount: function(){
+    // new query based on clicked on park, using parkId that is passed down through router
     var query = new Parse.Query("Parks");
     query.include("amenities");
     query.get(this.props.parkId).then(function(park){
-       var markerLocation = park.get("location");
-       var position = {};
-       position.lat = markerLocation.latitude;
-       position.lng = markerLocation.longitude;
+      // then set location of park as google map marker location format to show park on parkcard map
+      var markerLocation = park.get("location");
+      var position = {};
+      position.lat = markerLocation.latitude;
+      position.lng = markerLocation.longitude;
+      // set location and current parse park object in state
       this.setState({
         "park": park,
         "location": position
@@ -34,6 +37,7 @@ var ParkCardComponent = React.createClass({
     }.bind(this));
   },
   render: function(){
+  // Return early
   if(!this.state.park){
     return (<LoadingComponent />)
   }

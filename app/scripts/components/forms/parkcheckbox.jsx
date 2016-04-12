@@ -16,7 +16,7 @@ var AddCheckboxComponent = React.createClass({
   },
   handleCheck: function(e){
     var checked = e.target.checked;
-    console.log(checked);
+    // pass checked variable in so can tell to push or splice
     this.props.handleCheck(this.props.amenity, checked);
   },
   render: function(){

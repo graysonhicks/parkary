@@ -6,6 +6,7 @@ var Backbone = require('backbone');
 require('backbone-react-component');
 var Parse = require('parse');
 
+// Pulling in components
 var NavbarComponent = require('./navbar/navbar.jsx').NavbarComponent;
 var LoginSignUpFormComponent = require('./forms/loginsignupform.jsx').LoginSignUpFormComponent;
 var SearchFormComponent = require('./forms/searchform.jsx').SearchFormComponent;
@@ -21,6 +22,7 @@ Parse.serverURL = 'http://parkary.herokuapp.com';
 var InterfaceComponent = React.createClass({
   mixins: [Backbone.React.Component.mixin],
   getInitialState: function(){
+    // getting router to track page and user and parks from query
   return {
     router: this.props.router,
     user: null,
@@ -28,10 +30,12 @@ var InterfaceComponent = React.createClass({
     }
   },
   componentWillMount: function(){
+    // forces page update on new routes
     this.callback = (function(){
       this.forceUpdate();
     }).bind(this);
     this.state.router.on('route', this.callback);
+    // setting current user in state
    var currentUser = Parse.User.current();
       if (currentUser) {
         // do stuff with the user
@@ -39,13 +43,18 @@ var InterfaceComponent = React.createClass({
       }
   },
   componentWillUnmount: function(){
+    // forces update on component unmounts
     this.state.router.off('route', this.callback);
   },
   setLocationObj: function(locationObj){
+    // receives info from google places api
     var self = this;
+    // sets state as pending to contol input bar and search button during query
     self.setState({"pending": true})
+    // new parse geopoint using lat and lng from locationObj
     var parseGeo = new Parse.GeoPoint({latitude: locationObj.lat, longitude: locationObj.lng});
-    (new Parse.Query('Parks')).withinMiles("location", parseGeo, 10).include("reviews").find({
+    // new location query using parse geopoint
+    (new Parse.Query('Parks')).withinMiles("location", parseGeo, 10).find({
       success: function(parks){
         self.setState({
           "location": locationObj,

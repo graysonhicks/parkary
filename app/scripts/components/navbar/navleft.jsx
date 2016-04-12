@@ -11,38 +11,53 @@ var Switch = require('react-bootstrap-switch');
 var NavLeftComponent = React.createClass({
   mixins: [Backbone.React.Component.mixin],
   toggle: function(state){
+    // on switch change, it is call toggle
+    // if its false, set location from url and navigate to parks grid view with lat and lng
     if(state === false){
       var lat = this.props.lat;
       var lng = this.props.lng;
       Backbone.history.navigate("parks/" + lat + "/" + lng, {trigger: true});
-    } else {
+    }
+    // if its true, set location from url and navigate to map view with lat and lng 
+    else {
       var lat = this.props.lat;
       var lng = this.props.lng;
       Backbone.history.navigate("map/" + lat + "/" + lng, {trigger: true});
     }
   },
   render: function(){
+      // accountLinks determines which links are showing on the right side of the main navbar (search, sort, filter, etc)
       var accountLinks;
+      // if on the search page
+      // only show the account dropdown on the right
       if(this.props.page == "search"){
         accountLinks = (
           <ul className="nav navbar-nav navbar-right right-nav">
             <LoginDropdownComponent logout={this.props.logout} user={this.props.user} />
           </ul>
         )}
-      if((this.props.page == "profile")||(this.props.page == "park")||(this.props.page == "home")){
+      // if on the profile, or park page
+      // show search link and account dropdown
+      if((this.props.page == "profile")||(this.props.page == "park")){
         accountLinks = (
           <ul className="nav navbar-nav navbar-right right-nav">
             <li><a id="search-link" href="#search">search</a></li>
             <LoginDropdownComponent logout={this.props.logout} user={this.props.user}  />
           </ul>
         )}
+      // if on parks grid or map page
+      // show search, sort, filter, and account dropdown
       if((this.props.page =="parks")||(this.props.page =="map")){
+        // using switchState and labelText to handle the map/grid toggle switch
         var switchState;
         var labelText;
+        // on the parks page
         if(this.props.page == "parks"){
+          // change switch state and labelText
           switchState = false;
           labelText = "GRID";
         }
+        // opposite for map page
         if(this.props.page == "map"){
           switchState = true;
           labelText = "MAP";

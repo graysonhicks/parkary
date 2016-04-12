@@ -17,6 +17,7 @@ Parse.serverURL = 'http://parkary.herokuapp.com';
 var ParkMapComponent = React.createClass({
   mixins: [Backbone.React.Component.mixin],
   getInitialState: function(){
+    // get location from setLocationObj in interface and parks from query
     return {
       location: this.props.location,
       parks: this.props.parks,
@@ -30,6 +31,7 @@ var ParkMapComponent = React.createClass({
     }
   },
   setActiveMarker: function(marker){
+    // on marker click, set that marker as the active marker so it can be highlighted in sidebar
     this.setState({
       activeMarker: marker
     })
@@ -37,17 +39,19 @@ var ParkMapComponent = React.createClass({
   search: function(center){
       var self = this;
       var parseGeo;
-
+      // drag and zoom on map will pass this function a new center, so make a new parse GP from it
       if(center){
         parseGeo = new Parse.GeoPoint(center);
 
       } else {
+        // this else is for getting new center in case map is loaded using only the URL lat and lng
         parseGeo = new Parse.GeoPoint({
+          //self.props.lat and lng are passed through URL
           latitude: parseFloat(self.props.lat),
           longitude: parseFloat(self.props.lng)
         })
       }
-      // new query if not done by search bar
+      // new query if not done by search bar, because query is done in interface component if search bar is used
       (new Parse.Query('Parks')).withinMiles("location", parseGeo, 10).find({
         success: function(parks){
           self.setState({

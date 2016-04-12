@@ -9,7 +9,6 @@ var ReactCSSTransitionGroup = require('../../../../node_modules/react-addons-css
 var NavCenterComponent = React.createClass({
   mixins: [Backbone.React.Component.mixin],
   render: function(){
-      var accountLinks;
       return(
       <ReactCSSTransitionGroup transitionName="fade" transitionAppear={true} transitionAppearTimeout={500} transitionEnterTimeout={500} transitionLeaveTimeout={300}>
         <div>

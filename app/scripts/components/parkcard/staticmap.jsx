@@ -11,12 +11,14 @@ var GoogleMap = google.GoogleMap;
 var GoogleMapLoader = google.GoogleMapLoader;
 var Marker = google.Marker;
 
+// basic map marker icon
 var Icon = {
   url: "images/mapmarker.png"
 }
 
 var ParkMap = React.createClass({
  getInitialState: function(){
+   // need an array of markers for this google react maps plugin to work so setting here as just one in array
    return {
      markers: [{
        position: this.props.location,
@@ -25,10 +27,10 @@ var ParkMap = React.createClass({
     }
   },
   render: function(){
-    console.log(this.props.location);
+    // map over array and set icon
     var markers = this.state.markers.map(function(marker, index){
      marker.icon = Icon;
-
+     // return marker component and stored in markers var
      return (
          <Marker
            {...marker}

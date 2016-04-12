@@ -10,6 +10,7 @@ var AmenitiesInfoComponent = require('./amenitiesinfo.jsx').AmenitiesInfoCompone
 var ParkCardInfoComponent = React.createClass({
   mixins: [Backbone.React.Component.mixin],
   render: function(){
+    // This component just passed through to MainInfo and Amenities
         return (
                   <div>
                     <div>

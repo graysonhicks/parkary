@@ -10,11 +10,14 @@ var ImageInputComponent = React.createClass({
   mixins: [Backbone.React.Component.mixin, LinkedStateMixin],
   handleChange: function(e){
     e.preventDefault();
+    // grabs file from input
     var file = e.target.files[0];
+    // passes up to be set as parse file, named and pushed to images array
     this.props.handleFile(file);
   },
   handleRemove: function(e){
     e.preventDefault();
+    // this calls a splice based on the count which tracks current array index so clicked file can be removed
     this.props.removeImage(this.props.count - 1)
   },
   render: function(){

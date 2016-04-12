@@ -15,7 +15,7 @@ var LoadingComponent = React.createClass({
           <div className="panel panel-default center-block loading-panel">
             <div className="panel-body loading-panel-body">
               <h2>Loading...</h2>
-              <i className="fa fa-spinner fa-5x loading-panel-spinner" aria-hidden="true"></i>
+              <i className="fa fa-spinner fa-spin fa-5x loading-panel-spinner" aria-hidden="true"></i>
             </div>
           </div>
         </div>

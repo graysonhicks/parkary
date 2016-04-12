@@ -37,6 +37,7 @@ var AddChangeComponent = React.createClass({
 		var self = this;
 		var Amenities = Parse.Object.extend("Amenities");
 		var query = new Parse.Query( Amenities );
+    // query all possible amenities and set in state for mapping and rendering
 		query.find().then(function(amenities){
 			self.setState({"allAmenities": amenities});
 		}, function(error){
@@ -50,10 +51,12 @@ var AddChangeComponent = React.createClass({
   },
   handleCheck: function(amenity, checked){
     var addedAmenities = this.state.addedAmenities;
-
+    // on check, add amenity to new array
     if(checked){
+      // push amenity
       addedAmenities.push(amenity);
     } else {
+      //other wise find amenity and remove if unchecked
       for(var i = 0; i < addedAmenities.length; i++) {
             if (addedAmenities[i] == amenity) {
               addedAmenities.splice(i, 1);
@@ -62,12 +65,16 @@ var AddChangeComponent = React.createClass({
     }
   },
   handleFile: function(file){
+    // array of parse image files
     var images = this.state.images;
+    // set unique file name
     var name = Parse.User.current().id + Date.now() + ".jpg";
+    // pass in name and file that is passed in to function above
     var image = new Parse.File(name, file);
+    // push image to array
     images.push(image);
     this.setState({"images": images})
-    console.log(this.state.images);
+
   },
   handleSubmit: function(e){
     e.preventDefault();
@@ -79,27 +86,25 @@ var AddChangeComponent = React.createClass({
                 longitude: parseFloat(this.state.lng)
             });
     // Map Parse File Images
-
     var parseFileImages = this.state.images.map(function(image){
+      // save each image to parse and return to array
       image.save();
       return image;
      }
     );
-
-
     // Build object
     var newParkData = _.omit(this.state, ["allAmenities", "images", "addedAmenities", "lat", "lng", "imageCount"]);
     // Add checked amenities to park relation
-
     var relation = park.relation("amenities");
 
     this.state.addedAmenities.forEach(function(amenity){
+      // for each amenity, add it in the parks amenity relation field
       relation.add(amenity);
     });
     // Set to Parse Park
-    park.set("images", parseFileImages);
-    park.set(newParkData);
-    park.set("location", gp);
+    park.set("images", parseFileImages); // grab array of parse image files and set
+    park.set(newParkData); //set basic data
+    park.set("location", gp); // let geopoint location
     //Save
     park.save(null, {
       success:function(newPark) {
@@ -112,12 +117,12 @@ var AddChangeComponent = React.createClass({
   },
   render: function(){
       var imageInputs = [];
-
+      // for every image in the array, show an image input field
       for(var i=0; i<= this.state.images.length; i++){
         var count = i;
         imageInputs.push(<ImageInputComponent removeImage={this.removeImage} handleFile={this.handleFile} key={count} count={count} ref={"formset"+count}/>);
       }
-
+      // loop over allAmenities and print options to screen as checkboxes
       var newAmenity = function(amenity){
         return (
           <div key={amenity.objectId}>

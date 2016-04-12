@@ -10,43 +10,50 @@ var GoogleSearchComponent = React.createClass({
   mixins: [Backbone.React.Component.mixin],
   handleSubmit: function(e){
     e.preventDefault();
+    // on submit, set the lat and lng in the url bar
     this.props.mapUrl();
   },
   componentDidMount: function(){
+    // set input as google places input
     var searchInput = new google.maps.places.Autocomplete(
     (document.getElementById('park-form-name')), {
         types: ['geocode']
     });
+    //when place is changed, get location from google api
     google.maps.event.addListener(searchInput, 'place_changed', function (){
           var place = searchInput.getPlace();
           var lat = place.geometry.location.lat();
           var lng = place.geometry.location.lng();
           var name = place.name;
+          // build an object to pass back up and set in interface state
           var locationObj = {
             "name": name,
             "lat": lat,
             "lng": lng
           };
+          //function to set in state
           this.props.setLocationObj(locationObj);
         }.bind(this))
   },
   render: function(){
     var activeForm;
     var pendingIcon;
+    //disables search button while query is searching
     if(this.props.location){
       activeForm = "";
     } else {
       activeForm = "disabled";
     }
+    // Spinner bucket while query is fetching
     if(this.props.pending){
-      pendingIcon = (<i className="fa fa-spinner search-form-spinner" aria-hidden="true"></i>)
+      pendingIcon = (<i className="fa fa-spinner fa-spin search-form-spinner" aria-hidden="true"></i>)
       console.log(pendingIcon);
     }
     return(
       <form className="main-search-form" onSubmit={this.handleSubmit}>
         <fieldset className="form-group">
           <label className="form-label" id="main-search-label" htmlFor="park-form-name"><img id="treelogo" src="images/treelogo.png" /><span id="search-label-logo-container"><span id="parkbold">park</span><span id="parklight">ary</span></span></label>
-          <input type="text" required className="form-control" id="park-form-name" placeholder="find a city park near you" />    
+          <input type="text" required className="form-control" id="park-form-name" placeholder="find a city park near you" />
         </fieldset>
         <button type="submit" id="park-form-submit-btn" className={"btn btn-primary pull-right " + activeForm}>search {pendingIcon}</button>
       </form>

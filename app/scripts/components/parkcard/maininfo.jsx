@@ -16,8 +16,14 @@ var MainInfoComponent = React.createClass({
     // console.log(this.data.park);
     // return loading early if we aren't populated yet
     if(!this.props.park){
-      return ( <div><h1>Loading</h1></div>);
+      return (
+      <div>
+        <h4>Loading...</h4>
+        <i className="fa fa-spinner fa-spin fa-2x main-info-loading-spinner" aria-hidden="true"></i>
+      </div>
+    );
     }
+    // receive park from parkcard and parkcardinfo component and set fields
     var park = this.props.park;
     return (
       <div>

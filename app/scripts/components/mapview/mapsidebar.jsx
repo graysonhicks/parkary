@@ -10,6 +10,16 @@ var SidebarItemComponent = require('./sidebaritem.jsx').SidebarItemComponent;
 var MapSidebarComponent = React.createClass({
   mixins: [Backbone.React.Component.mixin],
   render: function(){
+      // Return early
+    if(!this.props.location){
+      return(
+      <div>
+        <h2>Loading...</h2>
+        <i className="fa fa-spinner fa-spin fa-5x map-loading-spinner" aria-hidden="true"></i>
+      </div>)
+    }
+    // map over all parks from the query and build a list item for each
+    // passing in active marker so they can respond / highlight to marker clicks
     var counter = 0;
       var sidebarItem = function(park){
         counter++;
@@ -18,9 +28,7 @@ var MapSidebarComponent = React.createClass({
           <SidebarItemComponent activeMarker={this.props.activeMarker} counter={counter} park={park} />
         </div>
       )}
-    if(!this.props.location){
-      return(<h1>Loading</h1>)
-    }
+
     return (
     <div>
       <span>{this.props.location.name} Parks</span>

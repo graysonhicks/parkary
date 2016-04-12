@@ -9,6 +9,8 @@ var LoginDropdownComponent = React.createClass({
   mixins: [Backbone.React.Component.mixin],
   render: function(){
     var dropdown;
+    // if there is a user
+    // show profile and logout options on dropdown
     if(this.props.user){
       dropdown = (
         <ul id="login-dropdown" className="dropdown-menu">
@@ -16,7 +18,9 @@ var LoginDropdownComponent = React.createClass({
           <li onClick={this.props.logout}><a className="dropdown-menu-links" href="#">logout</a></li>
         </ul>
       )
-    } else {
+    }
+    // if no user logged in, only show login option in dropdown 
+    else {
       dropdown = (
         <ul id="login-dropdown" className="dropdown-menu">
           <li><a className="dropdown-menu-links" href="#login">login</a></li>
