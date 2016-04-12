@@ -33,6 +33,7 @@ var AddChangeComponent = React.createClass({
     }
   },
 	componentWillMount: function() {
+    // pulling all amenities down to populate checkbox options
 		var self = this;
 		var Amenities = Parse.Object.extend("Amenities");
 		var query = new Parse.Query( Amenities );

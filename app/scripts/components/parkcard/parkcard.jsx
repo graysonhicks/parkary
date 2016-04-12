@@ -54,7 +54,7 @@ var ParkCardComponent = React.createClass({
                </div>
                <div className="container-fluid">
                  <div className="row bottom-park-card-row">
-                   <ReviewsComponent />
+                   <ReviewsComponent park={this.state.park}/>
                    <div className="col-md-6 map-column">
                    <LocationComponent location={this.state.location} park={this.state.park}/>
                    </div>

@@ -5,45 +5,45 @@ var _ = require('underscore');
 var Backbone = require('backbone');
 require('backbone-react-component');
 
+var NewReviewComponent = require('./newreview.jsx').NewReviewComponent;
+var ExistingReviewComponent = require('./existingreview.jsx').ExistingReviewComponent;
+
 var ReviewsComponent = React.createClass({
   mixins: [Backbone.React.Component.mixin],
+  getInitialState: function(){
+    return {
+      addReview: false
+    }
+  },
+  addReview: function(){
+    this.setState({
+      addReview: true
+    })
+  },
+  cancelReview: function(){
+    this.setState({
+      addReview: false
+    })
+  },
   render: function(){
-        return (
-           <div className="col-md-6 reviews-column">
-             <span className="reviews-heading">Reviews (9)</span>
-             <div className="review">
-               <div className="row">
-                 <div className="col-md-2">
-                   <img src="images/fbook.jpg"></img>
-                 </div>
-                 <div className="col-md-10">
-                   <div className="row">
-                     <span>Tom Myers</span>
-                     <span className="review-date">January 29, 2016</span>
-                   </div>
-                   <div className="row">
-                     <span>
-                       <span className="glyphicon glyphicon-star park-stars park-card-stars" aria-hidden="true"></span>
-                       <span className="glyphicon glyphicon-star park-stars park-card-stars" aria-hidden="true"></span>
-                       <span className="glyphicon glyphicon-star park-stars park-card-stars" aria-hidden="true"></span>
-                      </span>
-                      <a className="pull-right">
-                        Full review...
-                      </a>
-                   </div>
-                 </div>
-               </div>
-               <div className="row">
-                 <div className="col-md-12">
-                   <p className="review-content">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                 </div>
-               </div>
-             </div>
-             <a className="all-reviews-link pull-right">See all reviews...</a>
-           </div>
-               )
-              }
-            });
+    var body;
+
+    if(this.state.addReview){
+      body = (<NewReviewComponent park={this.props.park} cancelReview={this.cancelReview}/>)
+    }
+    if(!this.state.addReview) {
+      body = (<ExistingReviewComponent park={this.props.park}/>)
+    }
+      return (
+       <div className="col-md-6 reviews-column">
+         <span className="reviews-heading">Reviews ({this.props.park.get("reviews").length})</span>
+         <span className><a className="pull-right add-review-button" onClick={this.addReview}>Add your review...</a></span>
+          {body}
+       </div>
+
+     )
+      }
+    });
 
 module.exports = {
   ReviewsComponent: ReviewsComponent
