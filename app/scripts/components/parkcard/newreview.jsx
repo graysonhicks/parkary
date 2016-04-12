@@ -18,7 +18,7 @@ var NewReviewComponent = React.createClass({
   mixins: [Backbone.React.Component.mixin, LinkedStateMixin],
   getInitialState: function(){
     return {
-        userId: Parse.User.current(),
+        userId: Parse.User.current().get("username"),
         title: "",
         content: "",
         rating: 0,
@@ -49,6 +49,31 @@ var NewReviewComponent = React.createClass({
     var review = new Review();
     var park = this.props.park;
     var date = Date.now()
+    var averageParkRating = park.get("rating");
+    var aggregateParkRating = park.get("aggregateRating");
+    var currentNumberOfReviews;
+
+    if(park.get("reviews").length){
+      currentNumberOfReviews = (park.get("reviews").length) + 1;
+      console.log('currentNumberOfReviews', currentNumberOfReviews);
+    } else {
+      currentNumberOfReviews = 1
+    }
+    if(!averageParkRating){
+      averageParkRating = 0;
+      aggregateParkRating = 0;
+    }
+    console.log('currentNumberOfReviews', currentNumberOfReviews);
+    console.log('aggregateParkRatingBefore', aggregateParkRating);
+    console.log('currentRating', this.state.rating);
+    console.log('added together', aggregateParkRating + this.state.rating);
+    console.log('currentNumberOfReviews', currentNumberOfReviews);
+    aggregateParkRating = aggregateParkRating + this.state.rating;
+    averageParkRating = parseFloat(aggregateParkRating / currentNumberOfReviews).toFixed(2);
+    console.log('aggregateParkRating', aggregateParkRating);
+    console.log('averageParkRating', averageParkRating);
+
+
     var newReviewData = {
       userId: Parse.User.current(),
       title: this.state.title,
@@ -57,11 +82,14 @@ var NewReviewComponent = React.createClass({
       parkId: this.props.park,
       date: date
     }
+    park.set("rating", averageParkRating);
+    park.set("aggregateRating", aggregateParkRating)
     review.set(newReviewData);
     review.save(null, {
       success:function(newReview) {
         park.add("reviews", newReview);
         park.save();
+        console.log(park);
       },
       error:function(obj, error) {
         console.log(error);

@@ -27,8 +27,9 @@ var MainInfoComponent = React.createClass({
         </div>
         <div className="col-md-6 park-card-rating-and-social-container">
           <div className="park-card-rating">
-            <Rater interactive={false} className="park-card-stars" total={5} rating={4}/>
+            <Rater interactive={false} className="park-card-stars" total={5} rating={park.get("rating")} />
           </div>
+          <div className="park-rating-number"><span>({park.get("rating")})</span></div>
           <div className="park-card-social-icons">
             <i className="fa fa-envelope social-icons"></i>
             <i className="fa fa-twitter-square social-icons"></i>
