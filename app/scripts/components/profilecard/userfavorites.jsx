@@ -7,29 +7,36 @@ require('backbone-react-component');
 var Parse = require('parse');
 var ParseReact = require('parse-react');
 var Rater = require('react-rater').default;
+var Overlay = require('react-bootstrap').Overlay;
 
 Parse.initialize("parkary");
 Parse.serverURL = 'http://parkary.herokuapp.com';
 
 var UserFavoritesComponent = React.createClass({
   mixins: [Backbone.React.Component.mixin],
-  componentWillMount: function(){
-    // query reviews that go with current park
-    var self = this;
-    var query = new Parse.Query("Reviews").equalTo("userId", this.props.user).find({
-        success: function(results) {
-          // set them in state
-          self.setState({
-            "reviews": results
-          });
-        },
-        error: function(error) {
-          console.log(error);
-        }
-      })
+  getInitialState: function(){
+    return {
+      "favorites": this.props.user.get("favorites"),
+      "hover": false
+    }
+  },
+  hover: function(e){
+    var target = $(e.target);
+    target.toggleClass("hover");
+    this.setState({
+      "hover": true
+    })
+  },
+  leave: function(e){
+    var target = $(e.target);
+    target.toggleClass("hover");
+    this.setState({
+      "hover": false
+    })
   },
   render: function(){
-    var reviews = this.state.reviews;
+    var hoverState = this.state.hover;
+    var favorites = this.state.favorites;
     // Return early if park not received yet
     if(!this.props.user){
       return(
@@ -40,43 +47,43 @@ var UserFavoritesComponent = React.createClass({
     )
     }
     // If there are still no reviews after the query has set the state, show that there are none
-    if(!reviews){
-      return(<div>You don't have any reviews yet.</div>)
+    if(!favorites){
+      return(<div>You don't have any favorites yet.</div>)
     }
+
     // mapped review with fields set
-    var userFavorite = function(review){
-      return(
+      var userFavorite = function(favorite){
+        // Check how many favorites
+          var numberOfFavorites = favorites.length;
+          var numberOfGridColumns;
+        // Determine number of grid columns
+          numberOfGridColumns = (12 / numberOfFavorites)
+          if(numberOfGridColumns < 3){
+            numberOfGridColumns = 3;
+          }
+          var favoriteImages = favorite.get("images");
+          var favoriteImage = favoriteImages[0];
 
-                  <div className="review">
-                    <div className="row">
-                      <div className="col-md-2">
-                        <img src="images/park2.jpg"></img>
-                      </div>
-                      <div className="col-md-10">
-                        <div className="row">
-                          <span className="favorite-name">McPherson Park</span>
-                        </div>
-                        <div className="row">
-                          <span className="pull-right">
-                            <span className="glyphicon glyphicon-star park-stars park-card-stars" aria-hidden="true"></span>
-                            <span className="glyphicon glyphicon-star park-stars park-card-stars" aria-hidden="true"></span>
-                            <span className="glyphicon glyphicon-star park-stars park-card-stars" aria-hidden="true"></span>
-                           </span>
-                        </div>
-                      </div>
-                    </div>
+        return(
+            <div className={"favorite-images-columns col-xs-6 col-md-" + numberOfGridColumns}>
+                <a href="#" onMouseOver={this.hover} onMouseLeave={this.leave} className="thumbnail">
+                  <div className="favorite-thumbnail">
+                    <img className="favorite-image" src={favoriteImage.url()} alt="..." />
                   </div>
+                </a>
+            </div>
+       )
+      }
 
-    )
-    }
-    // map over reviews
-    console.log(reviews);
+    // map over favorites
     return (
-          <div>
-              <span className="reviews-heading">Favorites (5)</span>
-            {reviews.map(userFavorite.bind(this))}
-           <a className="all-reviews-link pull-right">See all favorites...</a>
+        <div className="favorites-grid">
+          <span className="reviews-heading">Favorites ({favorites.length})</span>
+          <div className="row">
+            {favorites.map(userFavorite.bind(this))}
           </div>
+          <a className="all-reviews-link all-favorites-link">See all favorites...</a>
+        </div>
 
       )
     }

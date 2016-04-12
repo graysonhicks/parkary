@@ -49,6 +49,7 @@ var NewReviewComponent = React.createClass({
   },
   handleSubmit: function(e){
     e.preventDefault();
+    var self = this;
     // on submit, start new review model
     var Review = Parse.Object.extend("Reviews");
     var review = new Review();
@@ -111,6 +112,7 @@ var NewReviewComponent = React.createClass({
         user.add("reviews", newReview);
         // then save the park
         park.save();
+        self.setState({"reviewAdded": true});
       },
       error:function(obj, error) {
         console.log(error);
@@ -119,6 +121,7 @@ var NewReviewComponent = React.createClass({
   },
   render: function(){
     var editRatingButton;
+    var addedReviewComponent;
     // Warn if not logged in
     if(!Parse.User.current()){
       return(<NotLoggedInComponent />)
@@ -126,6 +129,13 @@ var NewReviewComponent = React.createClass({
     // if rating has been set, show option to edit the rating
     if(!this.state.interactive){
       editRatingButton = (<span onClick={this.editRating} className="pull-right edit-rating-button">Edit Rating <i className="fa fa-pencil" onClick={this.editRating} aria-hidden="true"></i></span>)
+    }
+    if(this.state.reviewAdded){
+      return(<div>
+              <h2>Review added, thanks!</h2>
+              <button className="btn btn-default">Go Back</button>
+            </div>
+          )
     }
     return (
     <ReactCSSTransitionGroup transitionName="fade" transitionAppear={true} transitionAppearTimeout={600} transitionEnterTimeout={500} transitionLeaveTimeout={300}>

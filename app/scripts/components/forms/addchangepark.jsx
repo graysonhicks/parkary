@@ -73,7 +73,7 @@ var AddChangeComponent = React.createClass({
     var image = new Parse.File(name, file);
     // push image to array
     images.push(image);
-    this.setState({"images": images})
+    this.setState({"images": images});
 
   },
   handleSubmit: function(e){
@@ -85,6 +85,7 @@ var AddChangeComponent = React.createClass({
                 latitude: parseFloat(this.state.lat),
                 longitude: parseFloat(this.state.lng)
             });
+
     // Map Parse File Images
     var parseFileImages = this.state.images.map(function(image){
       // save each image to parse and return to array

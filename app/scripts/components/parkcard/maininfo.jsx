@@ -10,14 +10,10 @@ var Rater = require('react-rater').default;
 Parse.initialize("parkary");
 Parse.serverURL = 'http://parkary.herokuapp.com';
 
+var SocialIconsComponent = require('./socialicons.jsx').SocialIconsComponent;
+
 var MainInfoComponent = React.createClass({
   mixins: [Backbone.React.Component.mixin],
-  handleFavorite: function(){
-    var user = Parse.User.current();
-    console.log(user);
-    user.add("favorites", this.props.park);
-    user.save();
-  },
   render: function(){
     // console.log(this.data.park);
     // return loading early if we aren't populated yet
@@ -29,8 +25,10 @@ var MainInfoComponent = React.createClass({
       </div>
     );
     }
+
     // receive park from parkcard and parkcardinfo component and set fields
     var park = this.props.park;
+
     return (
       <div>
         <div className="col-md-6 park-card-name-and-location-container">
@@ -42,12 +40,7 @@ var MainInfoComponent = React.createClass({
             <Rater interactive={false} className="park-card-stars" total={5} rating={park.get("rating")} />
           </div>
           <div className="park-rating-number"><span>({park.get("rating")})</span></div>
-          <div className="park-card-social-icons">
-            <i className="fa fa-envelope social-icons"></i>
-            <i className="fa fa-twitter-square social-icons"></i>
-            <i className="fa fa-facebook-official social-icons"></i>
-            <i onClick={this.handleFavorite} className="fa fa-heart social-icons park-card-heart"></i>
-          </div>
+          <SocialIconsComponent toggleFavorite={this.props.toggleFavorite} favorite={this.props.favorite} />
         </div>
         <div className="park-card-description">
           <p>{park.get("description")}</p>

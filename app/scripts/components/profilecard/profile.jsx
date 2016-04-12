@@ -13,6 +13,8 @@ var ProfileComponent = React.createClass({
   mixins: [Backbone.React.Component.mixin],
   render: function(){
     var user = this.props.user;
+    var profilePicture = user.get("avatar").url();
+    console.log(profilePicture);
         return (
         <div className="container-fluid profile-container">
           <div className="panel panel-default profile-card center-block">
@@ -21,7 +23,7 @@ var ProfileComponent = React.createClass({
                <div className="container-fluid">
                  <div className="row">
                   <div className="col-md-4 image-column">
-                      <img className="profile-card-image img-responsive center-block" src="images/fbook.jpg" alt="" />                               </div>
+                      <img className="profile-card-image img-responsive center-block" src={profilePicture} alt="" />                               </div>
                   <div className="col-md-8 info-column">
                       <div className="col-md-6 username-and-location-container park-card-name-and-location-container">
                         <div className="user-card-name park-card-name">{user.get("firstname")} {user.get("lastname")}</div>
@@ -42,13 +44,13 @@ var ProfileComponent = React.createClass({
                  </div>
                <div className="container-fluid">
                  <div className="row">
-                   <div className="col-md-6 reviews-column">
+                   <div className="col-md-4 reviews-column">
 
-                     <UserReviewComponent user={this.props.user}/>
+                     <UserReviewComponent user={this.props.user} />
 
                    </div>
-                   <div className="col-md-6 profile-favorites-column">
-                     
+                   <div className="col-md-8 profile-favorites-column">
+                     <UserFavoritesComponent user={this.props.user} />
                    </div>
                  </div>
                </div>

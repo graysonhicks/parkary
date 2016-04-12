@@ -79,7 +79,8 @@ var InterfaceComponent = React.createClass({
       "lastname": userObj.lastname,
       "username": userObj.username,
       "password": userObj.password,
-      "email": userObj.email
+      "email": userObj.email,
+      "avatar": userObj.avatar
     }
     user.set(newUser);
 
@@ -163,6 +164,7 @@ var InterfaceComponent = React.createClass({
         <ParkCardComponent
           parkId={this.state.router.parkId}
           page={this.state.router.current}
+          user={this.state.user}
         />
       )
     }

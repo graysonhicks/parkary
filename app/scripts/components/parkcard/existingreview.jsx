@@ -45,7 +45,6 @@ var ExistingReviewComponent = React.createClass({
     }
     // mapped review with fields set
     var existingReview = function(review){
-      console.log('map');
       return(
       <div className="review">
         <div className="row">
@@ -73,7 +72,6 @@ var ExistingReviewComponent = React.createClass({
     )
     }
     // map over reviews
-    console.log(reviews);
     return (
           <div>
           {reviews.map(existingReview.bind(this))}

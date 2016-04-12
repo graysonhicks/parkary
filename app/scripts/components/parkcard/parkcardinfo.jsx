@@ -14,7 +14,7 @@ var ParkCardInfoComponent = React.createClass({
         return (
                   <div>
                     <div>
-                      <MainInfoComponent park={this.props.park}/>
+                      <MainInfoComponent toggleFavorite={this.props.toggleFavorite} favorite={this.props.favorite} park={this.props.park}/>
                     </div>
                     <div>
                       <AmenitiesInfoComponent park={this.props.park}/>
