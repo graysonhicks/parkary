@@ -56,6 +56,7 @@ var InterfaceComponent = React.createClass({
     // new location query using parse geopoint
     (new Parse.Query('Parks')).withinMiles("location", parseGeo, 10).find({
       success: function(parks){
+        // then keep locationobj in state, set parks from query in state, and change pending to false for search button
         self.setState({
           "location": locationObj,
           "parks": parks,
@@ -65,6 +66,8 @@ var InterfaceComponent = React.createClass({
     })
   },
   mapUrl: function(){
+    // used in GoogleSearchComponent, gets lat and lng from state (they are being set in state by the query in setLocationObj)
+    // lets lat and lng in state and navigates to results with lat and lng in url
     var lat = this.state.location.lat;
     var lng = this.state.location.lng;
     Backbone.history.navigate("parks/" + lat + "/" + lng, {trigger: true});

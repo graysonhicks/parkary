@@ -9,10 +9,12 @@ var Rater = require('react-rater').default;
 var ParkTileComponent = React.createClass({
   mixins: [Backbone.React.Component.mixin],
   render: function(){
+    // Return early
     if(!this.props.park){
       return (<h1>Loading</h1>)
     }
     var park = this.props.park;
+    // set first image as main thumbnail
     var images = park.get("images");
     var mainImage = images[0];
         return (
