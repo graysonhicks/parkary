@@ -54,6 +54,8 @@ var NewReviewComponent = React.createClass({
     var review = new Review();
     // get current park
     var park = this.props.park;
+    // current user
+    var user = Parse.User.current();
     // get date to add to review
     var date = Date.now();
     // current average rating that is stored on park in Parse
@@ -105,6 +107,8 @@ var NewReviewComponent = React.createClass({
       success:function(newReview) {
         // on success, add the new review to the park's reviews array
         park.add("reviews", newReview);
+        // add review to users reviews array
+        user.add("reviews", newReview);
         // then save the park
         park.save();
       },

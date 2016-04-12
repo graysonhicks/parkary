@@ -41,7 +41,7 @@ var SidebarItemComponent = React.createClass({
             </div>
             <div className="col-md-3 mapped-park-rating-container">
               <span className="mapped-park-rating pull-right">
-                <Rater className="mapped-park-stars" interactive={false} total={5} rating={4}/>
+                <Rater className="mapped-park-stars" interactive={false} total={5} rating={park.get("rating")}/>
                </span>
             </div>
           </div>

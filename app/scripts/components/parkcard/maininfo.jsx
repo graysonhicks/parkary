@@ -12,6 +12,12 @@ Parse.serverURL = 'http://parkary.herokuapp.com';
 
 var MainInfoComponent = React.createClass({
   mixins: [Backbone.React.Component.mixin],
+  handleFavorite: function(){
+    var user = Parse.User.current();
+    console.log(user);
+    user.add("favorites", this.props.park);
+    user.save();
+  },
   render: function(){
     // console.log(this.data.park);
     // return loading early if we aren't populated yet
@@ -40,7 +46,7 @@ var MainInfoComponent = React.createClass({
             <i className="fa fa-envelope social-icons"></i>
             <i className="fa fa-twitter-square social-icons"></i>
             <i className="fa fa-facebook-official social-icons"></i>
-            <i className="fa fa-heart social-icons"></i>
+            <i onClick={this.handleFavorite} className="fa fa-heart social-icons park-card-heart"></i>
           </div>
         </div>
         <div className="park-card-description">

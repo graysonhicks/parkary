@@ -12,7 +12,7 @@ var LoginSignUpFormComponent = require('./forms/loginsignupform.jsx').LoginSignU
 var SearchFormComponent = require('./forms/searchform.jsx').SearchFormComponent;
 var ParkGridComponent = require('./parkgrid.jsx').ParkGridComponent;
 var ParkCardComponent = require('./parkcard/parkcard.jsx').ParkCardComponent;
-var ProfileComponent = require('./profile.jsx').ProfileComponent;
+var ProfileComponent = require('./profilecard/profile.jsx').ProfileComponent;
 var ParkMapComponent = require('./mapview/parkmap.jsx').ParkMapComponent;
 var AddChangeComponent = require('./forms/addchangepark.jsx').AddChangeComponent;
 
@@ -74,11 +74,18 @@ var InterfaceComponent = React.createClass({
   },
   signUp: function(userObj){
     var user = new Parse.User();
-    user.set("username", userObj.username);
-    user.set("password", userObj.password);
-    user.set("email", userObj.email);
+    var newUser = {
+      "firstname": userObj.firstname,
+      "lastname": userObj.lastname,
+      "username": userObj.username,
+      "password": userObj.password,
+      "email": userObj.email
+    }
+    user.set(newUser);
+
     user.signUp(null, {
       success: function(user) {
+        // set Parse User in state
         this.setState({user: user});
         Backbone.history.navigate('', {trigger: true});
       }.bind(this),
@@ -161,7 +168,7 @@ var InterfaceComponent = React.createClass({
     }
     if(this.state.router.current == "profile"){
       body = (
-        <ProfileComponent page={this.state.router.current} />
+        <ProfileComponent page={this.state.router.current} user={this.state.user}/>
       )
     }
     if(this.state.router.current == "add"){

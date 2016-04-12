@@ -47,7 +47,6 @@ var GoogleSearchComponent = React.createClass({
     // Spinner bucket while query is fetching
     if(this.props.pending){
       pendingIcon = (<i className="fa fa-spinner fa-spin search-form-spinner" aria-hidden="true"></i>)
-      console.log(pendingIcon);
     }
     return(
       <form className="main-search-form" onSubmit={this.handleSubmit}>

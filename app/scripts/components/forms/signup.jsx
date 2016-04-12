@@ -24,6 +24,8 @@ var SignUpFormComponent = React.createClass({
   },
   resetState: function(){
     this.setState({
+      firstname: '',
+      lastname: '',
       username: '',
       email: '',
       password: ''
@@ -34,6 +36,14 @@ var SignUpFormComponent = React.createClass({
     return (
     <div className="container signup-form-container fade-in">
       <form onSubmit={this.signUp}>
+        <fieldset className="form-group login-form">
+          <label className="form-label" htmlFor="signup-firstname">first name</label>
+          <input type="text" valueLink={this.linkState('firstname')} className="form-control" id="signup-firstname" />
+        </fieldset>
+        <fieldset className="form-group login-form">
+          <label className="form-label" htmlFor="signup-lastname">last name</label>
+          <input type="text" valueLink={this.linkState('lastname')} className="form-control" id="signup-lastname" />
+        </fieldset>
         <fieldset className="form-group login-form">
           <label className="form-label" htmlFor="signup-username">username</label>
           <input type="text" valueLink={this.linkState('username')} className="form-control" id="signup-username" />
