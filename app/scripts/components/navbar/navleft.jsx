@@ -18,7 +18,7 @@ var NavLeftComponent = React.createClass({
       var lng = this.props.lng;
       Backbone.history.navigate("parks/" + lat + "/" + lng, {trigger: true});
     }
-    // if its true, set location from url and navigate to map view with lat and lng 
+    // if its true, set location from url and navigate to map view with lat and lng
     else {
       var lat = this.props.lat;
       var lng = this.props.lng;
@@ -38,7 +38,7 @@ var NavLeftComponent = React.createClass({
         )}
       // if on the profile, or park page
       // show search link and account dropdown
-      if((this.props.page == "profile")||(this.props.page == "park")){
+      if((this.props.page == "profile")||(this.props.page == "park")||(this.props.page == "add")||(this.props.page == "edit")){
         accountLinks = (
           <ul className="nav navbar-nav navbar-right right-nav">
             <li><a id="search-link" href="#search">search</a></li>

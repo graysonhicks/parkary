@@ -20,10 +20,20 @@ var AddCheckboxComponent = React.createClass({
     this.props.handleCheck(this.props.amenity, checked);
   },
   render: function(){
+    var self=this;
+    var checked;
+    if(this.props.editMode){
+      this.props.addedAmenities.map(function(currentAmenity){
+        if(self.props.amenity.id === currentAmenity.id){
+          checked = "checked";
+          console.log(checked);
+        }
+      })
+    }
     return (
       <div className="checkbox col-md-6">
         <label className="add-park-form-checkbox-labels">
-          <input type="checkbox" onChange={this.handleCheck} value={this.props.amenity.id}/> {this.props.amenity.get("Title")}
+          <input type="checkbox" onChange={this.handleCheck} value={this.props.amenity.id} checked={checked}/> {this.props.amenity.get("Title")}
         </label>
       </div>
         )

@@ -13,9 +13,11 @@ Parse.initialize("parkary");
 Parse.serverURL = 'http://parkary.herokuapp.com';
 
 var AddCheckboxComponent = require('./parkcheckbox.jsx').AddCheckboxComponent;
-var ImageInputComponent = require('./imageinput.jsx').ImageInputComponent;
+var EditImageInputComponent = require('./editimageinput.jsx').EditImageInputComponent;
+var WarningModal = require('./../warningmodal.jsx').WarningModal;
+var ChooseParkModal = require('./chooseparkmodal.jsx').ChooseParkModal;
 
-var AddChangeComponent = React.createClass({
+var EditParkComponent = React.createClass({
   mixins: [Backbone.React.Component.mixin, LinkedStateMixin],
   getInitialState: function(){
     return {
@@ -29,21 +31,76 @@ var AddChangeComponent = React.createClass({
         allAmenities: [],
         addedAmenities: [],
         images: [],
-        imageCount: 1
+        imageCount: 1,
+        showModal: false
     }
   },
 	componentWillMount: function() {
+    console.log(this.props.parkId);
+    this.setState({
+      "editMode": true
+    })
     // pulling all amenities down to populate checkbox options
 		var self = this;
+    //if no one is logged in, show warning modal
+    if(!Parse.User.current()){
+      self.setState({
+        showModal: true
+      })
+    }
 		var Amenities = Parse.Object.extend("Amenities");
-		var query = new Parse.Query( Amenities );
+		var amenitiesQuery = new Parse.Query( Amenities );
     // query all possible amenities and set in state for mapping and rendering
-		query.find().then(function(amenities){
+		amenitiesQuery.find().then(function(amenities){
 			self.setState({"allAmenities": amenities});
 		}, function(error){
 			console.log(error);
 		});
+    // query park based on parkId in url
+	  var parkQuery = new Parse.Query("Parks");
+    parkQuery.get(this.props.parkId).then(function(park){
+      var self = this;
+      // get location
+      var location = park.get("location");
+      // query amenities
+      var relation = park.relation("amenities");
+      var query = relation.query();
+      query.find().then(function(amenities){
+        // set amenities for that park in state
+        self.setState({
+          "addedAmenities": amenities
+        })
+      });
+      // set state of all other park properties and set into form with linkstate here as well
+      this.setState({
+        "park": park,
+        "name": park.get("name"),
+        "lat": location.latitude,
+        "lng": location.latitude,
+        "address": park.get("address"),
+        "size": park.get("size"),
+        "dateFounded": park.get("dateFounded"),
+        "description": park.get("description"),
+        "images": park.get("images"),
+        "imageCount": park.get("images").length
+      });
+    }.bind(this));
 	},
+  openModal: function(){
+    this.setState({
+      showModal: true
+    })
+  },
+  closeModal: function(){
+    this.setState({
+      showModal: false
+    })
+    Backbone.history.navigate("", {trigger: true});
+  },
+  handleReturn: function(){
+    console.log('return');
+    Backbone.history.navigate("", {trigger: true});
+  },
   removeImage: function(index){
     var images = this.state.images;
     images.splice(index, 1);
@@ -94,7 +151,13 @@ var AddChangeComponent = React.createClass({
      }
     );
     // Build object
-    var newParkData = _.omit(this.state, ["allAmenities", "images", "addedAmenities", "lat", "lng", "imageCount"]);
+    var newParkData = {
+        name: this.state.name,
+        address: this.state.address,
+        size: this.state.size,
+        dateFounded: this.state.dateFounded,
+        description: this.state.description
+    }
     // Add checked amenities to park relation
     var relation = park.relation("amenities");
 
@@ -117,24 +180,33 @@ var AddChangeComponent = React.createClass({
     });
   },
   render: function(){
+    console.log(this.state.addedAmenities);
+      var modal;
+      if(this.state.showModal){
+        return (<WarningModal className="add-change-warning-modal" backdrop={true} closeButton={false} show={this.state.showModal} closeModal={this.closeModal}/>)
+      }
+      if(!this.props.parkId){
+        return (<ChooseParkModal show={this.state.showModal} closeModal={this.closeModal} />)
+      }
+
       var imageInputs = [];
       // for every image in the array, show an image input field
       for(var i=0; i<= this.state.images.length; i++){
         var count = i;
-        imageInputs.push(<ImageInputComponent removeImage={this.removeImage} handleFile={this.handleFile} key={count} count={count} ref={"formset"+count}/>);
+        imageInputs.push(<EditImageInputComponent length={this.state.images.length} image={this.state.images[i]} removeImage={this.removeImage} handleFile={this.handleFile} key={count} count={count} ref={"formset"+count}/>);
       }
       // loop over allAmenities and print options to screen as checkboxes
       var newAmenity = function(amenity){
         return (
           <div key={amenity.objectId}>
-            <AddCheckboxComponent addedAmenities={this.state.addedAmenities} handleCheck={this.handleCheck} amenity={amenity}/>
+            <AddCheckboxComponent editMode={this.state.editMode} addedAmenities={this.state.addedAmenities} handleCheck={this.handleCheck} amenity={amenity}/>
           </div>
         )
       }
     return (
   <ReactCSSTransitionGroup transitionName="fade" transitionAppear={true} transitionAppearTimeout={500} transitionEnterTimeout={500} transitionLeaveTimeout={300}>
     <div className="container add-park-form-container col-md-12">
-      <h2 className="add-park-form-heading text-center">Add a Park</h2>
+      <h2 className="add-park-form-heading text-center">Edit a Park</h2>
       <form id="add-park-form" onSubmit={this.handleSubmit}>
         <div className="col-md-4">
           <fieldset className="form-group add-park-form">
@@ -168,8 +240,10 @@ var AddChangeComponent = React.createClass({
             <textarea valueLink={this.linkState('description')} rows="5" placeholder="limit to 200 characters" className="form-control" id="add-park-description" />
           </fieldset>
           <fieldset className="form-group add-park-form">
-            <label className="form-label" htmlFor="add-park-image">images</label>
-            {imageInputs}
+            <label className="form-label col-md-12">images</label>
+            <div className="row">
+              {imageInputs}
+            </div>
           </fieldset>
         </div>
         <div className="col-md-4">
@@ -180,7 +254,7 @@ var AddChangeComponent = React.createClass({
           </fieldset>
         </div>
       </form>
-      <button type="submit" form="add-park-form" id="add-park-form-submit-btn" className="btn btn-primary pull-right">add park</button>
+      <button type="submit" form="add-park-form" id="add-park-form-submit-btn" className="btn btn-primary pull-right">resubmit park</button>
     </div>
   </ReactCSSTransitionGroup>
     )
@@ -188,5 +262,5 @@ var AddChangeComponent = React.createClass({
 });
 
 module.exports = {
-  AddChangeComponent: AddChangeComponent
+  EditParkComponent: EditParkComponent
 }

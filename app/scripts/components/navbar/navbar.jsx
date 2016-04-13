@@ -15,7 +15,7 @@ var NavbarComponent = React.createClass({
     var nav;
     // set array of different page options
     // some require the logo on the left, others require logo in the center
-    var leftNavPages = ["home", "parks", "profile", "park", "search", "map"];
+    var leftNavPages = ["home", "parks", "profile", "park", "search", "map", "add", "edit"];
     var centerNavPages = ["login", "signup"];
 
     // if the page passed in(this.props.page) is in the left array, then render that component inside main nav

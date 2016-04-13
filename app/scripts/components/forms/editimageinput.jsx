@@ -6,7 +6,7 @@ var Backbone = require('backbone');
 require('backbone-react-component');
 var LinkedStateMixin = require('react/lib/LinkedStateMixin');
 
-var ImageInputComponent = React.createClass({
+var EditImageInputComponent = React.createClass({
   mixins: [Backbone.React.Component.mixin, LinkedStateMixin],
   handleChange: function(e){
     e.preventDefault();
@@ -21,9 +21,17 @@ var ImageInputComponent = React.createClass({
     this.props.removeImage(this.props.count - 1)
   },
   render: function(){
-    console.log(this.props.image);
+    if(this.props.count === this.props.length){
+      return(
+      <div className="col-md-4">
+        <img src="http://placehold.it/50/50" />
+        <input ref={"image" + this.props.count} onChange={this.handleChange} type="file" className="form-control" id="add-park-image" />
+        <i className="glyphicon glyphicon-minus-sign add-image-url-btn" onClick={this.handleRemove}     aria-hidden="true"></i>
+      </div>)
+    }
     return (
-      <div>
+      <div className="col-md-4">
+        <img className="add-edit-thumbnails" src={this.props.image.url()} />
         <input ref={"image" + this.props.count} onChange={this.handleChange} type="file" className="form-control" id="add-park-image" />
         <i className="glyphicon glyphicon-minus-sign add-image-url-btn" onClick={this.handleRemove}     aria-hidden="true"></i>
       </div>
@@ -32,5 +40,5 @@ var ImageInputComponent = React.createClass({
     });
 
 module.exports = {
-  ImageInputComponent: ImageInputComponent
+  EditImageInputComponent: EditImageInputComponent
 }

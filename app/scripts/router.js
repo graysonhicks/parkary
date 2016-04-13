@@ -16,7 +16,8 @@ var Router = Backbone.Router.extend({
     "signup": "signup",
     "search": "search",
     "map/(:lat)(/:lng)": "map",
-    "add": "add"
+    "add": "add",
+    "edit/(:id)": "edit"
   },
   login: function(){
     this.current = "login";
@@ -45,6 +46,11 @@ var Router = Backbone.Router.extend({
   add: function(){
     console.log('add');
     this.current = "add";
+  },
+  edit: function(id){
+    this.parkId = id;
+    console.log('add');
+    this.current = "edit";
   },
   search: function(){
     console.log('search');

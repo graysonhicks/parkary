@@ -7,7 +7,7 @@ require('backbone-react-component');
 var Modal = require('react-bootstrap').Modal;
 var Button = require('react-bootstrap').Button;
 
-var WarningModal = React.createClass({
+var ChooseParkModal = React.createClass({
   mixins: [Backbone.React.Component.mixin],
   handleSignUp: function(e){
     e.preventDefault();
@@ -34,8 +34,8 @@ var WarningModal = React.createClass({
             <Modal.Body>
               <div className="not-logged-in-container">
                 <h3 className="not-logged-in-heading">Sorry!</h3>
-                <p>You must log in or sign up to do this!</p>
-                <p>Please click <a href="#" id="warning-signup" onClick={this.handleSignUp}>here</a> to sign up or <a href="#" id="warning-login" onClick={this.handleLogin}>here</a> to login.</p>
+                <p>You must choose a park to edit!</p>
+                <p>Please click <a href="#" id="warning-signup">here</a> to go back to search.</p>
               </div>
             </Modal.Body>
             <Modal.Footer>
@@ -49,5 +49,5 @@ var WarningModal = React.createClass({
     });
 
 module.exports = {
-  WarningModal: WarningModal
+  ChooseParkModal: ChooseParkModal
 }
