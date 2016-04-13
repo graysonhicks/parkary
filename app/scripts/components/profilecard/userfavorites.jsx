@@ -37,6 +37,7 @@ var UserFavoritesComponent = React.createClass({
   render: function(){
     var hoverState = this.state.hover;
     var favorites = this.state.favorites;
+
     // Return early if park not received yet
     if(!this.props.user){
       return(
@@ -50,9 +51,10 @@ var UserFavoritesComponent = React.createClass({
     if(!favorites){
       return(<div>You don't have any favorites yet.</div>)
     }
-
     // mapped review with fields set
       var userFavorite = function(favorite){
+          var favoriteImages = favorite.get("images") || [];
+          var favoriteImage = favoriteImages[0];
         // Check how many favorites
           var numberOfFavorites = favorites.length;
           var numberOfGridColumns;
@@ -61,8 +63,7 @@ var UserFavoritesComponent = React.createClass({
           if(numberOfGridColumns < 3){
             numberOfGridColumns = 3;
           }
-          var favoriteImages = favorite.get("images");
-          var favoriteImage = favoriteImages[0];
+
 
         return(
             <div className={"favorite-images-columns col-xs-6 col-md-" + numberOfGridColumns}>

@@ -72,7 +72,6 @@ var UserReviewComponent = React.createClass({
     )
     }
     // map over reviews
-    console.log(reviews);
     return (
           <div>
             <span className="reviews-heading">My Reviews ({reviews.length})</span>

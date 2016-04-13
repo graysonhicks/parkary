@@ -14,7 +14,6 @@ var ProfileComponent = React.createClass({
   render: function(){
     var user = this.props.user;
     var profilePicture = user.get("avatar").url();
-    console.log(profilePicture);
         return (
         <div className="container-fluid profile-container">
           <div className="panel panel-default profile-card center-block">
@@ -45,9 +44,7 @@ var ProfileComponent = React.createClass({
                <div className="container-fluid">
                  <div className="row">
                    <div className="col-md-4 reviews-column">
-
                      <UserReviewComponent user={this.props.user} />
-
                    </div>
                    <div className="col-md-8 profile-favorites-column">
                      <UserFavoritesComponent user={this.props.user} />

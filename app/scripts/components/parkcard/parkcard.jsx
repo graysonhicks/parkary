@@ -6,24 +6,30 @@ var Backbone = require('backbone');
 require('backbone-react-component');
 var Parse = require('parse');
 
+
 var LocationComponent = require('./staticmap.jsx').LocationComponent;
 var ParkImageCarouselComponent = require('./parkimagecarousel.jsx').ParkImageCarouselComponent;
 var ParkCardInfoComponent = require('./parkcardinfo.jsx').ParkCardInfoComponent;
 var ReviewsComponent = require('./reviews.jsx').ReviewsComponent;
 var LoadingComponent = require('./../loadingpanel.jsx').LoadingComponent;
+var WarningModal = require('./../warningmodal.jsx').WarningModal;
 
 var ParkCardComponent = React.createClass({
   mixins: [Backbone.React.Component.mixin],
   getInitialState: function() {
 	    return {
 	        park: null,
-          favorite: null
+          favorite: null,
+          showModal: false
 	    };
 	},
   componentWillMount: function(){
     var self = this;
     // Get users favorites to see if heart icon should show favorited
-    var userFavorite = this.props.user.get("favorites");
+    if(this.props.user){
+      var userFavorite = this.props.user.get("favorites");
+    }
+
     if(!userFavorite){
       userFavorite = [];
     }
@@ -50,8 +56,24 @@ var ParkCardComponent = React.createClass({
       });
     }.bind(this));
   },
+  openModal: function(){
+    this.setState({
+      showModal: true
+    })
+  },
+  closeModal: function(){
+    this.setState({
+      showModal: false
+    })
+  },
   toggleFavorite: function(){
     var user = this.props.user;
+    if(!user){
+      this.setState({
+        showModal: true
+      })
+      return;
+    }
     if(!this.state.favorite){
       console.log('add');
       user.add("favorites", this.state.park);
@@ -74,7 +96,12 @@ var ParkCardComponent = React.createClass({
   if(!this.state.park){
     return (<LoadingComponent />)
   }
-  console.log(this.state.park);
+  var modal;
+  if(this.state.showModal){
+    modal = (<WarningModal backdrop={true} show={this.state.showModal} closeModal={this.closeModal}/>)
+  }
+
+  console.log(this.state.showModal);
         return (
         <div className="container-fluid park-card-container">
           <div className="panel panel-default park-card center-block">
@@ -89,10 +116,11 @@ var ParkCardComponent = React.createClass({
                     <ParkCardInfoComponent toggleFavorite={this.toggleFavorite} favorite={this.state.favorite} park={this.state.park}/>
                   </div>
                 </div>
+                {modal}
                </div>
                <div className="container-fluid">
                  <div className="row bottom-park-card-row">
-                   <ReviewsComponent park={this.state.park}/>
+                   <ReviewsComponent openModal={this.openModal} user={this.props.user} park={this.state.park}/>
                    <div className="col-md-6 map-column">
                    <LocationComponent location={this.state.location} park={this.state.park}/>
                    </div>

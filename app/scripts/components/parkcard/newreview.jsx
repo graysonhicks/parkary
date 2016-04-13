@@ -12,19 +12,25 @@ var ReactCSSTransitionGroup = require('../../../../node_modules/react-addons-css
 Parse.initialize("parkary");
 Parse.serverURL = 'http://parkary.herokuapp.com';
 
-var NotLoggedInComponent = require('./../notloggedin.jsx').NotLoggedInComponent;
 
 var NewReviewComponent = React.createClass({
   mixins: [Backbone.React.Component.mixin, LinkedStateMixin],
   getInitialState: function(){
     // form fields for adding a new review
     return {
-        userId: Parse.User.current().get("username"),
+        userId: "",
         title: "",
         content: "",
         rating: 0,
         parkId: this.props.park,
         interactive: true
+    }
+  },
+  componentWillMount: function(){
+    if(Parse.User.current()){
+      this.setState({
+        "userId": Parse.User.current().get("username")
+      })
     }
   },
   addRating: function(rating, lastRating){
@@ -122,10 +128,7 @@ var NewReviewComponent = React.createClass({
   render: function(){
     var editRatingButton;
     var addedReviewComponent;
-    // Warn if not logged in
-    if(!Parse.User.current()){
-      return(<NotLoggedInComponent />)
-    }
+
     // if rating has been set, show option to edit the rating
     if(!this.state.interactive){
       editRatingButton = (<span onClick={this.editRating} className="pull-right edit-rating-button">Edit Rating <i className="fa fa-pencil" onClick={this.editRating} aria-hidden="true"></i></span>)

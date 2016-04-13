@@ -4,6 +4,7 @@ var ReactDOM = require('react-dom');
 var _ = require('underscore');
 var Backbone = require('backbone');
 require('backbone-react-component');
+var Parse = require('parse');
 
 var NewReviewComponent = require('./newreview.jsx').NewReviewComponent;
 var ExistingReviewComponent = require('./existingreview.jsx').ExistingReviewComponent;
@@ -17,6 +18,11 @@ var ReviewsComponent = React.createClass({
     }
   },
   addReview: function(){
+    if(!Parse.User.current()){
+      this.props.openModal();
+      return;
+    }
+
     this.setState({
       addReview: true
     })
