@@ -8,11 +8,26 @@ var Parse = require('parse');
 
 var UserReviewComponent = require('./userreviews.jsx').UserReviewComponent;
 var UserFavoritesComponent = require('./userfavorites.jsx').UserFavoritesComponent;
+var LoadingComponent = require('./../loadingpanel.jsx').LoadingComponent;
 
 var ProfileComponent = React.createClass({
   mixins: [Backbone.React.Component.mixin],
+  componentWillMount: function(){
+    var query = new Parse.Query("User");
+    query.get(this.props.profileId).then(function(user){
+      // set location and current parse park object in state
+      console.log(user);
+      this.setState({
+        "user": user
+      });
+    }.bind(this));
+
+  },
   render: function(){
-    var user = this.props.user;
+    if(!this.state.user){
+      return(<LoadingComponent />)
+    }
+    var user = this.state.user;
     var profilePicture = user.get("avatar").url();
         return (
         <div className="container-fluid profile-container">

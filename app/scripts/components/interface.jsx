@@ -171,7 +171,7 @@ var InterfaceComponent = React.createClass({
     }
     if(this.state.router.current == "profile"){
       body = (
-        <ProfileComponent page={this.state.router.current} user={this.state.user}/>
+        <ProfileComponent profileId={this.state.router.profileId} page={this.state.router.current} user={this.state.user}/>
       )
     }
     if(this.state.router.current == "add"){

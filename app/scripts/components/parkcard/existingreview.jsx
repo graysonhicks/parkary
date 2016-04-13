@@ -29,6 +29,7 @@ var ExistingReviewComponent = React.createClass({
       })
   },
   render: function(){
+    var warning;
     var reviews = this.state.reviews;
     // Return early if park not received yet
     if(!this.props.park){
@@ -41,19 +42,24 @@ var ExistingReviewComponent = React.createClass({
     }
     // If there are still no reviews after the query has set the state, show that there are none
     if(!reviews){
-      return(<div>No reviews yet for this park!</div>)
+      return (<div>No reviews yet for this park!</div>)
+    }
+    if(reviews && reviews.length === 0){
+      warning = (<div>No reviews yet for this park!</div>)
     }
     // mapped review with fields set
     var existingReview = function(review){
+      var reviewPoster = review.get("userId").get("username");
+      var posterAvatar = review.get("userId").get("avatar").url();
       return(
       <div className="review">
         <div className="row">
           <div className="col-md-2">
-            <img src="images/fbook.jpg"></img>
+            <a href={"#profile/" + review.get("userId").id}><img src={posterAvatar}></img></a>
           </div>
           <div className="col-md-10">
             <div className="row">
-              <span>{review.get("title")}</span>
+              <a href={"#profile/" + review.get("userId").id}><span>{reviewPoster}</span></a>
               <span className="review-date">January 29, 2016</span>
             </div>
             <div className="row">
@@ -65,6 +71,7 @@ var ExistingReviewComponent = React.createClass({
         </div>
         <div className="row">
           <div className="col-md-12">
+            <span><h4>{review.get("title")}</h4></span>
             <p className="review-content">{review.get("content")}</p>
           </div>
         </div>
@@ -74,7 +81,8 @@ var ExistingReviewComponent = React.createClass({
     // map over reviews
     return (
           <div>
-          {reviews.map(existingReview.bind(this))}
+            {warning}
+           {reviews.map(existingReview.bind(this))}
            <a className="all-reviews-link pull-right">See all reviews...</a>
           </div>
 

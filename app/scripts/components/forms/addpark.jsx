@@ -15,6 +15,7 @@ Parse.serverURL = 'http://parkary.herokuapp.com';
 var AddCheckboxComponent = require('./parkcheckbox.jsx').AddCheckboxComponent;
 var ImageInputComponent = require('./imageinput.jsx').ImageInputComponent;
 var WarningModal = require('./../warningmodal.jsx').WarningModal;
+var AddedEditedModal = require('./parkaddededitedmodal.jsx').AddedEditedModal;
 
 var AddParkComponent = React.createClass({
   mixins: [Backbone.React.Component.mixin, LinkedStateMixin],
@@ -101,6 +102,7 @@ var AddParkComponent = React.createClass({
   },
   handleSubmit: function(e){
     e.preventDefault();
+    var self = this;
     var Park = Parse.Object.extend("Parks"); //move to model file
     var park = new Park();
     // set GeoPoint
@@ -139,6 +141,9 @@ var AddParkComponent = React.createClass({
     park.save(null, {
       success:function(newPark) {
         console.log(newPark);
+        self.setState({
+          "parkAdded": true
+        })
       },
       error:function(obj, error) {
         console.log(error);
@@ -149,7 +154,13 @@ var AddParkComponent = React.createClass({
       var modal;
 
       if(this.state.showModal){
-        return (<WarningModal className="add-change-warning-modal" backdrop={true} closeButton={false} show={this.state.showModal} closeModal={this.closeModal}/>)
+        return (
+          <WarningModal className="add-change-warning-modal" backdrop={true} closeButton={false} show={this.state.showModal} closeModal={this.closeModal}/>)
+      }
+      if(this.state.parkAdded){
+        return(
+          <AddedEditedModal className="add-edit-success-modal add-change-warning-modal" backdrop={true} closeButton={false} show={this.state.parkAdded} closeModal={this.closeModal}/>
+        )
       }
 
       var imageInputs = [];
