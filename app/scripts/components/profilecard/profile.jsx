@@ -62,7 +62,7 @@ var ProfileComponent = React.createClass({
                      <UserReviewComponent user={this.props.user} />
                    </div>
                    <div className="col-md-8 profile-favorites-column">
-                     <UserFavoritesComponent user={this.props.user} />
+                     <UserFavoritesComponent profileId={this.props.profileId} user={this.props.user} />
                    </div>
                  </div>
                </div>

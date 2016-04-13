@@ -82,7 +82,8 @@ var EditParkComponent = React.createClass({
         "dateFounded": park.get("dateFounded"),
         "description": park.get("description"),
         "images": park.get("images"),
-        "imageCount": park.get("images").length
+        "imageCount": park.get("images").length,
+        "newImages": []
       });
     }.bind(this));
 	},
@@ -123,33 +124,37 @@ var EditParkComponent = React.createClass({
   },
   handleFile: function(file){
     // array of parse image files
-    var images = this.state.images;
+    var newImages = this.state.newImages;
+    var originalImages = this.state.images;
     // set unique file name
     var name = Parse.User.current().id + Date.now() + ".jpg";
     // pass in name and file that is passed in to function above
     var image = new Parse.File(name, file);
     // push image to array
-    images.push(image);
-    this.setState({"images": images});
+    newImages.push(image);
 
+    // Map Parse File Images
+    var parseFileImages = newImages.map(function(image){
+      // save each image to parse and return to array
+      console.log('image in map', image);
+      image.save().then(function (newImage){
+          console.log('newimage', newImage);
+          this.setState({"images": originalImages.push(newImage)});
+        });
+      return image;
+     }
+    );
   },
   handleSubmit: function(e){
     e.preventDefault();
-    var Park = Parse.Object.extend("Parks"); //move to model file
-    var park = new Park();
+    var self = this;
+    var park = this.state.park;
     // set GeoPoint
     var gp = new Parse.GeoPoint({
                 latitude: parseFloat(this.state.lat),
                 longitude: parseFloat(this.state.lng)
             });
 
-    // Map Parse File Images
-    var parseFileImages = this.state.images.map(function(image){
-      // save each image to parse and return to array
-      image.save();
-      return image;
-     }
-    );
     // Build object
     var newParkData = {
         name: this.state.name,
@@ -166,13 +171,14 @@ var EditParkComponent = React.createClass({
       relation.add(amenity);
     });
     // Set to Parse Park
-    park.set("images", parseFileImages); // grab array of parse image files and set
+    park.set("images", this.state.images); // grab array of parse image files and set
     park.set(newParkData); //set basic data
     park.set("location", gp); // let geopoint location
     //Save
     park.save(null, {
       success:function(newPark) {
         console.log(newPark);
+        console.log(self.state.images);
       },
       error:function(obj, error) {
         console.log(error);
@@ -180,7 +186,7 @@ var EditParkComponent = React.createClass({
     });
   },
   render: function(){
-    console.log(this.state.addedAmenities);
+    console.log(this.state.images);
       var modal;
       if(this.state.showModal){
         return (<WarningModal className="add-change-warning-modal" backdrop={true} closeButton={false} show={this.state.showModal} closeModal={this.closeModal}/>)

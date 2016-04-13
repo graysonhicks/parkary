@@ -38,13 +38,13 @@ var ParkImageCarouselComponent = React.createClass({
     var newImage = function(image){
       return (
           <Carousel.Item>
-            <img width={900} height={500} alt="900x500" src={image.url()}/>
+            <img className="carousel-images" src={image.url()}/>
           </Carousel.Item>
       )
     }
     // map over images array and add as new carousel item
     return (
-      <Carousel activeIndex={this.state.index} direction={this.state.direction} onSelect={this.handleSelect}>
+      <Carousel className="image-carousel" activeIndex={this.state.index} direction={this.state.direction} onSelect={this.handleSelect}>
           {this.state.images.map(newImage.bind(this))}
       </Carousel>
     );
