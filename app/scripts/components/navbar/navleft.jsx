@@ -6,6 +6,9 @@ var Backbone = require('backbone');
 require('backbone-react-component');
 var ReactCSSTransitionGroup = require('../../../../node_modules/react-addons-css-transition-group');
 var LoginDropdownComponent = require('./logindropdown.jsx').LoginDropdownComponent;
+var SortDropdownComponent = require('./sortdropdown.jsx').SortDropdownComponent;
+var FilterDropdownComponent = require('./filterdropdown.jsx').FilterDropdownComponent;
+
 var Switch = require('react-bootstrap-switch');
 
 var NavLeftComponent = React.createClass({
@@ -65,9 +68,9 @@ var NavLeftComponent = React.createClass({
         accountLinks = (
         <ul className="nav navbar-nav navbar-right right-nav">
           <li><Switch size="small" onColor="success" labelText={labelText} state={switchState} offColor="primary" onText="GRID" offText="MAP" onChange={this.toggle}/></li>
-          <li><a id="search-link" href="#search">search</a></li>
-          <li><a id="search-link" href="#">filter by</a></li>
-          <li><a id="search-link" href="#">sort by</a></li>
+          <li><a className="search-link" href="#search">search</a></li>
+          <FilterDropdownComponent parks={this.props.parks}  />
+          <SortDropdownComponent sortHighestRated={this.props.sortHighestRated} sortDistance={this.props.sortDistance} parks={this.props.parks}/>
           <LoginDropdownComponent logout={this.props.logout} user={this.props.user}  />
         </ul>
         )

@@ -54,7 +54,6 @@ var Router = Backbone.Router.extend({
     this.current = "edit";
   },
   search: function(){
-    console.log('search');
     this.current = "search";
   }
 

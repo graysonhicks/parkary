@@ -26,8 +26,9 @@ var ParkMapComponent = React.createClass({
   },
   componentWillMount: function(){
     // check if location has been set by searchbar, if not, do new query and set
+    console.log(this.state.location);
     if(!this.state.location){
-      this.search();
+      this.props.search();
     }
   },
   setActiveMarker: function(marker){
@@ -35,31 +36,6 @@ var ParkMapComponent = React.createClass({
     this.setState({
       activeMarker: marker
     })
-  },
-  search: function(center){
-      var self = this;
-      var parseGeo;
-      // drag and zoom on map will pass this function a new center, so make a new parse GP from it
-      if(center){
-        parseGeo = new Parse.GeoPoint(center);
-
-      } else {
-        // this else is for getting new center in case map is loaded using only the URL lat and lng
-        parseGeo = new Parse.GeoPoint({
-          //self.props.lat and lng are passed through URL
-          latitude: parseFloat(self.props.lat),
-          longitude: parseFloat(self.props.lng)
-        })
-      }
-      // new query if not done by search bar, because query is done in interface component if search bar is used
-      (new Parse.Query('Parks')).withinMiles("location", parseGeo, 10).find({
-        success: function(parks){
-          self.setState({
-            "location": {lat: parseFloat(self.props.lat), lng: parseFloat(self.props.lng)},
-            "parks": parks
-          })
-        }
-      })
   },
   render: function(){
         return (
@@ -72,14 +48,15 @@ var ParkMapComponent = React.createClass({
                     search={this.search}
                     lat={this.props.lat}
                     lng={this.props.lng}
-                    parks={this.state.parks}
+                    parks={this.props.parks}
+                    search={this.props.search}
                     setActiveMarker={this.setActiveMarker}
                   />
                 </div>
                 <div className="col-md-3">
                   <MapSidebarComponent
                     location={this.state.location}
-                    parks={this.state.parks}
+                    parks={this.props.parks}
                     activeMarker={this.state.activeMarker}
                   />
                   </div>

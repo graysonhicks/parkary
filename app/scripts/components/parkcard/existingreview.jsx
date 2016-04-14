@@ -15,15 +15,27 @@ var ExistingReviewComponent = React.createClass({
   mixins: [Backbone.React.Component.mixin],
   getInitialState: function(){
     return {
-      reviews: this.props.park.get("reviews")
+      reviews: this.props.reviews
     }
   },
-
+  componentWillMount: function(){
+    console.log(this.props.reviews);
+    this.setState({
+      "reviews": this.props.reviews
+    })
+  },
+  componentWillReceiveProps: function(nextProps){
+    console.log('nextprops', nextProps);
+    this.setState({
+      "reviews": nextProps.reviews
+    })
+  },
   render: function(){
+    console.log('existing render', this.state.reviews);
     var warning;
     var reviews = this.state.reviews;
     // Return early if park not received yet
-    if(!this.props.park){
+    if(!this.props.reviews){
       return(
       <div>
         <h4>Loading...</h4>
@@ -35,11 +47,12 @@ var ExistingReviewComponent = React.createClass({
     if(!reviews){
       return (<div>No reviews received!</div>)
     }
-    // if(reviews && reviews.length === 0){
-    //   warning = (<div>No reviews yet for this park!</div>)
-    // }
+    if(reviews && reviews.length === 0){
+      warning = (<div>No reviews yet for this park!</div>)
+    }
     // mapped review with fields set
     var existingReview = function(review){
+      console.log(review);
       var reviewPoster = review.get("userId").get("username");
       var posterAvatar = review.get("userId").get("avatar").url();
       return(

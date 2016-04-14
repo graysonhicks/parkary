@@ -4,14 +4,30 @@ var ReactDOM = require('react-dom');
 var _ = require('underscore');
 var Backbone = require('backbone');
 require('backbone-react-component');
-
+var Parse = require('parse');
 
 var NavLeftComponent = require('./navleft.jsx').NavLeftComponent;
 var NavCenterComponent = require('./navcenter.jsx').NavCenterComponent;
 
 var NavbarComponent = React.createClass({
   mixins: [Backbone.React.Component.mixin],
+  componentWillMount: function(){
+    this.setState({
+      parks: this.props.parks
+    })
+  },
+  componentDidMount: function(){
+    // if the array is empty, make sure search has been return
+    // this is in case someone navigates by url only and no search bar is used with the google geocode
+    if(this.props.page === "parks"){
+        if(this.state.parks.length < 1){
+          this.props.search();
+        }
+    }
+
+  },
   render: function(){
+    console.log(this.state.parks);
     var nav;
     // set array of different page options
     // some require the logo on the left, others require logo in the center
@@ -27,6 +43,9 @@ var NavbarComponent = React.createClass({
         user={this.props.user}
         logout={this.props.logout}
         page={this.props.page}
+        parks={this.state.parks}
+        sortDistance={this.props.sortDistance}
+        sortHighestRated={this.props.sortHighestRated}
       />
       )
     }

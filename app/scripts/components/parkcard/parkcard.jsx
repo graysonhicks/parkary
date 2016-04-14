@@ -18,7 +18,6 @@ var ParkCardComponent = React.createClass({
   mixins: [Backbone.React.Component.mixin],
   getInitialState: function() {
 	    return {
-	        park: null,
           favorite: null,
           showModal: false
 	    };
@@ -27,14 +26,19 @@ var ParkCardComponent = React.createClass({
     var self = this;
     // Get users favorites to see if heart icon should show favorited
     if(this.props.user){
+      // set array of users favorites from parse
       var userFavorite = this.props.user.get("favorites");
     }
 
     if(!userFavorite){
+      //if it is falsey, set as an empty array
       userFavorite = [];
     }
+    // filter the array
     userFavorite = userFavorite.filter(function(favorite){
+      //test if any of the parks in the parse array match the park current viewed
       if(favorite.id === self.props.parkId){
+        //if so, set favorite state to true
         self.setState({
           "favorite": true
         })
@@ -43,7 +47,6 @@ var ParkCardComponent = React.createClass({
     // new query based on clicked on park, using parkId that is passed down through router
     var query = new Parse.Query("Parks");
     query.include("amenities");
-    query.include("reviews");
     query.get(this.props.parkId).then(function(park){
       // then set location of park as google map marker location format to show park on parkcard map
       var markerLocation = park.get("location");
@@ -69,20 +72,24 @@ var ParkCardComponent = React.createClass({
   },
   toggleFavorite: function(){
     var user = this.props.user;
+    // require a user to add favorites
     if(!user){
       this.setState({
         showModal: true
       })
       return;
     }
+    //if the park isnt a favorite
     if(!this.state.favorite){
       console.log('add');
+      //add to user favorites column
       user.add("favorites", this.state.park);
       user.save();
+      // mark state as true
       this.setState({
         "favorite": true
       })
-
+      //other wise do opposite
     } else {
       console.log('remove');
       user.remove("favorites", this.state.park);
@@ -102,7 +109,6 @@ var ParkCardComponent = React.createClass({
     modal = (<WarningModal backdrop={true} show={this.state.showModal} closeModal={this.closeModal}/>)
   }
 
-  console.log(Parse.User.current());
         return (
         <div className="container-fluid park-card-container">
           <div className="panel panel-default park-card center-block">
@@ -121,7 +127,7 @@ var ParkCardComponent = React.createClass({
                </div>
                <div className="container-fluid">
                  <div className="row bottom-park-card-row">
-                   <ReviewsComponent openModal={this.openModal} user={this.props.user} park={this.state.park}/>
+                   <ReviewsComponent openModal={this.openModal} park={this.state.park} parkId={this.props.parkId} user={this.props.user} park={this.state.park}/>
                    <div className="col-md-6 map-column">
                    <LocationComponent location={this.state.location} park={this.state.park}/>
                    </div>

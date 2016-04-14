@@ -21,38 +21,12 @@ var ParkGridComponent = React.createClass({
     // if the array is empty, make sure search has been return
     // this is in case someone navigates by url only and no search bar is used with the google geocode
     if(this.state.parks.length < 1){
-      this.search();
+      this.props.search();
     }
-  },
-  search: function(){
-    // this only runs if there are no parks passed in in getInitialState
-    // basically same function as setLocationObj, but is here in case someone navigates to results page by url only and doesnt use the search bar
-    var self = this;
-    // new geopoint from lat and lng in url
-    var parseGeo = new Parse.GeoPoint({
-        latitude: parseFloat(self.props.lat),
-        longitude: parseFloat(self.props.lng)
-      });
-    // new query
-    (new Parse.Query('Parks')).withinMiles("location", parseGeo, 10).find({
-      success: function(parks){
-        console.log(parks);
-        if(parks.length < 1){
-          // search is complete and still no parks, set this flag in state so notice can be displayed
-          self.setState({
-            "noParks": true
-          });
-        }
-        // otherwise, set returned parks in to state
-        self.setState({
-          "parks": parks
-        })
-      }
-    })
   },
   render: function(){
     // if the noParks flag has been set true after search function, then notify user
-    if(this.state.noParks){
+    if(this.props.noParks){
       return (
               <div className="container-fluid park-card-container">
                 <div className="panel panel-default center-block loading-panel">
@@ -73,7 +47,7 @@ var ParkGridComponent = React.createClass({
         return (
         <ReactCSSTransitionGroup transitionName="fade" transitionAppear={true} transitionAppearTimeout={600} transitionEnterTimeout={500} transitionLeaveTimeout={300}>
           <div className="row thumbnail-row">
-            {this.state.parks.map(gridItem.bind(this))}
+            {this.props.parks.map(gridItem.bind(this))}
           </div>
         </ReactCSSTransitionGroup>
          )

@@ -48,7 +48,7 @@ var SocialIconsComponent = React.createClass({
     var emailTooltip = (
       <Tooltip id="email-tooltip">Share with Email</Tooltip>
     )
-
+    // on heart button click, run toggleFavorite that adds or removes from parse array and toggles state
       return (
           <div className="park-card-social-icons">
             <OverlayTrigger placement="bottom" overlay={emailTooltip}>

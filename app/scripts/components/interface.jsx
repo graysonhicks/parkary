@@ -47,6 +47,68 @@ var InterfaceComponent = React.createClass({
     // forces update on component unmounts
     this.state.router.off('route', this.callback);
   },
+  sortHighestRated: function(e){
+    e.preventDefault();
+    var self = this;
+    // new geopoint from lat and lng in url
+    var parseGeo = new Parse.GeoPoint({
+        latitude: parseFloat(self.props.router.lat),
+        longitude: parseFloat(self.props.router.lng)
+      });
+    // new query
+    (new Parse.Query('Parks')).withinMiles("location", parseGeo, 10).descending("rating").find({
+      success: function(parks){
+        if(parks.length < 1){
+          // search is complete and still no parks, set this flag in state so notice can be displayed
+          self.setState({
+            "noParks": true
+          });
+        }
+        // otherwise, set returned parks in to state
+        self.setState({
+          "parks": parks
+        })
+      }
+    })
+  },
+  sortDistance: function(e){
+    e.preventDefault();
+    this.search();
+  },
+  search: function(center){
+    var parseGeo;
+    // this only runs if there are no parks passed in in getInitialState
+    // basically same function as setLocationObj, but is here in case someone navigates to results page by url only and doesnt use the search bar
+    var self = this;
+    // if a center is passed in
+    if(center){
+      // make it the parseGeo
+      parseGeo = new Parse.GeoPoint(center);
+
+    } else {
+      // this else is for getting new center in case map is loaded using only the URL lat and lng
+      parseGeo = new Parse.GeoPoint({
+        //self.props.lat and lng are passed through URL
+        latitude: parseFloat(self.props.router.lat),
+        longitude: parseFloat(self.props.router.lng)
+      })
+    }
+    // new query
+    (new Parse.Query('Parks')).withinMiles("location", parseGeo, 10).find({
+      success: function(parks){
+        if(parks.length < 1){
+          // search is complete and still no parks, set this flag in state so notice can be displayed
+          self.setState({
+            "noParks": true
+          });
+        }
+        // otherwise, set returned parks in to state
+        self.setState({
+          "parks": parks
+        })
+      }
+    })
+  },
   setLocationObj: function(locationObj){
     // receives info from google places api
     var self = this;
@@ -123,7 +185,7 @@ var InterfaceComponent = React.createClass({
     Backbone.history.navigate('', {trigger: true});
   },
   render: function(){
-
+    console.log(this.state.parks);
     var body;
     if((this.state.router.current == "login")||(this.state.router.current == "signup")){
       body = (
@@ -148,6 +210,8 @@ var InterfaceComponent = React.createClass({
           lng={this.props.router.lng}
           parks={this.state.parks}
           page={this.state.router.current}
+          search={this.search}
+          noParks={this.state.noParks}
         />
       )
     }
@@ -158,6 +222,7 @@ var InterfaceComponent = React.createClass({
           lng={this.props.router.lng}
           location={this.state.location}
           parks={this.state.parks}
+          search={this.search}
           page={this.state.router.current}
         />
       )
@@ -200,6 +265,10 @@ var InterfaceComponent = React.createClass({
          page={this.state.router.current}
          lat={this.props.router.lat}
          lng={this.props.router.lng}
+         parks={this.state.parks}
+         search={this.search}
+         sortDistance={this.sortDistance}
+         sortHighestRated={this.sortHighestRated}
         />
          {body}
       </div>

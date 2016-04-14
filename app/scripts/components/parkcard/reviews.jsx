@@ -17,6 +17,19 @@ var ReviewsComponent = React.createClass({
       addReview: false
     }
   },
+  componentWillMount: function(){
+    var query = new Parse.Query("Parks");
+    query.include("reviews");
+    query.include("reviews.userId")
+    query.get(this.props.parkId).then(function(park){
+      // set location and current parse park object in state
+      console.log('reviews in main comp query', park.get("reviews"));
+      this.setState({
+        "reviews": park.get("reviews")
+      });
+    }.bind(this));
+
+  },
   addReview: function(){
     if(!Parse.User.current()){
       this.props.openModal();
@@ -35,6 +48,7 @@ var ReviewsComponent = React.createClass({
   render: function(){
     var body;
     var currentNumberOfReviews;
+    console.log('state in render', this.state.reviews);
     // if there are reviews, set numebr
     if(this.props.park.get("reviews").length){
       currentNumberOfReviews = this.props.park.get("reviews").length;
@@ -44,11 +58,11 @@ var ReviewsComponent = React.createClass({
     }
     // if adding review, show form
     if(this.state.addReview){
-      body = (<NewReviewComponent park={this.props.park} cancelReview={this.cancelReview}/>)
+      body = (<NewReviewComponent park={this.state.park} cancelReview={this.cancelReview}/>)
     }
     //else show existing reviews
     if(!this.state.addReview) {
-      body = (<ExistingReviewComponent park={this.props.park}/>)
+      body = (<ExistingReviewComponent reviews={this.state.reviews}/>)
     }
       return (
        <div className="col-md-6 reviews-column">
