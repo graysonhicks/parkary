@@ -101,7 +101,7 @@ var ParkCardComponent = React.createClass({
     modal = (<WarningModal backdrop={true} show={this.state.showModal} closeModal={this.closeModal}/>)
   }
 
-  console.log(this.state.showModal);
+  console.log(Parse.User.current());
         return (
         <div className="container-fluid park-card-container">
           <div className="panel panel-default park-card center-block">

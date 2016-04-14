@@ -16,7 +16,12 @@ var ExistingReviewComponent = React.createClass({
   componentWillMount: function(){
     // query reviews that go with current park
     var self = this;
-    var query = new Parse.Query("Reviews").equalTo("parkId", this.props.park).find({
+    console.log(this.props.park);
+    console.log('reviews', this.props.park.get("reviews"));
+    var park = this.props.park;
+    var query = new Parse.Query("Reviews");
+    query.equalTo("parkId", park);
+    query.find({
         success: function(results) {
           // set them in state
           self.setState({
@@ -42,13 +47,14 @@ var ExistingReviewComponent = React.createClass({
     }
     // If there are still no reviews after the query has set the state, show that there are none
     if(!reviews){
-      return (<div>No reviews yet for this park!</div>)
+      return (<div>No reviews received!</div>)
     }
     if(reviews && reviews.length === 0){
       warning = (<div>No reviews yet for this park!</div>)
     }
     // mapped review with fields set
     var existingReview = function(review){
+      console.log(review);
       var reviewPoster = review.get("userId").get("username");
       var posterAvatar = review.get("userId").get("avatar").url();
       return(

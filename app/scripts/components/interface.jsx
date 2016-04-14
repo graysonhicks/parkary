@@ -87,8 +87,14 @@ var InterfaceComponent = React.createClass({
 
     user.signUp(null, {
       success: function(user) {
+        // set new role of basic user to user that signsup
+        var roleACL = new Parse.ACL();
+        var role = new Parse.Role("BasicUser", roleACL);
+        role.getUsers().add(user);
+        role.save();
         // set Parse User in state
         this.setState({user: user});
+        // then navigate home
         Backbone.history.navigate('', {trigger: true});
       }.bind(this),
       error: function(user, error) {
@@ -117,6 +123,7 @@ var InterfaceComponent = React.createClass({
     Backbone.history.navigate('', {trigger: true});
   },
   render: function(){
+
     var body;
     if((this.state.router.current == "login")||(this.state.router.current == "signup")){
       body = (
@@ -163,6 +170,7 @@ var InterfaceComponent = React.createClass({
     if(this.state.router.current == "park"){
       body = (
         <ParkCardComponent
+          parks={this.state.parks}
           parkId={this.state.router.parkId}
           page={this.state.router.current}
           user={this.state.user}
