@@ -55,7 +55,7 @@ var InterfaceComponent = React.createClass({
     // new parse geopoint using lat and lng from locationObj
     var parseGeo = new Parse.GeoPoint({latitude: locationObj.lat, longitude: locationObj.lng});
     // new location query using parse geopoint
-    (new Parse.Query('Parks')).withinMiles("location", parseGeo, 10).find({
+    (new Parse.Query('Parks')).withinMiles("location", parseGeo, 10).include("reviews").find({
       success: function(parks){
         // then keep locationobj in state, set parks from query in state, and change pending to false for search button
         self.setState({

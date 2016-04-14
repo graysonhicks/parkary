@@ -53,7 +53,8 @@ var UserFavoritesComponent = React.createClass({
     }
     // mapped review with fields set
       var userFavorite = function(favorite){
-        console.log(favorite);
+        console.log('favorite', favorite);
+
           var favoriteImages = favorite.get("images");
           var favoriteImage = favoriteImages[0];
         // Check how many favorites
@@ -78,6 +79,7 @@ var UserFavoritesComponent = React.createClass({
       }
 
     // map over favorites
+    console.log('favorites array', favorites);
     return (
         <div className="favorites-grid">
           <span className="reviews-heading">Favorites ({favorites.length})</span>

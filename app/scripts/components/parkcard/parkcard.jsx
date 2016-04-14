@@ -43,6 +43,7 @@ var ParkCardComponent = React.createClass({
     // new query based on clicked on park, using parkId that is passed down through router
     var query = new Parse.Query("Parks");
     query.include("amenities");
+    query.include("reviews");
     query.get(this.props.parkId).then(function(park){
       // then set location of park as google map marker location format to show park on parkcard map
       var markerLocation = park.get("location");

@@ -13,26 +13,12 @@ Parse.serverURL = 'http://parkary.herokuapp.com';
 
 var ExistingReviewComponent = React.createClass({
   mixins: [Backbone.React.Component.mixin],
-  componentWillMount: function(){
-    // query reviews that go with current park
-    var self = this;
-    console.log(this.props.park);
-    console.log('reviews', this.props.park.get("reviews"));
-    var park = this.props.park;
-    var query = new Parse.Query("Reviews");
-    query.equalTo("parkId", park);
-    query.find({
-        success: function(results) {
-          // set them in state
-          self.setState({
-            "reviews": results
-          });
-        },
-        error: function(error) {
-          console.log(error);
-        }
-      })
+  getInitialState: function(){
+    return {
+      reviews: this.props.park.get("reviews")
+    }
   },
+
   render: function(){
     var warning;
     var reviews = this.state.reviews;
@@ -45,16 +31,15 @@ var ExistingReviewComponent = React.createClass({
       </div>
     )
     }
-    // If there are still no reviews after the query has set the state, show that there are none
+    //If there are still no reviews after the query has set the state, show that there are none
     if(!reviews){
       return (<div>No reviews received!</div>)
     }
-    if(reviews && reviews.length === 0){
-      warning = (<div>No reviews yet for this park!</div>)
-    }
+    // if(reviews && reviews.length === 0){
+    //   warning = (<div>No reviews yet for this park!</div>)
+    // }
     // mapped review with fields set
     var existingReview = function(review){
-      console.log(review);
       var reviewPoster = review.get("userId").get("username");
       var posterAvatar = review.get("userId").get("avatar").url();
       return(
