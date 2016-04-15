@@ -26,7 +26,6 @@ var AddCheckboxComponent = React.createClass({
       this.props.addedAmenities.map(function(currentAmenity){
         if(self.props.amenity.id === currentAmenity.id){
           checked = "checked";
-          console.log(checked);
         }
       })
     }

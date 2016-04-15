@@ -13,10 +13,6 @@ var AddedEditedModal = React.createClass({
     e.preventDefault();
     Backbone.history.navigate("#signup", {trigger: true});
   },
-  handleLogin: function(e){
-    e.preventDefault();
-    Backbone.history.navigate("#login", {trigger: true});
-  },
   render: function(){
     return (
         <div className="static-modal warning-modal">
@@ -35,7 +31,7 @@ var AddedEditedModal = React.createClass({
               <div className="not-logged-in-container">
                 <h3 className="not-logged-in-heading">Thanks!</h3>
                 <p>Park has been added!</p>
-                <p>Please click <a href="#add" id="warning-signup">here</a> to add another park or <a href="#" id="warning-login">here</a> to go back.</p>
+                <p>Please click <a href="#" onClick={this.props.addAgain} id="warning-signup">here</a> to add another park or <a href="#" id="warning-login">here</a> to go back.</p>
               </div>
             </Modal.Body>
             <Modal.Footer>

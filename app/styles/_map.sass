@@ -4,6 +4,7 @@
 .map-container
   margin-top: 20px
   width: 95%
+  padding-right: 0px
 
 .map-column
   padding-left: 0px
@@ -11,6 +12,12 @@
 
 .mapped-park-image
   height: 40px
+  max-width: 50px
+  overflow-y: hidden
+
+.sidebar-column
+  height: 550px
+  overflow-y: scroll
 
 .mapped-parks
   padding-top: 10px
@@ -18,8 +25,11 @@
 .mapped-park-name
   padding-left: 5px
   a
+    display: inline-block
+    vertical-align: middle
     text-decoration: none
     font-size: 12px
+    max-width: 90px
 
 .park-sidebar-list-item-col
   padding-left: 0px
@@ -33,7 +43,7 @@
 .mapped-park-rating-number
   font-size: 10px
   color: $maingray
-  
+
 .mapped-park-stars
   font-size: 16px
   span
@@ -49,6 +59,7 @@
 
 .park-sidebar-list-item
   padding: 8px
+  padding-right: 20px
 
 div.row.park-sidebar-list-item.active
   background-color: rgba(0, 143, 0, 0.6)

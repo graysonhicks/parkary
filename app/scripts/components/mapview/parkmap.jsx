@@ -57,7 +57,7 @@ var ParkMapComponent = React.createClass({
                     sortHighestRated={this.props.sortHighestRated}
                   />
                 </div>
-                <div className="col-md-3">
+                <div className="col-md-3 sidebar-column">
                   <MapSidebarComponent
                     mapCenter={this.state.mapCenter}
                     parks={this.props.parks}

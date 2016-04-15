@@ -58,6 +58,12 @@ var AddParkComponent = React.createClass({
       showModal: true
     })
   },
+  addAgain: function(){
+    this.setState({
+      showModal: false
+    })
+    Backbone.history.navigate("add", {trigger: true});
+  },
   closeModal: function(){
     this.setState({
       showModal: false
@@ -124,7 +130,10 @@ var AddParkComponent = React.createClass({
         address: this.state.address,
         size: this.state.size,
         dateFounded: this.state.dateFounded,
-        description: this.state.description
+        description: this.state.description,
+        reviews: [],
+        aggregateRating: 0,
+        rating: "0"
     }
     // Add checked amenities to park relation
     var relation = park.relation("amenities");
@@ -140,7 +149,6 @@ var AddParkComponent = React.createClass({
     //Save
     park.save(null, {
       success:function(newPark) {
-        console.log(newPark);
         self.setState({
           "parkAdded": true
         })
@@ -212,7 +220,7 @@ var AddParkComponent = React.createClass({
           </fieldset>
           <fieldset className="form-group add-park-form">
             <label className="form-label" htmlFor="add-park-description">description</label>
-            <textarea valueLink={this.linkState('description')} rows="5" placeholder="limit to 200 characters" className="form-control" id="add-park-description" />
+            <textarea maxLength="250" valueLink={this.linkState('description')} rows="5" placeholder="limit to 250 characters" className="form-control" id="add-park-description" />
           </fieldset>
           <fieldset className="form-group add-park-form">
             <label className="form-label" htmlFor="add-park-image">images</label>

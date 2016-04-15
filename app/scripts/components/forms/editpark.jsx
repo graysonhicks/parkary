@@ -76,7 +76,7 @@ var EditParkComponent = React.createClass({
         "park": park,
         "name": park.get("name"),
         "lat": location.latitude,
-        "lng": location.latitude,
+        "lng": location.longitude,
         "address": park.get("address"),
         "size": park.get("size"),
         "dateFounded": park.get("dateFounded"),
