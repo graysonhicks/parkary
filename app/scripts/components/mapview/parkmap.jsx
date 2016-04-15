@@ -19,16 +19,18 @@ var ParkMapComponent = React.createClass({
   getInitialState: function(){
     // get location from setLocationObj in interface and parks from query
     return {
-      location: this.props.location,
+      mapCenter: this.props.mapCenter,
       parks: this.props.parks,
       activeMarker: null
     }
   },
   componentWillMount: function(){
     // check if location has been set by searchbar, if not, do new query and set
-    console.log(this.state.location);
-    if(!this.state.location){
-      this.props.search();
+    if(!this.state.mapCenter){
+      this.props.search({
+        lat: this.props.lat,
+        lng: this.props.lng
+      }, "url");
     }
   },
   setActiveMarker: function(marker){
@@ -51,11 +53,13 @@ var ParkMapComponent = React.createClass({
                     parks={this.props.parks}
                     search={this.props.search}
                     setActiveMarker={this.setActiveMarker}
+                    mapview={this.props.mapview}
+                    sortHighestRated={this.props.sortHighestRated}
                   />
                 </div>
                 <div className="col-md-3">
                   <MapSidebarComponent
-                    location={this.state.location}
+                    mapCenter={this.state.mapCenter}
                     parks={this.props.parks}
                     activeMarker={this.state.activeMarker}
                   />

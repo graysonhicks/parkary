@@ -27,7 +27,6 @@ var NavbarComponent = React.createClass({
 
   },
   render: function(){
-    console.log(this.state.parks);
     var nav;
     // set array of different page options
     // some require the logo on the left, others require logo in the center

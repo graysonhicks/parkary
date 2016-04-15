@@ -21,10 +21,10 @@ var SearchFormComponent = React.createClass({
       <div className="panel panel-default search-form-panel center-block">
         <div className="container main-search-form-container">
           <GoogleSearchComponent
-            setLocationObj={this.props.setLocationObj}
+            search={this.props.search}
             mapUrl={this.props.mapUrl}
-            location={this.props.location}
             pending={this.props.pending}
+            mapCenter={this.props.mapCenter}
           />
         </div>
       </div>

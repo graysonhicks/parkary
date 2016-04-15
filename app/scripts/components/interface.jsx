@@ -6,6 +6,7 @@ var Backbone = require('backbone');
 require('backbone-react-component');
 var Parse = require('parse');
 
+var sorts = require('./sorts');
 // Pulling in components
 var NavbarComponent = require('./navbar/navbar.jsx').NavbarComponent;
 var LoginSignUpFormComponent = require('./forms/loginsignupform.jsx').LoginSignUpFormComponent;
@@ -27,7 +28,8 @@ var InterfaceComponent = React.createClass({
   return {
     router: this.props.router,
     user: null,
-    parks: []
+    parks: [],
+    mapview: null
     }
   },
   componentWillMount: function(){
@@ -49,81 +51,64 @@ var InterfaceComponent = React.createClass({
   },
   sortHighestRated: function(e){
     e.preventDefault();
-    var self = this;
-    // new geopoint from lat and lng in url
-    var parseGeo = new Parse.GeoPoint({
-        latitude: parseFloat(self.props.router.lat),
-        longitude: parseFloat(self.props.router.lng)
-      });
-    // new query
-    (new Parse.Query('Parks')).withinMiles("location", parseGeo, 10).descending("rating").find({
-      success: function(parks){
-        if(parks.length < 1){
-          // search is complete and still no parks, set this flag in state so notice can be displayed
-          self.setState({
-            "noParks": true
-          });
-        }
-        // otherwise, set returned parks in to state
-        self.setState({
-          "parks": parks
-        })
-      }
-    })
+    var parks = sorts.rating(this.state.parks);
+    this.setState({
+      "parks": parks,
+      "mapview": "rating"
+    });
   },
   sortDistance: function(e){
     e.preventDefault();
-    this.search();
+    var parks = sorts.distance(this.state.parks, this.state.mapCenter);
+    this.setState({
+      "parks": parks,
+      "mapview": "distance"
+    });
   },
-  search: function(center){
+  search: function(center, type){
+    console.log(this.state.parks);
+    var self = this;
+    // receiving type to determine where location is coming from and what format
+    self.setState({"pending": true})
     var parseGeo;
+    var noParks = false;
     // this only runs if there are no parks passed in in getInitialState
     // basically same function as setLocationObj, but is here in case someone navigates to results page by url only and doesnt use the search bar
     var self = this;
-    // if a center is passed in
-    if(center){
+    // if a center is passed in from drag or zoom
+    if(type === "mapChanged"){
       // make it the parseGeo
-      parseGeo = new Parse.GeoPoint(center);
-
-    } else {
+      parseGeo = center;
+    } else if(type === "url"){
       // this else is for getting new center in case map is loaded using only the URL lat and lng
-      parseGeo = new Parse.GeoPoint({
+      parseGeo = {
         //self.props.lat and lng are passed through URL
-        latitude: parseFloat(self.props.router.lat),
-        longitude: parseFloat(self.props.router.lng)
-      })
+
+        latitude: parseFloat(center.lat),
+        longitude: parseFloat(center.lng)
+      }
+    } else if(type === "searchBar"){
+      console.log('searchbar');
+      parseGeo = {latitude: center.lat, longitude: center.lng};
+    } else {
+      console.log("location input error", center);
+      return
     }
+    parseGeo = new Parse.GeoPoint(parseGeo);
     // new query
-    (new Parse.Query('Parks')).withinMiles("location", parseGeo, 10).find({
+    (new Parse.Query('Parks')).withinMiles("location", parseGeo, 10).include("reviews").find({
       success: function(parks){
+        console.log(parks);
         if(parks.length < 1){
           // search is complete and still no parks, set this flag in state so notice can be displayed
-          self.setState({
-            "noParks": true
-          });
+          noParks = true;
         }
         // otherwise, set returned parks in to state
         self.setState({
-          "parks": parks
-        })
-      }
-    })
-  },
-  setLocationObj: function(locationObj){
-    // receives info from google places api
-    var self = this;
-    // sets state as pending to contol input bar and search button during query
-    self.setState({"pending": true})
-    // new parse geopoint using lat and lng from locationObj
-    var parseGeo = new Parse.GeoPoint({latitude: locationObj.lat, longitude: locationObj.lng});
-    // new location query using parse geopoint
-    (new Parse.Query('Parks')).withinMiles("location", parseGeo, 10).include("reviews").find({
-      success: function(parks){
-        // then keep locationobj in state, set parks from query in state, and change pending to false for search button
-        self.setState({
-          "location": locationObj,
+          "noParks": noParks,
           "parks": parks,
-          "pending": false
+          "pending": false,
+          "mapCenter": parseGeo
         })
       }
     })
@@ -131,8 +116,9 @@ var InterfaceComponent = React.createClass({
   mapUrl: function(){
     // used in GoogleSearchComponent, gets lat and lng from state (they are being set in state by the query in setLocationObj)
     // lets lat and lng in state and navigates to results with lat and lng in url
-    var lat = this.state.location.lat;
-    var lng = this.state.location.lng;
+    var lat = this.state.mapCenter.latitude;
+    var lng = this.state.mapCenter.longitude;
+    console.log(lat);
     Backbone.history.navigate("parks/" + lat + "/" + lng, {trigger: true});
   },
   signUp: function(userObj){
@@ -185,7 +171,7 @@ var InterfaceComponent = React.createClass({
     Backbone.history.navigate('', {trigger: true});
   },
   render: function(){
-    console.log(this.state.parks);
+
     var body;
     if((this.state.router.current == "login")||(this.state.router.current == "signup")){
       body = (
@@ -196,9 +182,9 @@ var InterfaceComponent = React.createClass({
       body = (
         <SearchFormComponent
           mapUrl={this.mapUrl}
-          setLocationObj={this.setLocationObj}
+          search={this.search}
           page={this.state.router.current}
-          location={this.state.location}
+          mapCenter={this.state.mapCenter}
           pending={this.state.pending}
         />
       )
@@ -212,6 +198,7 @@ var InterfaceComponent = React.createClass({
           page={this.state.router.current}
           search={this.search}
           noParks={this.state.noParks}
+          mapCenter={this.state.mapCenter}
         />
       )
     }
@@ -220,10 +207,11 @@ var InterfaceComponent = React.createClass({
         <ParkMapComponent
           lat={this.props.router.lat}
           lng={this.props.router.lng}
-          location={this.state.location}
+          mapCenter={this.state.mapCenter}
           parks={this.state.parks}
           search={this.search}
           page={this.state.router.current}
+          mapview={this.state.mapview}
         />
       )
     }
@@ -269,6 +257,7 @@ var InterfaceComponent = React.createClass({
          search={this.search}
          sortDistance={this.sortDistance}
          sortHighestRated={this.sortHighestRated}
+         mapview={this.state.mapview}
         />
          {body}
       </div>

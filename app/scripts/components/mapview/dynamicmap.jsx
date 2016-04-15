@@ -39,7 +39,7 @@ var ParkMap = React.createClass({
     this.props.search({
       latitude: newCenter.lat(),
       longitude: newCenter.lng()
-    });
+    }, "mapChanged");
 
     this.setState({
       center: newCenter,
@@ -55,7 +55,7 @@ var ParkMap = React.createClass({
     this.props.search({
       latitude: newCenter.lat(),
       longitude: newCenter.lng()
-    });
+    }, "mapChanged");
 
     this.setState({
       center: newCenter,

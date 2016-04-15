@@ -21,7 +21,10 @@ var ParkGridComponent = React.createClass({
     // if the array is empty, make sure search has been return
     // this is in case someone navigates by url only and no search bar is used with the google geocode
     if(this.state.parks.length < 1){
-      this.props.search();
+      this.props.search({
+        lat: this.props.lat,
+        lng: this.props.lng
+      }, "url");
     }
   },
   render: function(){

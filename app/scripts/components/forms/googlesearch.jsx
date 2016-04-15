@@ -32,14 +32,14 @@ var GoogleSearchComponent = React.createClass({
             "lng": lng
           };
           //function to set in state
-          this.props.setLocationObj(locationObj);
+          this.props.search(locationObj, "searchBar");
         }.bind(this))
   },
   render: function(){
     var activeForm;
     var pendingIcon;
     //disables search button while query is searching
-    if(this.props.location){
+    if(this.props.mapCenter){
       activeForm = "";
     } else {
       activeForm = "disabled";

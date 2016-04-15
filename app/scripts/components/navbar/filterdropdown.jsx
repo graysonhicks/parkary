@@ -27,9 +27,6 @@ var FilterDropdownComponent = React.createClass({
   			console.log(error);
   		});
   },
-  newQuery: function(filters){
-
-  },
   handleCheck: function(amenity, checked){
     var addedAmenities = this.state.addedAmenities;
     // on check, add amenity to new array
