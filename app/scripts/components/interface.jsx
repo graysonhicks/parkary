@@ -96,7 +96,7 @@ var InterfaceComponent = React.createClass({
     }
     parseGeo = new Parse.GeoPoint(parseGeo);
     // new query
-    (new Parse.Query('Parks')).withinMiles("location", parseGeo, 10).include("reviews").limit(10).find({
+    (new Parse.Query('Parks')).withinMiles("location", parseGeo, 10).include("reviews").limit(50).find({
       success: function(parks){
         console.log(parks);
         if(parks.length < 1){

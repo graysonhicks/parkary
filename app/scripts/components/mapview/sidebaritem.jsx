@@ -38,7 +38,7 @@ var SidebarItemComponent = React.createClass({
     };
     // set icon based on counter to match
     var icon = {
-      url: "images/mapmarker" + this.props.counter + ".png"
+      url: "images/mapmarkers/mapmarker" + this.props.counter + ".png"
     }
     return (
           <div className={"row park-sidebar-list-item " + active}>

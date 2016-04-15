@@ -89,7 +89,7 @@ var ParkMap = React.createClass({
      var counter = index + 1;
       //
      var Icon = {
-        url: "images/mapmarker" + counter + ".png"
+        url: "images/mapmarkers/mapmarker" + counter + ".png"
      }
      // get parse location
      var markerLocation = marker.get("location");
