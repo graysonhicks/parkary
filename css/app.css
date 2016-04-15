@@ -1,3 +1,530 @@
-@import url(https://fonts.googleapis.com/css?family=Roboto:400,900,700,500,300,100);#treelogo{height:35px;width:35px;padding:0px}#treelogocontainer{padding:0px;padding-top:5px;padding-left:30px}#treelogo-login{padding:0px;height:35px;width:35px;position:relative;bottom:10px}.main-nav{background-color:#B3B3B3;border-color:#575555}#parkary-name{color:#fff;font-size:28px}#parkary-name:hover{color:#fff;text-decoration:none}#parkbold{font-weight:900}#parklight{font-weight:200}#pagename{font-size:16px;padding-left:20px;vertical-align:top;color:#fff}#page-name-container{padding-top:15px}.navbar-brand{position:absolute;width:100%;left:0;text-align:center;margin:auto;height:45px}.right-nav.navbar-right{padding-right:5%}.right-nav.navbar-right li a{color:#fff;font-size:16px}.right-nav.navbar-right li a:visited{color:#fff}#account-link{padding-top:13px;font-weight:900;font-size:20px}#account-link:focus{background-color:#B3B3B3}#account-link:active{background-color:#B3B3B3}#account-link:visited{background-color:#B3B3B3;color:#fff}#login-dropdown{margin-top:2px;background-color:#B3B3B3}#login-dropdown a.dropdown-menu-links:hover{background-color:#575555}#login-dropdown a.dropdown-menu-links:focus{background-color:#575555}#login-dropdown li:hover{background-color:#575555}.bootstrap-switch.wrapper{margin-top:10px}.fade-enter{opacity:0.01}.fade-enter.fade-enter-active{opacity:1;-webkit-transition:opacity 300ms ease-in;transition:opacity 300ms ease-in}.fade-leave{opacity:1}.fade-appear{opacity:0.01}.fade-appear.fade-appear-active{opacity:1;-webkit-transition:opacity 300ms ease-in;transition:opacity 300ms ease-in}.fade-leave.fade-leave-active{opacity:0.01;-webkit-transition:opacity 300ms ease-in;transition:opacity 300ms ease-in}.login-form-container,.signup-form-container{max-width:400px;margin-top:100px}.form-label{color:#fff;font-size:18px;padding-bottom:10px}#login-form-submit-btn{background-color:#008F00;border-color:#008F00}.login-signup-reminder{color:#fff;font-size:12px;text-decoration:underline}.login-signup-reminder:hover{color:#B3B3B3}.add-park-form-container{margin-top:25px}#park-form-submit-btn{background-color:#154873;border-color:#154873}.add-park-form-checkbox-labels{color:#fff;font-weight:normal}.add-image-url-btn{color:#fff;font-size:18px}.add-park-form-heading{color:#fff;font-weight:900}.main-search-form-container{max-width:650px;padding-top:15px;padding-bottom:15px;text-align:center}.search-form-panel{margin-top:125px;margin-bottom:0px;max-width:650px;background-color:transparent;border-radius:0px;border:none}#park-form-submit-btn{background-color:#008F00;border:none}#search-label-logo-container>span{vertical-align:bottom;font-size:24px}.thumbnail-row{padding-left:15px;padding-right:15px;padding-top:10px}.thumbnail-columns{padding-left:10px;padding-right:10px}.thumbnail{border-radius:0px;box-shadow:5px 5px 5px #575555;cursor:pointer}.park-name{font-size:16px;font-weight:500}.park-description{font-size:12px}.park-stars{color:#DAD10E}.park-card{margin-top:10px;max-width:90%;border-radius:0px}.park-card-images{max-height:275px}.park-card-name{font-size:16px;font-weight:500}.info-column,.image-column,.reviews-column,.map-column,.amenities-columns{padding:0px}.reviews-column{padding-right:30px}.review-date{padding-left:30px}.park-card-name-and-location-container{padding-left:0px}.park-card-rating-and-social-container{text-align:right}.park-card-rating-and-social-container,.park-card-name-and-location-container{margin-bottom:10px}.social-icons{padding-left:4px;font-size:18px}.fa-envelope.social-icons{color:#B3B3B3}.fa-twitter-square.social-icons{color:#25d1ff}.fa-facebook-official.social-icons{color:#003293}.fa-heart.social-icons{color:#930000}.park-card-stars{font-size:18px}.park-card-description{margin-bottom:25px}.checks{padding-right:3px;color:#008F00}.amenities{border:none;padding-left:0px;padding-right:0px;padding-top:5px;padding-bottom:5px}.reviews-heading{font-weight:600}.review{padding-top:10px}.reviewer-name{font-weight:500}.review-date{font-weight:300;font-size:12px}.review-content{margin-bottom:0px}.all-reviews-link{margin-top:5px}.profile-container{margin-top:10px;max-width:90%}.profile-card{border-radius:0px}.profile-social-container{text-align:right}.profile-card-images{max-height:275px}.map-container{margin-top:20px;width:95%}.map-column{padding-left:0px;padding-right:0px}.mapped-park-image{height:40px}.mapped-parks{padding-top:10px}.mapped-park-name{padding-left:5px}.mapped-park-name a{text-decoration:none;font-size:12px}.mapped-park-rating-container{padding-top:5px}.park-sidebar-list-item{margin-top:8px}*,*::before,*::after{box-sizing:border-box}img{max-width:100%}#main-container{background-image:url("../images/bg.jpg");background-position:center;background-size:cover;background-repeat:no-repeat;min-height:635px;font-family:Roboto;padding-top:50px}@-webkit-keyframes fadeIn{from{opacity:0}to{opacity:1}}@keyframes fadeIn{from{opacity:0}to{opacity:1}}.fade-in{opacity:0;-webkit-animation:fadeIn ease-in 1s;animation:fadeIn ease-in 1s;-webkit-animation-fill-mode:forwards;animation-fill-mode:forwards;-webkit-animation-duration:1s;animation-duration:1s;-webkit-animation-delay:.2s;animation-delay:.2s}
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,900,700,500,300,100);
+#treelogo {
+  height: 35px;
+  width: 35px;
+  padding: 0px; }
+
+#treelogocontainer {
+  padding: 0px;
+  padding-top: 5px;
+  padding-left: 30px; }
+
+#treelogo-login {
+  padding: 0px;
+  height: 35px;
+  width: 35px;
+  position: relative;
+  bottom: 10px; }
+
+.main-nav {
+  background-color: #B3B3B3;
+  border-color: #575555; }
+
+#parkary-name {
+  color: white;
+  font-size: 28px; }
+  #parkary-name:hover {
+    color: white;
+    text-decoration: none; }
+
+#parkbold {
+  font-weight: 900; }
+
+#parklight {
+  font-weight: 200; }
+
+#pagename {
+  font-size: 16px;
+  padding-left: 20px;
+  vertical-align: top;
+  color: white; }
+
+#page-name-container {
+  padding-top: 15px; }
+
+.navbar-brand {
+  position: absolute;
+  width: 100%;
+  left: 0;
+  text-align: center;
+  margin: auto;
+  height: 45px; }
+
+.right-nav.navbar-right {
+  padding-right: 5%; }
+  .right-nav.navbar-right li a {
+    color: white;
+    font-size: 16px; }
+    .right-nav.navbar-right li a:visited {
+      color: white; }
+
+#account-link {
+  padding-top: 13px;
+  font-weight: 900;
+  font-size: 20px; }
+  #account-link:focus {
+    background-color: #B3B3B3; }
+  #account-link:active {
+    background-color: #B3B3B3; }
+  #account-link:visited {
+    background-color: #B3B3B3;
+    color: white; }
+
+#login-dropdown {
+  margin-top: 2px; }
+
+#login-dropdown,
+#sort-by-dropdown,
+#filter-dropdown {
+  background-color: #B3B3B3; }
+  #login-dropdown a.dropdown-menu-links:hover,
+  #sort-by-dropdown a.dropdown-menu-links:hover,
+  #filter-dropdown a.dropdown-menu-links:hover {
+    background-color: #575555; }
+  #login-dropdown a.dropdown-menu-links:focus,
+  #sort-by-dropdown a.dropdown-menu-links:focus,
+  #filter-dropdown a.dropdown-menu-links:focus {
+    background-color: #575555; }
+  #login-dropdown li:hover,
+  #sort-by-dropdown li:hover,
+  #filter-dropdown li:hover {
+    background-color: #575555; }
+
+#filter-dropdown {
+  width: 500px; }
+
+.bootstrap-switch.wrapper {
+  margin-top: 10px; }
+
+.fade-enter {
+  opacity: 0.01; }
+
+.fade-enter.fade-enter-active {
+  opacity: 1;
+  -webkit-transition: opacity 300ms ease-in;
+  transition: opacity 300ms ease-in; }
+
+.fade-leave {
+  opacity: 1; }
+
+.fade-appear {
+  opacity: 0.01; }
+
+.fade-appear.fade-appear-active {
+  opacity: 1;
+  -webkit-transition: opacity 300ms ease-in;
+  transition: opacity 300ms ease-in; }
+
+.fade-leave.fade-leave-active {
+  opacity: 0.01;
+  -webkit-transition: opacity 300ms ease-in;
+  transition: opacity 300ms ease-in; }
+
+.login-form-container,
+.signup-form-container {
+  max-width: 400px;
+  margin-top: 100px; }
+
+.form-label {
+  color: white;
+  font-size: 18px;
+  padding-bottom: 10px; }
+
+#login-form-submit-btn {
+  background-color: #008F00;
+  border-color: #008F00; }
+
+.login-signup-reminder {
+  color: white;
+  font-size: 12px;
+  text-decoration: underline; }
+  .login-signup-reminder:hover {
+    color: #B3B3B3; }
+
+.add-park-form-container {
+  margin-top: 25px; }
+
+#park-form-submit-btn {
+  background-color: #154873;
+  border-color: #154873; }
+
+.add-park-form-checkbox-labels {
+  color: white;
+  font-weight: normal; }
+
+.add-image-url-btn {
+  color: white;
+  font-size: 18px; }
+
+.add-park-form-heading {
+  color: white;
+  font-weight: 900; }
+
+.add-edit-thumbnails {
+  height: 50px;
+  width: 50px; }
+
+.main-search-form-container {
+  max-width: 650px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  text-align: center; }
+
+.search-form-panel {
+  margin-top: 125px;
+  margin-bottom: 0px;
+  max-width: 650px;
+  background-color: transparent;
+  border-radius: 0px;
+  border: none; }
+
+#park-form-submit-btn {
+  background-color: #008F00;
+  border: none; }
+
+#search-label-logo-container > span {
+  vertical-align: bottom;
+  font-size: 24px; }
+
+.thumbnail-row {
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-top: 10px; }
+
+.thumbnail-columns {
+  padding-left: 10px;
+  padding-right: 10px; }
+
+.thumbnail {
+  border-radius: 0px;
+  box-shadow: 5px 5px 5px #575555;
+  cursor: pointer; }
+
+.park-name {
+  font-size: 16px;
+  font-weight: 500; }
+
+.park-description {
+  font-size: 12px; }
+
+.park-stars span {
+  color: #737373; }
+  .park-stars span:hover {
+    text-decoration: none; }
+.park-stars .is-active {
+  color: #DAD10E; }
+.park-stars .will-be-active {
+  text-decoration: none;
+  color: #DAD10E; }
+
+.thumbnail-link:hover {
+  text-decoration: none; }
+
+.thumbnail-images {
+  min-height: 215px; }
+
+.park-card {
+  margin-top: 10px;
+  max-width: 90%;
+  border-radius: 0px; }
+
+.park-card-name {
+  font-size: 16px;
+  font-weight: 500; }
+
+.info-column,
+.image-column,
+.reviews-column,
+.map-column,
+.amenities-columns {
+  padding: 0px; }
+
+.top-park-card-row {
+  margin-bottom: 10px; }
+
+.image-column {
+  padding-right: 10px; }
+
+.reviews-column {
+  padding-right: 30px; }
+
+.image-carousel {
+  min-height: 400px;
+  max-height: 400px;
+  overflow: hidden; }
+
+.carousel-images {
+  width: 100%;
+  min-height: 100%; }
+
+.review-date {
+  padding-left: 30px; }
+
+.park-card-name-and-location-container {
+  padding-left: 0px; }
+
+.park-card-rating-and-social-container {
+  text-align: right; }
+
+.park-card-rating-and-social-container,
+.park-card-name-and-location-container {
+  margin-bottom: 10px; }
+
+.social-icons {
+  padding-left: 4px;
+  font-size: 20px; }
+
+.fa-envelope.social-icons {
+  color: #B3B3B3; }
+
+.fa-twitter-square.social-icons {
+  color: #25d1ff; }
+
+.fa-facebook-official.social-icons {
+  color: #003293; }
+
+.fa-heart.social-icons.heart-red {
+  color: #930000; }
+
+.fa-heart.social-icons.heart-gray {
+  color: #737373; }
+
+.park-card-heart {
+  cursor: pointer; }
+
+.park-rating-number {
+  font-size: 10px;
+  color: #737373; }
+
+.park-card-stars {
+  font-size: 18px; }
+  .park-card-stars span {
+    color: #737373; }
+  .park-card-stars .is-active {
+    color: #DAD10E; }
+  .park-card-stars .will-be-active {
+    text-decoration: none;
+    color: #DAD10E; }
+
+.park-card-description {
+  margin-bottom: 25px; }
+
+.checks {
+  padding-right: 3px;
+  color: #008F00; }
+
+.amenities {
+  border: none;
+  padding-left: 0px;
+  padding-right: 0px;
+  padding-top: 5px;
+  padding-bottom: 5px; }
+
+.close-login-notice-btn {
+  cursor: pointer; }
+
+.add-review-button {
+  cursor: pointer; }
+
+.all-reviews-link {
+  cursor: pointer; }
+
+.reviews-heading {
+  font-weight: 600; }
+
+.review {
+  padding-top: 10px; }
+
+.reviewer-name {
+  font-weight: 500; }
+
+.review-date {
+  font-weight: 300;
+  font-size: 12px; }
+
+.review-content {
+  margin-bottom: 0px; }
+
+.all-reviews-link {
+  margin-top: 5px; }
+
+.profile-container {
+  margin-top: 10px;
+  max-width: 90%; }
+
+.profile-card {
+  border-radius: 0px; }
+  .profile-card .image-column,
+  .profile-card .info-column,
+  .profile-card .reviews-column,
+  .profile-card .profile-favorites-column {
+    min-height: 225px; }
+
+.profile-description {
+  padding-left: 0px; }
+
+.profile-card-image {
+  width: 100%; }
+
+.profile-social-container {
+  text-align: right; }
+
+.profile-card-images {
+  max-height: 275px; }
+
+.map-panel-body {
+  padding-right: 0px; }
+
+.map-container {
+  margin-top: 20px;
+  width: 95%; }
+
+.map-column {
+  padding-left: 0px;
+  padding-right: 0px; }
+
+.mapped-park-image {
+  height: 40px; }
+
+.mapped-parks {
+  padding-top: 10px; }
+
+.mapped-park-name {
+  padding-left: 5px; }
+  .mapped-park-name a {
+    text-decoration: none;
+    font-size: 12px; }
+
+.park-sidebar-list-item-col {
+  padding-left: 0px;
+  padding-right: 0px; }
+
+.mapped-park-rating-container {
+  padding-top: 5px;
+  padding-left: 0px;
+  padding-right: 0px; }
+
+.mapped-park-rating-number {
+  font-size: 10px;
+  color: #B3B3B3; }
+
+.mapped-park-stars {
+  font-size: 16px; }
+  .mapped-park-stars span {
+    color: #737373; }
+    .mapped-park-stars span:hover {
+      text-decoration: none; }
+  .mapped-park-stars .is-active {
+    color: #DAD10E; }
+  .mapped-park-stars .will-be-active {
+    text-decoration: none;
+    color: #DAD10E; }
+
+.park-sidebar-list-item {
+  padding: 8px; }
+
+div.row.park-sidebar-list-item.active {
+  background-color: rgba(0, 143, 0, 0.6); }
+  div.row.park-sidebar-list-item.active .mapped-park-name a {
+    color: white; }
+
+.mapped-park-number {
+  padding-right: 5px; }
+  .mapped-park-number img {
+    height: 35px; }
+
+.loading-panel {
+  margin-top: 40px;
+  width: 70%;
+  text-align: center; }
+
+.new-review-stars {
+  font-size: 24px;
+  cursor: pointer;
+  text-align: center; }
+  .new-review-stars span {
+    color: #737373; }
+  .new-review-stars .is-active {
+    color: #DAD10E; }
+  .new-review-stars .will-be-active {
+    text-decoration: none;
+    color: #DAD10E; }
+
+.edit-rating-button {
+  cursor: pointer; }
+
+.not-logged-in-container {
+  text-align: center; }
+
+.warning-modal-header {
+  background-color: #B3B3B3;
+  padding: 5px; }
+
+#warning-parkary-name {
+  color: white;
+  font-size: 28px;
+  vertical-align: bottom;
+  margin-left: 15px; }
+  #warning-parkary-name:hover {
+    color: white;
+    text-decoration: none; }
+
+#warning-parkbold {
+  font-weight: 900;
+  vertical-align: bottom; }
+
+#warning-parklight {
+  font-weight: 200;
+  vertical-align: bottom; }
+
+#warning-treelogo {
+  height: 35px;
+  width: 35px;
+  padding: 0px; }
+
+#warning-treelogocontainer {
+  padding: 0px;
+  padding-top: 5px;
+  padding-left: 30px;
+  vertical-align: bottom; }
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box; }
+
+img {
+  max-width: 100%; }
+
+#main-container {
+  background-image: url("../images/bg.jpg");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  min-height: 635px;
+  font-family: Roboto;
+  padding-top: 50px; }
+
+@-webkit-keyframes fadeIn {
+  from {
+    opacity: 0; }
+  to {
+    opacity: 1; } }
+
+@keyframes fadeIn {
+  from {
+    opacity: 0; }
+  to {
+    opacity: 1; } }
+.fade-in {
+  opacity: 0;
+  -webkit-animation: fadeIn ease-in 1s;
+          animation: fadeIn ease-in 1s;
+  -webkit-animation-fill-mode: forwards;
+          animation-fill-mode: forwards;
+  -webkit-animation-duration: 1s;
+          animation-duration: 1s;
+  -webkit-animation-delay: 0.2s;
+          animation-delay: 0.2s; }
 
 /*# sourceMappingURL=app.css.map */
