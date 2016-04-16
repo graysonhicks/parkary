@@ -91,7 +91,7 @@
     background-color: #575555; }
 
 #filter-dropdown {
-  width: 500px; }
+  width: 600px; }
 
 .bootstrap-switch.wrapper {
   margin-top: 10px; }
@@ -235,6 +235,13 @@
   font-size: 16px;
   font-weight: 500; }
 
+.close-park-card-btn {
+  cursor: pointer;
+  color: #B3B3B3;
+  font-size: 20px;
+  margin-right: 5px;
+  margin-top: 5px; }
+
 .info-column,
 .image-column,
 .reviews-column,
@@ -374,6 +381,13 @@
 
 .profile-card-images {
   max-height: 275px; }
+
+.close-profile-card-btn {
+  cursor: pointer;
+  color: #B3B3B3;
+  font-size: 20px;
+  margin-right: 5px;
+  margin-top: 5px; }
 
 .map-panel-body {
   padding-right: 0px; }
@@ -541,4 +555,5 @@ img {
           animation-duration: 1s;
   -webkit-animation-delay: 0.2s;
           animation-delay: 0.2s; }
+
 /*# sourceMappingURL=app.css.map */
