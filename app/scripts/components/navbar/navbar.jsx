@@ -24,7 +24,6 @@ var NavbarComponent = React.createClass({
           this.props.search();
         }
     }
-
   },
   render: function(){
     var nav;
@@ -45,6 +44,7 @@ var NavbarComponent = React.createClass({
         parks={this.state.parks}
         sortDistance={this.props.sortDistance}
         sortHighestRated={this.props.sortHighestRated}
+        filterAmenity={this.props.filterAmenity}
       />
       )
     }

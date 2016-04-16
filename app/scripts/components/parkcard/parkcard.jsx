@@ -70,6 +70,10 @@ var ParkCardComponent = React.createClass({
       showModal: false
     })
   },
+  closeParkCard: function(e){
+    e.preventDefault();
+      Backbone.history.navigate("parks/" + this.props.router.lat + "/" + this.props.router.lng, {"trigger": true});
+  },
   toggleFavorite: function(){
     var user = this.props.user;
     // require a user to add favorites
@@ -112,7 +116,7 @@ var ParkCardComponent = React.createClass({
         return (
         <div className="container-fluid park-card-container">
           <div className="panel panel-default park-card center-block">
-            <i className="pull-right fa fa-times"></i>
+            <i onClick={this.closeParkCard} className="pull-right fa fa-times close-park-card-btn"></i>
             <div className="panel-body">
              <div className="container-fluid">
                <div className="row top-park-card-row">

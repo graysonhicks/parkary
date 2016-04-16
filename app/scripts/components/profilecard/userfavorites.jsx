@@ -53,8 +53,6 @@ var UserFavoritesComponent = React.createClass({
     }
     // mapped review with fields set
       var userFavorite = function(favorite){
-        console.log('favorite', favorite);
-
           var favoriteImages = favorite.get("images");
           var favoriteImage = favoriteImages[0];
         // Check how many favorites
@@ -65,7 +63,6 @@ var UserFavoritesComponent = React.createClass({
           if(numberOfGridColumns < 3){
             numberOfGridColumns = 3;
           }
-
 
         return(
             <div className={"favorite-images-columns col-xs-6 col-md-" + numberOfGridColumns}>

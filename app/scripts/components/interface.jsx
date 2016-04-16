@@ -65,8 +65,28 @@ var InterfaceComponent = React.createClass({
       "mapview": "distance"
     });
   },
+  filterAmenity: function(addedAmenities){
+        // map over all parks
+      var parks = this.state.parks;
+      parks = parks.filter(function(park){
+        var mappedPark;
+        var relation = park.relation("amenities");
+        var query = relation.query();
+        query.find().then(function(parkAmenities){
+          parkAmenities.filter(function(amenity){
+            addedAmenities.map(function(filter){
+              if(filter.id === amenity.id){
+                return park;
+              } else {
+                return;
+              }
+
+            });
+          });
+        });
+      });
+  },
   search: function(center, type){
-    console.log(this.state.parks);
     var self = this;
     // receiving type to determine where location is coming from and what format
     self.setState({"pending": true})
@@ -227,6 +247,7 @@ var InterfaceComponent = React.createClass({
           parkId={this.state.router.parkId}
           page={this.state.router.current}
           user={this.state.user}
+          router={this.state.router}
         />
       )
     }
@@ -257,6 +278,7 @@ var InterfaceComponent = React.createClass({
          search={this.search}
          sortDistance={this.sortDistance}
          sortHighestRated={this.sortHighestRated}
+         filterAmenity={this.filterAmenity}
          mapview={this.state.mapview}
         />
          {body}

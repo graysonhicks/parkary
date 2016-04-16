@@ -33,13 +33,13 @@ var FilterDropdownComponent = React.createClass({
     if(checked){
       // push amenity
       addedAmenities.push(amenity);
-      this.newQuery(addedAmenities);
+      this.props.filterAmenity(addedAmenities);
     } else {
       //other wise find amenity and remove if unchecked
       for(var i = 0; i < addedAmenities.length; i++) {
             if (addedAmenities[i] == amenity) {
               addedAmenities.splice(i, 1);
-              this.newQuery(addedAmenities);
+              this.props.filterAmenity(addedAmenities);
             }
         }
     }

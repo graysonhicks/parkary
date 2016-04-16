@@ -1,4 +1,5 @@
 var _ = require('underscore');
+var Parse = require('parse');
 
 function pythag(x, y){
   var dist = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2));

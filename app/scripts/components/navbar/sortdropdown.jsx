@@ -7,12 +7,6 @@ require('backbone-react-component');
 
 var SortDropdownComponent = React.createClass({
   mixins: [Backbone.React.Component.mixin],
-  handleSortDistance:function(){
-
-  },
-  handleSortRated: function(){
-
-  },
   render: function(){
     return (
       <li className="dropdown">

@@ -25,6 +25,10 @@ var ProfileComponent = React.createClass({
     }.bind(this));
 
   },
+  closeProfileCard: function(e){
+    e.preventDefault();
+    Backbone.history.navigate("", {"trigger": true});
+  },
   render: function(){
     if(!this.state.user){
       return(<LoadingComponent />)
@@ -34,7 +38,7 @@ var ProfileComponent = React.createClass({
         return (
         <div className="container-fluid profile-container">
           <div className="panel panel-default profile-card center-block">
-            <i className="pull-right fa fa-times"></i>
+            <i onClick={this.closeProfileCard} className="pull-right fa fa-times close-profile-card-btn"></i>
             <div className="panel-body">
                <div className="container-fluid">
                  <div className="row">
