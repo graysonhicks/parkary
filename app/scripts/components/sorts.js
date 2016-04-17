@@ -17,6 +17,16 @@ module.exports = {
     parks.reverse();
     return parks;
   },
+  popularity: function(parks){
+    // sort by descending rating
+    console.log(parks);
+    parks = _.sortBy(parks, function(park){
+      return park.get("aggregateRating");
+    });
+    //reverse to ascending
+    parks.reverse();
+    return parks;
+  },
   distance: function(parks, center){
     // sort by  rating
     console.log('center', center);

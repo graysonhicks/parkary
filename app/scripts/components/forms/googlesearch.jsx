@@ -37,7 +37,7 @@ var GoogleSearchComponent = React.createClass({
   },
   render: function(){
     var activeForm;
-    var pendingIcon;
+    var searchButton;
     //disables search button while query is searching
     if(this.props.mapCenter){
       activeForm = "";
@@ -46,7 +46,9 @@ var GoogleSearchComponent = React.createClass({
     }
     // Spinner bucket while query is fetching
     if(this.props.pending){
-      pendingIcon = (<i className="fa fa-spinner fa-spin search-form-spinner" aria-hidden="true"></i>)
+      searchButton = (<button type="submit" id="park-form-submit-btn" className={"btn btn-primary pull-right " + activeForm}>searching! <i className="fa fa-spinner fa-spin search-form-spinner" aria-hidden="true"></i></button>)
+    } else {
+      searchButton = (<button type="submit" id="park-form-submit-btn" className={"btn btn-primary pull-right " + activeForm}>search</button>)
     }
     return(
       <form className="main-search-form" onSubmit={this.handleSubmit}>
@@ -54,7 +56,7 @@ var GoogleSearchComponent = React.createClass({
           <label className="form-label" id="main-search-label" htmlFor="park-form-name"><img id="treelogo" src="images/treelogo.png" /><span id="search-label-logo-container"><span id="parkbold">park</span><span id="parklight">ary</span></span></label>
           <input type="text" required className="form-control" id="park-form-name" placeholder="find a city park near you" />
         </fieldset>
-        <button type="submit" id="park-form-submit-btn" className={"btn btn-primary pull-right " + activeForm}>search {pendingIcon}</button>
+        {searchButton}
       </form>
       )
         }

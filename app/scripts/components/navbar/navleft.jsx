@@ -73,6 +73,7 @@ var NavLeftComponent = React.createClass({
           <SortDropdownComponent
             sortHighestRated={this.props.sortHighestRated}
             sortDistance={this.props.sortDistance}
+            sortPopularity={this.props.sortPopularity}
             parks={this.props.parks}
           />
           <LoginDropdownComponent logout={this.props.logout} user={this.props.user}  />

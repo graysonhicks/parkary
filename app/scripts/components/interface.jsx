@@ -57,6 +57,14 @@ var InterfaceComponent = React.createClass({
       "mapview": "rating"
     });
   },
+  sortPopularity: function(e){
+    e.preventDefault();
+    var parks = sorts.popularity(this.state.parks);
+    this.setState({
+      "parks": parks,
+      "mapview": "rating"
+    });
+  },
   sortDistance: function(e){
     e.preventDefault();
     var parks = sorts.distance(this.state.parks, this.state.mapCenter);
@@ -278,6 +286,7 @@ var InterfaceComponent = React.createClass({
          search={this.search}
          sortDistance={this.sortDistance}
          sortHighestRated={this.sortHighestRated}
+         sortPopularity={this.sortPopularity}
          filterAmenity={this.filterAmenity}
          mapview={this.state.mapview}
         />

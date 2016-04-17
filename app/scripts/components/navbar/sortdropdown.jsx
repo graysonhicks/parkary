@@ -15,6 +15,7 @@ var SortDropdownComponent = React.createClass({
           <ul id="sort-by-dropdown" className="dropdown-menu">
             <li><a className="dropdown-menu-links" onClick={this.props.sortDistance} value="distance" href="#">distance</a></li>
             <li><a className="dropdown-menu-links" onClick={this.props.sortHighestRated} value="rating" href="#">rating</a></li>
+            <li><a className="dropdown-menu-links" onClick={this.props.sortPopularity} value="popularity" href="#">popularity</a></li>
           </ul>
       </li>
           )

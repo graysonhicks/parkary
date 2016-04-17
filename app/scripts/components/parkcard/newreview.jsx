@@ -156,9 +156,10 @@ var NewReviewComponent = React.createClass({
             <fieldset>
               {editRatingButton}
               <Rater interactive={this.state.interactive} onClick={this.setRating} rating={this.state.rating} onRate={this.addRating} className="new-review-stars"/>
+              <div className="text-center">Set your star rating</div>
             </fieldset>
-            <button type="submit" className="btn btn-success pull-right">Submit Review</button>
-            <button className="btn btn-danger pull-right" onClick={this.props.cancelReview}>Cancel</button>
+            <button type="submit" className="btn btn-success submit-review-btn pull-right">submit</button>
+            <button className="btn btn-danger cancel-review-btn pull-right" onClick={this.props.cancelReview}>cancel</button>
          </form>
        </div>
      </div>

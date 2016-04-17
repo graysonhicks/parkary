@@ -43,6 +43,7 @@ var NavbarComponent = React.createClass({
         page={this.props.page}
         parks={this.state.parks}
         sortDistance={this.props.sortDistance}
+        sortPopularity={this.props.sortPopularity}
         sortHighestRated={this.props.sortHighestRated}
         filterAmenity={this.props.filterAmenity}
       />

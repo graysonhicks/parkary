@@ -31,19 +31,22 @@ var MainInfoComponent = React.createClass({
 
     return (
       <div>
-        <div className="col-md-6 park-card-name-and-location-container">
-          <div className="park-card-name">{park.get("name")}</div>
-          <div className="park-card-location">Greenville, SC</div>
-        </div>
-        <div className="col-md-6 park-card-rating-and-social-container">
-          <div className="park-card-rating">
-            <Rater interactive={false} className="park-card-stars" total={5} rating={park.get("rating")} />
+
+          <div className="col-md-6 park-card-name-and-location-container">
+            <div className="park-card-name">{park.get("name")}</div>
+            <div className="park-card-location">Greenville, SC</div>
+            <SocialIconsComponent toggleFavorite={this.props.toggleFavorite} favorite={this.props.favorite} />
           </div>
-          <div className="park-rating-number"><span>({park.get("rating")})</span></div>
-          <SocialIconsComponent toggleFavorite={this.props.toggleFavorite} favorite={this.props.favorite} />
-        </div>
-        <div className="park-card-description">
-          <p>{park.get("description")}</p>
+          <div className="col-md-6 park-card-rating-and-social-container">
+            <div className="park-card-rating">
+              <Rater interactive={false} className="park-card-stars" total={5} rating={park.get("rating")} />
+            </div>
+            <div className="park-rating-number"><span>({park.get("rating")} on {park.get("reviews").length} reviews)</span></div>
+
+          </div>
+
+        <div className="park-card-description col-md-12">
+          <div>{park.get("description")}</div>
         </div>
       </div>
     )

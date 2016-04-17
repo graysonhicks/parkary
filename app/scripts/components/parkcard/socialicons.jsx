@@ -12,7 +12,7 @@ var Tooltip = require('react-bootstrap').Tooltip;
 Parse.initialize("parkary");
 Parse.serverURL = 'http://parkary.herokuapp.com';
 
-
+var FacebookShareComponent = require('./facebookshare.jsx').FacebookShareComponent;
 
 var SocialIconsComponent = React.createClass({
   mixins: [Backbone.React.Component.mixin],
@@ -58,7 +58,7 @@ var SocialIconsComponent = React.createClass({
               <i className="fa fa-twitter-square social-icons"></i>
             </OverlayTrigger>
             <OverlayTrigger placement="bottom" overlay={facebookTooltip}>
-              <i className="fa fa-facebook-official social-icons"></i>
+              <FacebookShareComponent />
             </OverlayTrigger>
             <OverlayTrigger placement="bottom" overlay={favoriteTooltip}>
               <i onClick={this.props.toggleFavorite} className={"fa fa-heart social-icons park-card-heart " + heartClass}></i>
