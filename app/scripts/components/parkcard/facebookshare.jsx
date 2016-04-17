@@ -4,38 +4,35 @@ var ShareButtons = require('react-share').ShareButtons;
 var ShareCounts = require('react-share').ShareCounts;
 var generateShareIcon = require('react-share').generateShareIcon;
 var FacebookShareButton = ShareButtons.FacebookShareButton;
-var FacebookShareCount = ShareCounts.FacebookShareCount;
 var FacebookIcon = generateShareIcon('facebook');
-var TwitterShareButton = ShareButtons.TwitterShareButton;
-var TwitterShareCount = ShareCounts.TwitterShareCount;
-var TwitterIcon = generateShareIcon('twitter');
+var OverlayTrigger = require('react-bootstrap').OverlayTrigger;
+var Tooltip = require('react-bootstrap').Tooltip;
 
 var FacebookShareComponent = React.createClass({
   mixins: [Backbone.React.Component.mixin],
   render: function() {
-    var shareUrl = 'http://github.com';
-    var title = 'GitHub';
-
+    var facebookTooltip = (
+      <Tooltip id="facebook-tooltip">Share with Facebook</Tooltip>
+    )
+    var shareUrl = 'https://parkary.com/' + Backbone.history.fragment;
+    var title = 'Parkary - ' + this.props.park.get("name");
+    var message = "Check out this awesome park I found on parkary.com!"
+    console.log(shareUrl);
+    console.log(title);
     return (
-      <div className="Demo__container">
-        <div className="Demo__some-network">
+      <OverlayTrigger placement="bottom" overlay={facebookTooltip}>
+        <div className="facebook-share-container">
           <FacebookShareButton
             url={shareUrl}
             title={title}
-            className="Demo__some-network__share-button">
+            message={message}
+            className="social-icons facebook-share-button">
             <FacebookIcon
-              size={32}
+              size={20}
              />
           </FacebookShareButton>
-
-          <FacebookShareCount
-            url={shareUrl}
-            className="Demo__some-network__share-count">
-
-          </FacebookShareCount>
         </div>
-
-      </div>
+      </OverlayTrigger>
       )
     }
       });

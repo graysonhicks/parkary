@@ -35,7 +35,7 @@ var MainInfoComponent = React.createClass({
           <div className="col-md-6 park-card-name-and-location-container">
             <div className="park-card-name">{park.get("name")}</div>
             <div className="park-card-location">Greenville, SC</div>
-            <SocialIconsComponent toggleFavorite={this.props.toggleFavorite} favorite={this.props.favorite} />
+            <SocialIconsComponent park={this.props.park} toggleFavorite={this.props.toggleFavorite} favorite={this.props.favorite} />
           </div>
           <div className="col-md-6 park-card-rating-and-social-container">
             <div className="park-card-rating">
