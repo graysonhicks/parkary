@@ -28,10 +28,9 @@ var MainInfoComponent = React.createClass({
 
     // receive park from parkcard and parkcardinfo component and set fields
     var park = this.props.park;
-
+    console.log(park.get("location"));
     return (
       <div>
-
           <div className="col-md-6 park-card-name-and-location-container">
             <div className="park-card-name">{park.get("name")}</div>
             <div className="park-card-location">Greenville, SC</div>

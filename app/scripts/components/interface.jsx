@@ -44,6 +44,7 @@ var InterfaceComponent = React.createClass({
         // do stuff with the user
         this.setState({'user': currentUser});
       }
+
   },
   componentWillUnmount: function(){
     // forces update on component unmounts

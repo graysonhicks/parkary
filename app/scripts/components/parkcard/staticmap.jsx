@@ -23,16 +23,16 @@ var ParkMap = React.createClass({
      markers: [{
        position: this.props.location,
        key: 'one'
-     }]
+     }],
+     center: this.props.location
     }
   },
-  componentWillMount: function(){
-   if(this.props.allReviews){
-     this.forceUpdate();
-   }
+  handleResize: function(){
+    console.log('resize');
+    this.forceUpdate();
   },
   render: function(){
-    var width;
+    var mapStyle;
     // map over array and set icon
     var markers = this.state.markers.map(function(marker, index){
      marker.icon = Icon;
@@ -43,22 +43,29 @@ var ParkMap = React.createClass({
          />
      )
    }.bind(this));
-
+   if(this.props.allReviews){
+     mapStyle = {
+        height: "100%",
+        width:"100%"
+      }
+   } else {
+     mapStyle = {height: "100%"}
+   }
     return (
       <section style={{height: "255px"}}>
       <GoogleMapLoader
         containerElement={
           <div
             {...this.props}
-            style={{
-              height: "100%"
-            }}
+            style={mapStyle}
           />
         }
         googleMapElement={
          <GoogleMap
+            style={{mapStyle}}
+            onReSize={this.handleResize}
             defaultZoom={15}
-            defaultCenter={this.props.location}
+            defaultCenter={this.state.center}
           >
           {markers}
           </GoogleMap>

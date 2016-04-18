@@ -6,7 +6,6 @@ var Backbone = require('backbone');
 require('backbone-react-component');
 var Parse = require('parse');
 
-
 var LocationComponent = require('./staticmap.jsx').LocationComponent;
 var ParkImageCarouselComponent = require('./parkimagecarousel.jsx').ParkImageCarouselComponent;
 var FullParkImageCarouselComponent = require('./fullcarousel.jsx').FullParkImageCarouselComponent;
@@ -24,6 +23,16 @@ var ParkCardComponent = React.createClass({
 	    };
 	},
   componentWillMount: function(){
+  var query = (new Parse.Query(Parse.Role));
+    query.equalTo("name", "Administrator");
+    query.equalTo("users", Parse.User.current());
+    query.first().then(function(adminRole) {
+        if (adminRole) {
+            console.log("user is an admin");
+        } else {
+            console.log("user is not an admin");
+        }
+    });
     var self = this;
     // Get users favorites to see if heart icon should show favorited
     if(this.props.user){

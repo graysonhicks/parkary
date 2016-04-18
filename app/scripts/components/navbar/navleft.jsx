@@ -83,7 +83,7 @@ var NavLeftComponent = React.createClass({
       return(
         <ReactCSSTransitionGroup transitionName="fade" transitionAppear={true} transitionAppearTimeout={500} transitionEnterTimeout={500} transitionLeaveTimeout={300}>
           <div>
-            <div className="nav navbar-nav navbar-left">
+            <div className="nav navbar-nav navbar-left main-logo-nav-left">
                 <li><a id="treelogocontainer" href="#"><img id="treelogo" src="images/treelogo.png" /></a></li>
                 <li><a href="#" id="parkary-name"><span id="parkbold">park</span><span id="parklight">ary</span></a></li>
                 <li id="page-name-container">
