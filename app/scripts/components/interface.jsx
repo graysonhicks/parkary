@@ -75,13 +75,11 @@ var InterfaceComponent = React.createClass({
   },
   filterAmenity: function(addedAmenities){
     var self = this;
-        // map over all parks
-        console.log('filterfunc');
-    this.setState({"addedAmenities": addedAmenities}, this.search(this.state.mapCenter, "mapChanged"));
-
+    var filterAmenities = addedAmenities;
+    this.search(this.state.mapCenter, "mapChanged", filterAmenities);
 
   },
-  search: function(center, type){
+  search: function(center, type, filterAmenities){
     var self = this;
     // receiving type to determine where location is coming from and what format
     self.setState({"pending": true})
@@ -114,13 +112,17 @@ var InterfaceComponent = React.createClass({
     parkQuery
       .withinMiles("location", parseGeo, 10)
       .include("reviews")
+      .include("newAmenities")
       .limit(50);
 
-    // Apply amentity filter
-    if(this.state.addedAmenities){
-      console.log('addedAmenities', this.state.addedAmenities);
-      if(this.state.addedAmenities > 0){
-          parkQuery.containsAll("amenities", this.state.addedAmenities);
+    //Apply amentity filter
+
+    console.log('addedAmenities', this.state.addedAmenities);
+
+
+    if(filterAmenities){
+      if(filterAmenities.length > 0){
+         parkQuery.containsAll("newAmenities", filterAmenities);
       }
     }
 

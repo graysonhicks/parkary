@@ -164,13 +164,8 @@ var EditParkComponent = React.createClass({
         description: this.state.description
     }
     // Add checked amenities to park relation
-    var relation = park.relation("amenities");
-
-    this.state.addedAmenities.forEach(function(amenity){
-      // for each amenity, add it in the parks amenity relation field
-      relation.add(amenity);
-    });
     // Set to Parse Park
+    park.set("newAmenities", this.state.addedAmenities);
     park.set("images", this.state.images); // grab array of parse image files and set
     park.set(newParkData); //set basic data
     park.set("location", gp); // let geopoint location

@@ -16,12 +16,15 @@ var AmenitiesInfoComponent = React.createClass({
   mixins: [Backbone.React.Component.mixin],
 	componentWillMount: function() {
     // query amenities relation based on park passed in from parkcard and parkcardinfo component
-		var self = this;
-		var relation = this.props.park.relation("amenities");
-    var query = relation.query().find().then(function(obj){
-      // set amenities in state
-      self.setState({"amenities": obj})
-    });
+		// var self = this;
+		// var relation = this.props.park.relation("amenities");
+    // var query = relation.query().find().then(function(obj){
+    //   // set amenities in state
+    //   self.setState({"amenities": obj})
+    // });
+    this.setState({
+      "amenities": this.props.park.get("newAmenities")
+    })
 
 	},
   render: function(){
