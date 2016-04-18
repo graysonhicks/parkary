@@ -29,6 +29,7 @@ var FilterDropdownComponent = React.createClass({
   },
   handleCheck: function(amenity, checked){
     var addedAmenities = this.state.addedAmenities;
+
     // on check, add amenity to new array
     if(checked){
       // push amenity
@@ -43,8 +44,10 @@ var FilterDropdownComponent = React.createClass({
             }
         }
     }
+
   },
   render: function(){
+
     if(!this.state.allAmenities){
       return(<h1>Loading</h1>)
     }

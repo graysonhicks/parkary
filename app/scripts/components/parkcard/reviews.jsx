@@ -18,12 +18,12 @@ var ReviewsComponent = React.createClass({
     }
   },
   componentWillMount: function(){
+
     var query = new Parse.Query("Parks");
     query.include("reviews");
     query.include("reviews.userId")
     query.get(this.props.parkId).then(function(park){
       // set location and current parse park object in state
-      console.log('reviews in main comp query', park.get("reviews"));
       this.setState({
         "reviews": park.get("reviews")
       });
@@ -45,10 +45,13 @@ var ReviewsComponent = React.createClass({
       addReview: false
     })
   },
+
   render: function(){
     var body;
     var currentNumberOfReviews;
-    console.log('state in render', this.state.reviews);
+    // will add class for scroll overflow when all reviews are displayed
+    var columnsClass = "col-md-6 reviews-column";
+
     // if there are reviews, set numebr
     if(this.props.park.get("reviews").length){
       currentNumberOfReviews = this.props.park.get("reviews").length;
@@ -58,14 +61,17 @@ var ReviewsComponent = React.createClass({
     }
     // if adding review, show form
     if(this.state.addReview){
-      body = (<NewReviewComponent park={this.state.park} cancelReview={this.cancelReview}/>)
+      body = (<NewReviewComponent allReviews={this.props.allReviews} park={this.props.park} cancelReview={this.cancelReview}/>)
     }
     //else show existing reviews
     if(!this.state.addReview) {
-      body = (<ExistingReviewComponent reviews={this.state.reviews}/>)
+      body = (<ExistingReviewComponent toggleAllReviews={this.props.toggleAllReviews} allReviews={this.props.allReviews} reviews={this.state.reviews}/>)
+    }
+    if(this.props.allReviews){
+      columnsClass = "col-md-12 reviews-column all";
     }
       return (
-       <div className="col-md-6 reviews-column">
+       <div className={columnsClass}>
          <span className="reviews-heading">Reviews ({currentNumberOfReviews})</span>
          <span className><a className="pull-right add-review-button" onClick={this.addReview}>Add your review...</a></span>
           {body}

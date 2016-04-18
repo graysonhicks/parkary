@@ -126,6 +126,7 @@ var NewReviewComponent = React.createClass({
     });
   },
   render: function(){
+    console.log('park', this.props.park);
     var editRatingButton;
     var addedReviewComponent;
 
@@ -136,7 +137,7 @@ var NewReviewComponent = React.createClass({
     if(this.state.reviewAdded){
       return(<div>
               <h2>Review added, thanks!</h2>
-              <button className="btn btn-default">Go Back</button>
+              <button onClick={this.props.cancelReview} className="btn btn-default">Go Back</button>
             </div>
           )
     }

@@ -74,25 +74,12 @@ var InterfaceComponent = React.createClass({
     });
   },
   filterAmenity: function(addedAmenities){
+    var self = this;
         // map over all parks
-      var parks = this.state.parks;
-      parks = parks.filter(function(park){
-        var mappedPark;
-        var relation = park.relation("amenities");
-        var query = relation.query();
-        query.find().then(function(parkAmenities){
-          parkAmenities.filter(function(amenity){
-            addedAmenities.map(function(filter){
-              if(filter.id === amenity.id){
-                return park;
-              } else {
-                return;
-              }
+        console.log('filterfunc');
+    this.setState({"addedAmenities": addedAmenities}, this.search(this.state.mapCenter, "mapChanged"));
 
-            });
-          });
-        });
-      });
+
   },
   search: function(center, type){
     var self = this;
@@ -111,7 +98,6 @@ var InterfaceComponent = React.createClass({
       // this else is for getting new center in case map is loaded using only the URL lat and lng
       parseGeo = {
         //self.props.lat and lng are passed through URL
-
         latitude: parseFloat(center.lat),
         longitude: parseFloat(center.lng)
       }
@@ -124,7 +110,21 @@ var InterfaceComponent = React.createClass({
     }
     parseGeo = new Parse.GeoPoint(parseGeo);
     // new query
-    (new Parse.Query('Parks')).withinMiles("location", parseGeo, 10).include("reviews").limit(50).find({
+    var parkQuery = new Parse.Query('Parks');
+    parkQuery
+      .withinMiles("location", parseGeo, 10)
+      .include("reviews")
+      .limit(50);
+
+    // Apply amentity filter
+    if(this.state.addedAmenities){
+      console.log('addedAmenities', this.state.addedAmenities);
+      if(this.state.addedAmenities > 0){
+          parkQuery.containsAll("amenities", this.state.addedAmenities);
+      }
+    }
+
+    parkQuery.find({
       success: function(parks){
         console.log(parks);
         if(parks.length < 1){

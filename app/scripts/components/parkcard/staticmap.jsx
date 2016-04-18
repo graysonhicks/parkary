@@ -26,7 +26,13 @@ var ParkMap = React.createClass({
      }]
     }
   },
+  componentWillMount: function(){
+   if(this.props.allReviews){
+     this.forceUpdate();
+   }
+  },
   render: function(){
+    var width;
     // map over array and set icon
     var markers = this.state.markers.map(function(marker, index){
      marker.icon = Icon;
@@ -45,7 +51,7 @@ var ParkMap = React.createClass({
           <div
             {...this.props}
             style={{
-              height: "100%",
+              height: "100%"
             }}
           />
         }
@@ -70,7 +76,7 @@ var LocationComponent = React.createClass({
   return (
 
     <div className="">
-      <ParkMap location={this.props.location} park={this.props.park}/>
+      <ParkMap allReviews={this.props.allReviews} location={this.props.location} park={this.props.park}/>
     </div>
     )
   }

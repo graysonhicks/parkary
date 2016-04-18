@@ -109,10 +109,21 @@ var ParkCardComponent = React.createClass({
       })
     }
   },
+  toggleAllReviews: function(){
+
+    this.setState({
+      "allReviews": !this.state.allReviews
+    })
+  },
   render: function(){
   // Return early
   var body;
   var goback;
+  // will set map bigger if all reviews view is chosen
+  var mapColumnsClass="col-md-6";
+  if(this.state.allReviews){
+    mapColumnsClass="col-md-12";
+  }
   if(!this.state.park){
     return (<LoadingComponent />)
   }
@@ -155,9 +166,21 @@ var ParkCardComponent = React.createClass({
                    </div>
                    <div className="container-fluid">
                      <div className="row bottom-park-card-row">
-                       <ReviewsComponent openModal={this.openModal} park={this.state.park} parkId={this.props.parkId} user={this.props.user} park={this.state.park}/>
-                       <div className="col-md-6 map-column">
-                       <LocationComponent location={this.state.location} park={this.state.park}/>
+                       <ReviewsComponent
+                         openModal={this.openModal}
+                         park={this.state.park}
+                         parkId={this.props.parkId}
+                         user={this.props.user}
+                         park={this.state.park}
+                         toggleAllReviews={this.toggleAllReviews}
+                         allReviews={this.state.allReviews}
+                        />
+                      <div className={"map-column " + mapColumnsClass}>
+                       <LocationComponent
+                         allReviews={this.state.allReviews}
+                         location={this.state.location}
+                         park={this.state.park}
+                        />
                        </div>
                      </div>
                    </div>

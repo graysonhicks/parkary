@@ -10,6 +10,7 @@ var ScriptjsLoader = require("react-google-maps/lib/async/ScriptjsLoader");
 var GoogleMap = google.GoogleMap;
 var GoogleMapLoader = google.GoogleMapLoader;
 var Marker = google.Marker;
+var Circle = google.Circle;
 
 var ParkMap = React.createClass({
   getInitialState: function(){
@@ -35,6 +36,7 @@ var ParkMap = React.createClass({
     // on drag set a new center and zoom level based on what it is
     var newCenter = this.refs.map.getCenter();
     var newZoom = this.refs.map.getZoom();
+    var newBounds = this.refs.map.getBounds();
     // then call search based on new center coordinates
     this.props.search({
       latitude: newCenter.lat(),
@@ -110,7 +112,8 @@ var ParkMap = React.createClass({
    }.bind(this));
 
     return (
-      <section style={{height: "525px"}}>
+      <section style={{
+          height: "525px"}}>
 
       <GoogleMapLoader
         containerElement={
@@ -153,11 +156,13 @@ var DynamicMapComponent = React.createClass({
   return (
     <div className="">
       <ParkMap
+        setMapBounds={this.props.setMapBounds}
         setActiveMarker={this.props.setActiveMarker}
         search={this.props.search}
         parks={this.props.parks}
         lat={this.props.lat}
         lng={this.props.lng}
+        allReviews={this.props.allReviews}
       />
     </div>
     )

@@ -19,21 +19,21 @@ var ExistingReviewComponent = React.createClass({
     }
   },
   componentWillMount: function(){
-    console.log(this.props.reviews);
+
     this.setState({
       "reviews": this.props.reviews
     })
   },
   componentWillReceiveProps: function(nextProps){
-    console.log('nextprops', nextProps);
     this.setState({
       "reviews": nextProps.reviews
     })
   },
   render: function(){
-    console.log('existing render', this.state.reviews);
     var warning;
     var reviews = this.state.reviews;
+    var allReviewsBtnText;
+    var reviewColumns = "";
     // Return early if park not received yet
     if(!this.props.reviews){
       return(
@@ -50,13 +50,23 @@ var ExistingReviewComponent = React.createClass({
     if(reviews && reviews.length === 0){
       warning = (<div>No reviews yet for this park!</div>)
     }
+    if(this.props.allReviews){
+      allReviewsBtnText = "Hide reviews...";
+      reviewColumns = "col-md-6 all-reviews-review-item";
+    } else {
+      allReviewsBtnText = "Show all reviews...";
+    }
     // mapped review with fields set
-    var existingReview = function(review){
-      console.log(review);
+    var existingReview = function(review, index){
+      if(!this.props.allReviews){
+        if(index > 2){
+          return;
+        }
+      }
       var reviewPoster = review.get("userId").get("username");
       var posterAvatar = review.get("userId").get("avatar").url();
       return(
-      <div className="review">
+      <div className={"review " + reviewColumns}>
         <div className="row">
           <div className="col-md-2">
             <a href={"#profile/" + review.get("userId").id}><img src={posterAvatar}></img></a>
@@ -87,7 +97,7 @@ var ExistingReviewComponent = React.createClass({
           <div>
             {warning}
            {reviews.map(existingReview.bind(this))}
-           <a className="all-reviews-link pull-right">See all reviews...</a>
+           <a onClick={this.props.toggleAllReviews} className="all-reviews-link pull-right">{allReviewsBtnText}</a>
           </div>
 
       )

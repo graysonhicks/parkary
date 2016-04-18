@@ -55,6 +55,8 @@ var ParkMapComponent = React.createClass({
                     setActiveMarker={this.setActiveMarker}
                     mapview={this.props.mapview}
                     sortHighestRated={this.props.sortHighestRated}
+                    setMapBounds={this.props.setMapBounds}
+                    allReviews={this.props.allReviews}
                   />
                 </div>
                 <div className="col-md-3 sidebar-column">
