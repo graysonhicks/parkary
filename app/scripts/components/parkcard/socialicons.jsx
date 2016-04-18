@@ -22,6 +22,7 @@ var SocialIconsComponent = React.createClass({
     var heartIcon;
     var addRemove;
     var emailBody;
+    var emailTitle;
     // this park is already a favorite
     if(this.props.favorite){
       // show the heart as red
@@ -43,6 +44,8 @@ var SocialIconsComponent = React.createClass({
     )
     if(this.props.page === "profile"){
       heartIcon="";
+      emailTitle="Check%20out%20my%20profile%20on%20Parkary.com!"
+       emailBody = "Check%20out%20my%20profile%20at%20\nhttp://www.parkary.com/#profile/" + this.props.user.id;
     }
     if(this.props.page === "park"){
       heartIcon=(
@@ -52,14 +55,15 @@ var SocialIconsComponent = React.createClass({
           </OverlayTrigger>
          </li>
        )
-       emailBody = this.props.park.get("name") + " http://www.parkary.com/#parks/" + this.props.park.id;
+       emailTitle="Check%20out%20this%20park%20from%20Parkary.com!";
+       emailBody = "Check%20out%20this%20awesome%20park%20\n" + this.props.park.get("name") + " http://www.parkary.com/#parks/" + this.props.park.id;
     }
     // on heart button click, run toggleFavorite that adds or removes from parse array and toggles state
       return (
           <ul className="park-card-social-icons list-inline">
             <li className="list-group-item social-icon-list-items">
               <OverlayTrigger placement="bottom" overlay={emailTooltip}>
-                <a href={"mailto:?&subject=Check%20out%20this%20park%20from%20Parkary.com!&body=Check%20out%20this%20awesome%20park%20\n" + emailBody} className="fa fa-envelope social-icons"></a>
+                <a href={"mailto:?&subject=" + emailTitle + "&body=" + emailBody} className="fa fa-envelope social-icons"></a>
               </OverlayTrigger>
             </li>
             <li className="list-group-item social-icon-list-items">
