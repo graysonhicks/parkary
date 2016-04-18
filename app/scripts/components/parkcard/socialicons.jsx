@@ -21,6 +21,7 @@ var SocialIconsComponent = React.createClass({
     var heartClass;
     var heartIcon;
     var addRemove;
+    var emailBody;
     // this park is already a favorite
     if(this.props.favorite){
       // show the heart as red
@@ -49,21 +50,23 @@ var SocialIconsComponent = React.createClass({
           <OverlayTrigger placement="bottom" overlay={favoriteTooltip}>
             <i onClick={this.props.toggleFavorite} className={"fa fa-heart social-icons park-card-heart " + heartClass}></i>
           </OverlayTrigger>
-         </li>)
+         </li>
+       )
+       emailBody = this.props.park.get("name") + " http://www.parkary.com/#parks/" + this.props.park.id;
     }
     // on heart button click, run toggleFavorite that adds or removes from parse array and toggles state
       return (
           <ul className="park-card-social-icons list-inline">
             <li className="list-group-item social-icon-list-items">
               <OverlayTrigger placement="bottom" overlay={emailTooltip}>
-                <i className="fa fa-envelope social-icons"></i>
+                <a href={"mailto:?&subject=Check%20out%20this%20park%20from%20Parkary.com!&body=Check%20out%20this%20awesome%20park%20\n" + emailBody} className="fa fa-envelope social-icons"></a>
               </OverlayTrigger>
             </li>
             <li className="list-group-item social-icon-list-items">
-                <TwitterShareComponent page={this.props.page} park={this.props.park} />
+                <TwitterShareComponent user={this.props.user} page={this.props.page} park={this.props.park} />
             </li>
             <li className="list-group-item social-icon-list-items">
-                <FacebookShareComponent page={this.props.page} park={this.props.park} />
+                <FacebookShareComponent user={this.props.user} page={this.props.page} park={this.props.park} />
             </li>
             {heartIcon}
           </ul>

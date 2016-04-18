@@ -17,11 +17,15 @@ var TwitterShareComponent = React.createClass({
     var twitterTooltip = (
       <Tooltip id="twitter-tooltip">Share with Twitter</Tooltip>
     )
+    var message;
+    var title;
     if(this.props.page === "park"){
-      var title = 'Parkary - ' + this.props.park.get("name");
+      title = "Check out this awesome park I found on parkary.com! - " + this.props.park.get("name");
+      message = "Check out this awesome park I found on parkary.com!";
     }
     if(this.props.page === "profile"){
-      var title ="test";
+      title = "Check out my profile on parkary.com! Parkary - " + this.props.user.get("username");
+      message = "Check out my profile on parkary.com!";
     }
     return (
           <OverlayTrigger placement="bottom" overlay={twitterTooltip}>
