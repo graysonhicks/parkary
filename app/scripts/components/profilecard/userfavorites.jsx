@@ -37,7 +37,8 @@ var UserFavoritesComponent = React.createClass({
   render: function(){
     var hoverState = this.state.hover;
     var favorites = this.state.favorites;
-
+    var full = "";
+    var goback = "";
     // Return early if park not received yet
     if(!this.props.user){
       return(
@@ -46,6 +47,16 @@ var UserFavoritesComponent = React.createClass({
         <i className="fa fa-spinner fa-spin fa-2x reviews-loading-spinner" aria-hidden="true"></i>
       </div>
     )
+    }
+    if(this.props.fullFavorites){
+      full = " full";
+
+      goback= (
+        <span>
+          <i onClick={this.props.toggleFull} className="pull-right fa fa-times close-profile-card-btn"></i>
+          <span className="pull-right go-back-btn">go back</span>
+        </span>
+      );
     }
     // If there are still no reviews after the query has set the state, show that there are none
     if(!favorites){
@@ -63,12 +74,11 @@ var UserFavoritesComponent = React.createClass({
           if(numberOfGridColumns < 3){
             numberOfGridColumns = 3;
           }
-
         return(
             <div className={"favorite-images-columns col-xs-6 col-md-" + numberOfGridColumns}>
-                <a href="#" onMouseOver={this.hover} onMouseLeave={this.leave} className="thumbnail">
-                  <div className="favorite-thumbnail">
-                    <img className="favorite-image" src={favoriteImage.url()} alt="..." />
+                <a href={"#park/" + favorite.id} onMouseOver={this.hover} onMouseLeave={this.leave} className="thumbnail">
+                  <div className={"favorite-thumbnail" + full}>
+                    <img className={"favorite-image" + full} src={favoriteImage.url()} alt="..." />
                   </div>
                 </a>
             </div>
@@ -76,15 +86,21 @@ var UserFavoritesComponent = React.createClass({
       }
 
     // map over favorites
-    console.log('favorites array', favorites);
     return (
-        <div className="favorites-grid">
-          <span className="reviews-heading">Favorites ({favorites.length})</span>
-          <div className="row">
-            {favorites.map(userFavorite.bind(this))}
+        <div>
+          {goback}
+            <div className="panel-body">
+               <div className="container-fluid">
+                <div className="favorites-grid">
+                  <span className="reviews-heading">Favorites ({favorites.length})</span>
+                  <div className="row">
+                    {favorites.map(userFavorite.bind(this))}
+                  </div>
+                  <a onClick={this.props.toggleFull} className="all-reviews-link all-favorites-link">See all favorites...</a>
+                </div>
+              </div>
+            </div>
           </div>
-          <a className="all-reviews-link all-favorites-link">See all favorites...</a>
-        </div>
 
       )
     }

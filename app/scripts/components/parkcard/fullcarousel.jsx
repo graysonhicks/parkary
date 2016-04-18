@@ -6,10 +6,8 @@ var Backbone = require('backbone');
 require('backbone-react-component');
 var bootstrap = require('bootstrap-sass/assets/javascripts/bootstrap.js');
 var Carousel = require('react-bootstrap').Carousel;
-var Glyphicon = require('react-bootstrap').Glyphicon;
-var Button = require('react-bootstrap').Button;
 
-var ParkImageCarouselComponent = React.createClass({
+var FullParkImageCarouselComponent = React.createClass({
   mixins: [Backbone.React.Component.mixin],
   getInitialState: function(){
     // gets park from parkcard component and gets images array
@@ -37,33 +35,28 @@ var ParkImageCarouselComponent = React.createClass({
         </div>
       )
     }
-
     var newImage = function(image){
       return (
           <Carousel.Item>
-            <img className="carousel-images" src={image.url()}/>
+            <img className="full carousel-images" src={image.url()}/>
           </Carousel.Item>
       )
     }
     // map over images array and add as new carousel item
     return (
       <div>
-        <Carousel
-          className="image-carousel"
-          prevIcon={<Glyphicon glyph="arrow-left" />}
-          nextIcon={<Glyphicon glyph="arrow-right" />}
-          activeIndex={this.state.index}
-          direction={this.state.direction}
-          onSelect={this.handleSelect}>
-            {this.state.images.map(newImage.bind(this))}
-        </Carousel>
-        <Carousel.Caption className="full-screen-carousel-btn-container">
-          <Button onClick={this.props.toggleFull} className="full-screen-carousel-btn"> <Glyphicon glyph="resize-full" /> </Button>
-        </Carousel.Caption>
-      </div>
+          <div className="panel-body full-carousel">
+              <div className="container-fluid">
+                <Carousel className="full image-carousel" activeIndex={this.state.index} direction={this.state.direction} onSelect={this.handleSelect}>
+                    {this.state.images.map(newImage.bind(this))}
+                </Carousel>
+              </div>
+            </div>
+          </div>
+
     );
   }
 });
 module.exports = {
-  ParkImageCarouselComponent: ParkImageCarouselComponent
+  FullParkImageCarouselComponent: FullParkImageCarouselComponent
 }

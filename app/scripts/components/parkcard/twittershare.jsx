@@ -13,11 +13,16 @@ var TwitterShareComponent = React.createClass({
   mixins: [Backbone.React.Component.mixin],
   render: function() {
     var shareUrl = 'https://parkary.com/' + Backbone.history.fragment;
-    var title = 'Parkary - ' + this.props.park.get("name");
     var message = "Check out this awesome park I found on parkary.com!"
     var twitterTooltip = (
       <Tooltip id="twitter-tooltip">Share with Twitter</Tooltip>
     )
+    if(this.props.page === "park"){
+      var title = 'Parkary - ' + this.props.park.get("name");
+    }
+    if(this.props.page === "profile"){
+      var title ="test";
+    }
     return (
           <OverlayTrigger placement="bottom" overlay={twitterTooltip}>
             <div className="twitter-share-container">

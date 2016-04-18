@@ -19,6 +19,7 @@ var SocialIconsComponent = React.createClass({
   mixins: [Backbone.React.Component.mixin],
   render: function(){
     var heartClass;
+    var heartIcon;
     var addRemove;
     // this park is already a favorite
     if(this.props.favorite){
@@ -36,11 +37,20 @@ var SocialIconsComponent = React.createClass({
     var favoriteTooltip = (
       <Tooltip id="favorite-tooltip">{addRemove} favorites</Tooltip>
     )
-
-
     var emailTooltip = (
       <Tooltip id="email-tooltip">Share with Email</Tooltip>
     )
+    if(this.props.page === "profile"){
+      heartIcon="";
+    }
+    if(this.props.page === "park"){
+      heartIcon=(
+        <li className="list-group-item social-icon-list-items">
+          <OverlayTrigger placement="bottom" overlay={favoriteTooltip}>
+            <i onClick={this.props.toggleFavorite} className={"fa fa-heart social-icons park-card-heart " + heartClass}></i>
+          </OverlayTrigger>
+         </li>)
+    }
     // on heart button click, run toggleFavorite that adds or removes from parse array and toggles state
       return (
           <ul className="park-card-social-icons list-inline">
@@ -50,16 +60,12 @@ var SocialIconsComponent = React.createClass({
               </OverlayTrigger>
             </li>
             <li className="list-group-item social-icon-list-items">
-                <TwitterShareComponent park={this.props.park} />
+                <TwitterShareComponent page={this.props.page} park={this.props.park} />
             </li>
             <li className="list-group-item social-icon-list-items">
-                <FacebookShareComponent park={this.props.park} />
+                <FacebookShareComponent page={this.props.page} park={this.props.park} />
             </li>
-            <li className="list-group-item social-icon-list-items">
-              <OverlayTrigger placement="bottom" overlay={favoriteTooltip}>
-                <i onClick={this.props.toggleFavorite} className={"fa fa-heart social-icons park-card-heart " + heartClass}></i>
-              </OverlayTrigger>
-             </li>
+            {heartIcon}
           </ul>
              )
           }

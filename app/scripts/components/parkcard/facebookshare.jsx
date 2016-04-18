@@ -15,10 +15,13 @@ var FacebookShareComponent = React.createClass({
       <Tooltip id="facebook-tooltip">Share with Facebook</Tooltip>
     )
     var shareUrl = 'https://parkary.com/' + Backbone.history.fragment;
-    var title = 'Parkary - ' + this.props.park.get("name");
     var message = "Check out this awesome park I found on parkary.com!"
-    console.log(shareUrl);
-    console.log(title);
+    if(this.props.page === "park"){
+      var title = 'Parkary - ' + this.props.park.get("name");
+    }
+    if(this.props.page === "profile"){
+      var title = "Parkary - ";
+    }
     return (
       <OverlayTrigger placement="bottom" overlay={facebookTooltip}>
         <div className="facebook-share-container">

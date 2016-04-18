@@ -9,6 +9,7 @@ var Parse = require('parse');
 
 var LocationComponent = require('./staticmap.jsx').LocationComponent;
 var ParkImageCarouselComponent = require('./parkimagecarousel.jsx').ParkImageCarouselComponent;
+var FullParkImageCarouselComponent = require('./fullcarousel.jsx').FullParkImageCarouselComponent;
 var ParkCardInfoComponent = require('./parkcardinfo.jsx').ParkCardInfoComponent;
 var ReviewsComponent = require('./reviews.jsx').ReviewsComponent;
 var LoadingComponent = require('./../loadingpanel.jsx').LoadingComponent;
@@ -74,6 +75,11 @@ var ParkCardComponent = React.createClass({
     e.preventDefault();
       Backbone.history.navigate("parks/" + this.props.router.lat + "/" + this.props.router.lng, {"trigger": true});
   },
+  toggleFull: function(){
+      this.setState({
+        "fullCarousel": !this.state.fullCarousel
+      })
+  },
   toggleFavorite: function(){
     var user = this.props.user;
     // require a user to add favorites
@@ -105,6 +111,8 @@ var ParkCardComponent = React.createClass({
   },
   render: function(){
   // Return early
+  var body;
+  var goback;
   if(!this.state.park){
     return (<LoadingComponent />)
   }
@@ -112,32 +120,56 @@ var ParkCardComponent = React.createClass({
   if(this.state.showModal){
     modal = (<WarningModal backdrop={true} show={this.state.showModal} closeModal={this.closeModal}/>)
   }
-
+  if(this.state.fullCarousel){
+    body=(<FullParkImageCarouselComponent toggleFull={this.toggleFull} park={this.state.park}/>);
+    goback=(
+    <div className="row">
+      <div className="col-md-12">
+        <div className="pull-right">
+          <span className="go-back-btn">go back</span>
+          <i onClick={this.toggleFull} className="fa fa-times close-park-card-btn"></i>
+        </div>
+      </div>
+    </div>)
+  }
+  if(!this.state.fullCarousel){
+        body=(
+            <div>
+              <i onClick={this.closeParkCard} className="pull-right fa fa-times close-park-card-btn"></i>
+                <div className="panel-body">
+                 <div className="container-fluid">
+                   <div className="row top-park-card-row">
+                      <div className="col-md-6 image-column">
+                        <ParkImageCarouselComponent toggleFull={this.toggleFull} park={this.state.park}/>
+                      </div>
+                      <div className="col-md-6 info-column">
+                        <ParkCardInfoComponent
+                          toggleFavorite={this.toggleFavorite}
+                          page={this.props.page}
+                          favorite={this.state.favorite}
+                          park={this.state.park}
+                        />
+                      </div>
+                    </div>
+                    {modal}
+                   </div>
+                   <div className="container-fluid">
+                     <div className="row bottom-park-card-row">
+                       <ReviewsComponent openModal={this.openModal} park={this.state.park} parkId={this.props.parkId} user={this.props.user} park={this.state.park}/>
+                       <div className="col-md-6 map-column">
+                       <LocationComponent location={this.state.location} park={this.state.park}/>
+                       </div>
+                     </div>
+                   </div>
+                  </div>
+                </div>
+                )
+        }
         return (
         <div className="container-fluid park-card-container">
           <div className="panel panel-default park-card center-block">
-            <i onClick={this.closeParkCard} className="pull-right fa fa-times close-park-card-btn"></i>
-            <div className="panel-body">
-             <div className="container-fluid">
-               <div className="row top-park-card-row">
-                  <div className="col-md-6 image-column">
-                    <ParkImageCarouselComponent park={this.state.park}/>
-                  </div>
-                  <div className="col-md-6 info-column">
-                    <ParkCardInfoComponent toggleFavorite={this.toggleFavorite} favorite={this.state.favorite} park={this.state.park}/>
-                  </div>
-                </div>
-                {modal}
-               </div>
-               <div className="container-fluid">
-                 <div className="row bottom-park-card-row">
-                   <ReviewsComponent openModal={this.openModal} park={this.state.park} parkId={this.props.parkId} user={this.props.user} park={this.state.park}/>
-                   <div className="col-md-6 map-column">
-                   <LocationComponent location={this.state.location} park={this.state.park}/>
-                   </div>
-                 </div>
-               </div>
-              </div>
+              {goback}
+              {body}
             </div>
           </div>
                )
