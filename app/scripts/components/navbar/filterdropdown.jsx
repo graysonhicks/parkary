@@ -63,7 +63,7 @@ var FilterDropdownComponent = React.createClass({
         <a href="#" className="search-link" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">filter by <span className="caret"></span>
         </a>
           <ul id="filter-dropdown" className="dropdown-menu">
-            <form className="col-md-12">
+            <form className="filter-form col-md-12">
               {this.state.allAmenities.map(newAmenity.bind(this))}
             </form>
           </ul>

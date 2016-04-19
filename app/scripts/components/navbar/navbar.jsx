@@ -89,19 +89,22 @@ var NavbarComponent = React.createClass({
             // using switchState and labelText to handle the map/grid toggle switch
             var switchState;
             var labelText;
-            // on the parks page
             if(this.props.page == "parks"){
               // change switch state and labelText
               switchState = false;
               labelText = "GRID";
+
             }
             // opposite for map page
             if(this.props.page == "map"){
               switchState = true;
               labelText = "MAP";
             }
+            var toggleSwitch = ( <li className="nav-switch-container"><Switch size="small" onColor="success" labelText={labelText} state={switchState} offColor="primary" onText="GRID" offText="MAP" onChange={this.toggle}/></li>)
+            // on the parks page
+
             accountLinks = (
-            <ul className="nav navbar-nav navbar-right right-nav">
+            <ul className="nav navbar-nav navbar-right right-nav sort-and-filters-list">
               <li><a className="search-link" href="#search">search</a></li>
               <FilterDropdownComponent filterAmenity={this.props.filterAmenity} parks={this.props.parks}  />
               <SortDropdownComponent
@@ -125,9 +128,9 @@ var NavbarComponent = React.createClass({
                       <li id="page-name-container">
                         <span key={this.props.page} id="pagename">{this.props.page}</span>
                       </li>
-                      <li className="nav-switch-container"><Switch size="small" onColor="success" labelText={labelText} state={switchState} offColor="primary" onText="GRID" offText="MAP" onChange={this.toggle}/></li>
+                        {toggleSwitch}
                   </div>
-                  <div className="navbar-collapse collapse">
+                  <div className="navbar-collapse account-links-dropdown collapse">
                     {accountLinks}
                   </div>
                 </div>

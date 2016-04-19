@@ -31,11 +31,13 @@ var FilterCheckboxComponent = React.createClass({
       })
     }
     return (
-      <div className="checkbox col-md-3">
+
+      <div className="checkbox col-xs-6 col-md-3">
         <label className="add-park-form-checkbox-labels">
           <input type="checkbox" onChange={this.handleCheck} value={this.props.amenity.id} checked={checked}/> {this.props.amenity.get("Title")}
         </label>
       </div>
+
         )
       }
     });

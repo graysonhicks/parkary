@@ -10,7 +10,7 @@ var SortDropdownComponent = React.createClass({
   render: function(){
     return (
       <li className="dropdown">
-        <a href="#" className="search-link" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">sort by <span className="caret"></span>
+        <a href="#" className="search-link" id="sort-dropdown-link" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">sort by <span className="caret"></span>
         </a>
           <ul id="sort-by-dropdown" className="dropdown-menu">
             <li><a className="dropdown-menu-links" onClick={this.props.sortDistance} value="distance" href="#">distance</a></li>
