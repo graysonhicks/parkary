@@ -33,7 +33,7 @@ var EditImageInputComponent = React.createClass({
       <div className="col-md-4">
         <img className="add-edit-thumbnails" src={this.props.image.url()} />
         <input ref={"image" + this.props.count} onChange={this.handleChange} type="file" className="form-control" id="add-park-image" />
-        <i className="glyphicon glyphicon-minus-sign add-image-url-btn" onClick={this.handleRemove}     aria-hidden="true"></i>
+        <i className="glyphicon glyphicon-minus-sign add-image-url-btn" onClick={this.handleRemove} aria-hidden="true"></i>
       </div>
         )
       }

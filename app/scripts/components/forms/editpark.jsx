@@ -16,6 +16,7 @@ var AddCheckboxComponent = require('./parkcheckbox.jsx').AddCheckboxComponent;
 var EditImageInputComponent = require('./editimageinput.jsx').EditImageInputComponent;
 var WarningModal = require('./../warningmodal.jsx').WarningModal;
 var ChooseParkModal = require('./chooseparkmodal.jsx').ChooseParkModal;
+var AddedEditedModal = require('./parkaddededitedmodal.jsx').AddedEditedModal;
 
 var EditParkComponent = React.createClass({
   mixins: [Backbone.React.Component.mixin, LinkedStateMixin],
@@ -58,19 +59,12 @@ var EditParkComponent = React.createClass({
 		});
     // query park based on parkId in url
 	  var parkQuery = new Parse.Query("Parks");
+    parkQuery.include("newAmenities");
     parkQuery.get(this.props.parkId).then(function(park){
       var self = this;
       // get location
       var location = park.get("location");
-      // query amenities
-      var relation = park.relation("amenities");
-      var query = relation.query();
-      query.find().then(function(amenities){
-        // set amenities for that park in state
-        self.setState({
-          "addedAmenities": amenities
-        })
-      });
+
       // set state of all other park properties and set into form with linkstate here as well
       this.setState({
         "park": park,
@@ -83,7 +77,8 @@ var EditParkComponent = React.createClass({
         "description": park.get("description"),
         "images": park.get("images"),
         "imageCount": park.get("images").length,
-        "newImages": []
+        "newImages": [],
+        "addedAmenities": park.get("newAmenities")
       });
     }.bind(this));
 	},
@@ -123,8 +118,9 @@ var EditParkComponent = React.createClass({
     }
   },
   handleFile: function(file){
+    var self = this;
     // array of parse image files
-    var newImages = this.state.newImages;
+    var newImages = [];
     var originalImages = this.state.images;
     // set unique file name
     var name = Parse.User.current().id + Date.now() + ".jpg";
@@ -132,14 +128,12 @@ var EditParkComponent = React.createClass({
     var image = new Parse.File(name, file);
     // push image to array
     newImages.push(image);
-
     // Map Parse File Images
     var parseFileImages = newImages.map(function(image){
       // save each image to parse and return to array
-      console.log('image in map', image);
       image.save().then(function (newImage){
-          console.log('newimage', newImage);
-          this.setState({"images": originalImages.push(newImage)});
+          originalImages.push(newImage)
+          self.setState({"images": originalImages});
         });
       return image;
      }
@@ -173,7 +167,9 @@ var EditParkComponent = React.createClass({
     park.save(null, {
       success:function(newPark) {
         console.log(newPark);
-        console.log(self.state.images);
+        self.setState({
+          "parkAdded": true
+        })
       },
       error:function(obj, error) {
         console.log(error);
@@ -181,7 +177,6 @@ var EditParkComponent = React.createClass({
     });
   },
   render: function(){
-    console.log(this.state.images);
       var modal;
       if(this.state.showModal){
         return (<WarningModal className="add-change-warning-modal" backdrop={true} closeButton={false} show={this.state.showModal} closeModal={this.closeModal}/>)
@@ -189,7 +184,11 @@ var EditParkComponent = React.createClass({
       if(!this.props.parkId){
         return (<ChooseParkModal show={this.state.showModal} closeModal={this.closeModal} />)
       }
-
+      if(this.state.parkAdded){
+        return(
+          <AddedEditedModal className="add-edit-success-modal add-change-warning-modal" backdrop={true} closeButton={false} show={this.state.parkAdded} closeModal={this.closeModal}/>
+        )
+      }
       var imageInputs = [];
       // for every image in the array, show an image input field
       for(var i=0; i<= this.state.images.length; i++){
