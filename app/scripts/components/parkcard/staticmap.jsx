@@ -62,7 +62,7 @@ var ParkMap = React.createClass({
         }
         googleMapElement={
          <GoogleMap
-            style={{mapStyle}}
+            style={mapStyle}
             onReSize={this.handleResize}
             defaultZoom={15}
             defaultCenter={this.state.center}
