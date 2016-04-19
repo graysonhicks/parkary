@@ -30,6 +30,7 @@ var ParkGridComponent = React.createClass({
   toggle: function(state){
     // on switch change, it is call toggle
     // if its false, set location from url and navigate to parks grid view with lat and lng
+    console.log(state);
     if(state === false){
       var lat = this.props.lat;
       var lng = this.props.lng;
@@ -81,7 +82,6 @@ var ParkGridComponent = React.createClass({
       // map over parks (either passed in through props or set in this.search function)
         return (
         <ReactCSSTransitionGroup transitionName="fade" transitionAppear={true} transitionAppearTimeout={600} transitionEnterTimeout={500} transitionLeaveTimeout={300}>
-          <Switch id="map-grid-toggle-mobile" size="small" onColor="success" labelText={labelText} state={switchState} offColor="primary" onText="GRID" offText="MAP" onChange={this.toggle}/>
           <div className="row thumbnail-row">
             {this.props.parks.map(gridItem.bind(this))}
           </div>
