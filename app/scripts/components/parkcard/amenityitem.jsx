@@ -14,7 +14,7 @@ var AmenityItemComponent = React.createClass({
   render: function(){
     // render checbox icon and name for each amenity
         return (
-            <li className="list-group-item col-md-3 amenities">
+            <li className="list-group-item col-xs-3 col-md-3 amenities">
               <i className="fa fa-check-square checks"></i>
               {this.props.amenity.get("Title")}
             </li>

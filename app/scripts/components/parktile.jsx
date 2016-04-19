@@ -24,7 +24,7 @@ var ParkTileComponent = React.createClass({
     }
 
         return (
-            <div className="col-sm-4 col-md-3 thumbnail-columns">
+            <div className="col-xs-6 col-sm-6 col-md-3 thumbnail-columns">
               <a className="thumbnail-link" href={"#park/" + park.id}>
               <div className="thumbnail park-thumbnails">
                 <div className="thumbnail-content">

@@ -112,7 +112,7 @@ var ParkMap = React.createClass({
    }.bind(this));
 
     return (
-      <section style={{
+      <section id="map-section" style={{
           height: "525px"}}>
 
       <GoogleMapLoader

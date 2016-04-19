@@ -31,7 +31,8 @@ var MainInfoComponent = React.createClass({
     console.log(park.get("location"));
     return (
       <div>
-          <div className="col-md-6 park-card-name-and-location-container">
+      
+          <div className="col-xs-6 col-md-6 park-card-name-and-location-container">
             <div className="park-card-name">{park.get("name")}</div>
             <div className="park-card-location">Greenville, SC</div>
             <SocialIconsComponent
@@ -41,13 +42,14 @@ var MainInfoComponent = React.createClass({
               page={this.props.page}
             />
           </div>
-          <div className="col-md-6 park-card-rating-and-social-container">
+          <div className="col-xs-6 col-md-6 park-card-rating-and-social-container">
             <div className="park-card-rating">
               <Rater interactive={false} className="park-card-stars" total={5} rating={park.get("rating")} />
             </div>
             <div className="park-rating-number"><span>({park.get("rating")} on {park.get("reviews").length} reviews)</span></div>
 
           </div>
+
 
         <div className="park-card-description col-md-12">
           <div>{park.get("description")}</div>
