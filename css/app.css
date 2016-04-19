@@ -70,6 +70,9 @@
     background-color: #B3B3B3;
     color: white; }
 
+.bootstrap-switch-id-map-grid-toggle-mobile {
+  display: none; }
+
 #login-dropdown {
   margin-top: 2px; }
 
@@ -258,14 +261,12 @@
 .reviews-column {
   padding-right: 30px; }
 
-.image-carousel {
-  min-height: 400px;
-  max-height: 400px;
-  overflow: hidden; }
+.reviews-column.all {
+  overflow-y: scroll;
+  max-height: 500px; }
 
-.carousel-images {
-  width: 100%;
-  min-height: 100%; }
+.all-reviews-review-item {
+  min-height: 200px; }
 
 .review-date {
   padding-left: 30px; }
@@ -281,17 +282,17 @@
   margin-bottom: 10px; }
 
 .social-icons {
-  padding-left: 4px;
-  font-size: 20px; }
+  font-size: 22px; }
+
+li.social-icon-list-items {
+  border: none;
+  padding-left: 3px;
+  padding-right: 3px;
+  padding-top: 3px;
+  vertical-align: middle; }
 
 .fa-envelope.social-icons {
   color: #B3B3B3; }
-
-.fa-twitter-square.social-icons {
-  color: #25d1ff; }
-
-.fa-facebook-official.social-icons {
-  color: #003293; }
 
 .fa-heart.social-icons.heart-red {
   color: #930000; }
@@ -299,7 +300,14 @@
 .fa-heart.social-icons.heart-gray {
   color: #737373; }
 
-.park-card-heart {
+.twitter-share-button,
+.facebook-share-button {
+  display: inline; }
+
+.twitter-share-button,
+.facebook-share-button,
+.park-card-heart,
+.fa-envelope.social-icons {
   cursor: pointer; }
 
 .park-rating-number {
@@ -317,7 +325,9 @@
     color: #DAD10E; }
 
 .park-card-description {
-  margin-bottom: 25px; }
+  margin-bottom: 25px;
+  padding-left: 0px;
+  padding-right: 0px; }
 
 .checks {
   padding-right: 3px;
@@ -358,6 +368,9 @@
 .all-reviews-link {
   margin-top: 5px; }
 
+.cancel-review-btn {
+  margin-right: 8px; }
+
 .profile-container {
   margin-top: 10px;
   max-width: 90%; }
@@ -388,6 +401,19 @@
   font-size: 20px;
   margin-right: 5px;
   margin-top: 5px; }
+
+.go-back-btn {
+  color: #B3B3B3;
+  padding-left: 10px;
+  padding-right: 10px;
+  font-size: 12px;
+  padding-top: 8px; }
+
+.favorite-image {
+  min-height: 125px; }
+
+.favorite-image.full {
+  min-height: 172px; }
 
 .map-panel-body {
   padding-right: 0px; }
@@ -516,6 +542,150 @@ div.row.park-sidebar-list-item.active {
   padding-left: 30px;
   vertical-align: bottom; }
 
+.image-carousel {
+  min-height: 400px;
+  max-height: 400px;
+  overflow: hidden; }
+
+.image-carousel.full {
+  min-height: 550px;
+  max-height: 550px;
+  overflow: hidden; }
+
+.carousel-images {
+  width: 100%;
+  min-height: 100%; }
+
+.carousel-control .glyphicon-arrow-right,
+.carousel-control .glyphicon-arrow-left {
+  position: absolute;
+  top: 50%;
+  text-shadow: 0 1px 2px black; }
+.carousel-control .glyphicon-arrow-left {
+  left: 25%; }
+
+.full-screen-carousel-btn-container {
+  position: absolute;
+  right: 0%;
+  bottom: 0%;
+  padding-bottom: 0px;
+  text-align: right; }
+
+.full-screen-carousel-btn {
+  border: none;
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  margin-right: 11px; }
+  .full-screen-carousel-btn:hover {
+    background: rgba(0, 0, 0, 0.9);
+    color: white; }
+
+@media(max-width: 768px) {
+  .navbar-header {
+    display: inline; }
+
+  .main-nav {
+    display: inline;
+    height: 45px; }
+
+  .main-logo-nav-left {
+    position: relative;
+    bottom: 55px; }
+    .main-logo-nav-left li {
+      float: left; }
+
+  #parkary-name {
+    padding-top: 12px; }
+
+  .bootstrap-switch-id-map-grid-toggle-mobile {
+    display: inline-block;
+    margin-left: 10%; }
+
+  .park-thumbnails {
+    height: 350px; }
+
+  .thumbnail-images {
+    height: 100px;
+    width: 100%; }
+
+  #map-section {
+    width: 98%; }
+
+  .map-column {
+    margin-top: 30px; }
+
+  .map-container {
+    padding-left: 0px; }
+
+  .park-sidebar-list-item {
+    width: 50%;
+    display: inline-block;
+    float: left; }
+
+  .park-card {
+    max-width: 100%; }
+
+  .park-card-name-and-location-container {
+    margin-bottom: 0px; }
+
+  .park-card-rating-and-social-container {
+    margin-bottom: 40px; }
+
+  .park-card-social-icons {
+    margin-bottom: 0px; }
+
+  .social-icon-list-items {
+    padding-bottom: 0px; }
+
+  .all-reviews-link {
+    float: none; } }
+@media(max-width: 480px) {
+  .amenities {
+    width: 32%; } }
+@media(max-width: 414px) {
+  .thumbnail-columns {
+    width: 95%;
+    margin-left: 2.5%; }
+
+  .park-sidebar-list-item {
+    width: 100%;
+    display: block;
+    padding-right: 0px; }
+
+  #map-section {
+    width: 95%; }
+
+  .amenities {
+    width: 45%; }
+
+  .image-carousel {
+    min-height: 275px;
+    max-height: 275px; } }
+@media(max-width: 320px) {
+  .park-description {
+    display: none; }
+
+  .park-thumbnails {
+    height: 275px; }
+
+  .park-card .panel-body {
+    padding-left: 5px;
+    padding-right: 5px; }
+
+  .image-carousel {
+    min-height: 225px;
+    max-height: 225px; }
+
+  .close-park-card-btn {
+    font-size: 10px; }
+
+  .all-reviews-link {
+    margin-top: 18px; }
+
+  .reviews-column {
+    padding-bottom: 8px;
+    padding-top: 8px;
+    padding-right: 4px; } }
 *,
 *::before,
 *::after {
@@ -530,7 +700,7 @@ img {
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
-  min-height: 635px;
+  min-height: 100vh;
   font-family: Roboto;
   padding-top: 50px; }
 
@@ -555,5 +725,4 @@ img {
           animation-duration: 1s;
   -webkit-animation-delay: 0.2s;
           animation-delay: 0.2s; }
-
 /*# sourceMappingURL=app.css.map */
