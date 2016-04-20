@@ -46,13 +46,26 @@ var UserReviewComponent = React.createClass({
 
     // mapped review with fields set
     var userReview = function(review){
-      var reviewPoster = review.get("userId").get("username");
-      var posterAvatar = review.get("userId").get("avatar").url();
+      var parkInReview = review.get("parkId");
+      var parkInReviewImages;
+      var mainParkImage;
+      var reviewPoster = review.get("userId");
+      reviewPoster = reviewPoster.get("username");
+      var posterAvatar = review.get("userId");
+      if(parkInReview.get("images")){
+        parkInReviewImages = parkInReview.get("images");
+        if(parkInReviewImages.length > 0){
+          mainParkImage = parkInReviewImages[0].url();
+        } else {
+          mainParkImage = "images/noimagenotice.png"
+        }
+      }
+
       return(
-      <div className="review">
-        <div className="row">
+      <div className="review profile">
+        <div className="row review-image-and-rating-row">
           <div className="col-md-2">
-              <a href={"#profile/" + review.get("userId").id}><img src={posterAvatar}></img></a>
+              <a href={"#park/" + parkInReview.id}><img src={mainParkImage}></img></a>
           </div>
           <div className="col-md-10">
             <div className="row">
@@ -68,7 +81,7 @@ var UserReviewComponent = React.createClass({
         </div>
         <div className="row">
           <div className="col-md-12">
-            <p className="review-content">{review.get("content")}</p>
+            <p className="review-content profile">{review.get("content")}</p>
           </div>
         </div>
       </div>
@@ -76,7 +89,7 @@ var UserReviewComponent = React.createClass({
     }
     // map over reviews
     return (
-          <div className="container">
+          <div className="row">
             <span className="reviews-heading">My Reviews ({reviews.length})</span>
             {reviews.map(userReview.bind(this))}
           </div>

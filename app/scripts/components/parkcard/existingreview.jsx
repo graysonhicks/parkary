@@ -63,8 +63,14 @@ var ExistingReviewComponent = React.createClass({
           return;
         }
       }
+      var posterAvatar;
+      if(review.get("userId").get("avatar")){
+        posterAvatar = review.get("userId").get("avatar").url();
+      } else {
+        posterAvatar = "images/fbook.jpg";
+      }
       var reviewPoster = review.get("userId").get("username");
-      var posterAvatar = review.get("userId").get("avatar").url();
+
       return(
       <div className={"review " + reviewColumns}>
         <div className="row">
@@ -73,7 +79,7 @@ var ExistingReviewComponent = React.createClass({
           </div>
           <div className="col-md-10">
             <div className="row">
-              <a href={"#profile/" + review.get("userId").id}><span>{reviewPoster}</span></a>
+              <a className="review-username parkcard" href={"#profile/" + review.get("userId").id}><span>{reviewPoster}</span></a>
               <span className="review-date">January 29, 2016</span>
             </div>
             <div className="row">

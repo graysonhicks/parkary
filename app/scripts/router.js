@@ -26,6 +26,7 @@ var Router = Backbone.Router.extend({
     this.current = "signup";
   },
   profile: function(id){
+    console.log("profile");
     this.profileId = id;
     this.current = "profile";
   },

@@ -44,7 +44,6 @@ var InterfaceComponent = React.createClass({
         // do stuff with the user
         this.setState({'user': currentUser});
       }
-
   },
   componentWillUnmount: function(){
     // forces update on component unmounts
@@ -145,6 +144,12 @@ var InterfaceComponent = React.createClass({
     var lng = this.state.mapCenter.longitude;
     Backbone.history.navigate("parks/" + lat + "/" + lng, {trigger: true});
   },
+  handleProfile: function(){
+    // Backbone router doesnt force update on same hash, so must call reload if going from one user profile to another
+    Backbone.history.navigate("#profile/" + this.state.user.id, {trigger: true});
+    location.reload();
+
+  },
   signUp: function(userObj){
     var user = new Parse.User();
     var newUser = {
@@ -205,7 +210,6 @@ var InterfaceComponent = React.createClass({
     if(this.state.router.current == "search"){
       //if user goes back to search page, reset any search filters to empty array
       this.filterAmenities = [];
-      console.log('filterAmenities', this.filterAmenities);
       body = (
         <SearchFormComponent
           mapUrl={this.mapUrl}
@@ -276,6 +280,7 @@ var InterfaceComponent = React.createClass({
     return(
       <div>
        <NavbarComponent
+         handleProfile={this.handleProfile}
          user={this.state.user}
          logout={this.logout}
          page={this.state.router.current}

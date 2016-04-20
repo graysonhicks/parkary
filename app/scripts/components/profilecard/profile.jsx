@@ -14,12 +14,12 @@ var SocialIconsComponent = require('./../parkcard/socialicons.jsx').SocialIconsC
 var ProfileComponent = React.createClass({
   mixins: [Backbone.React.Component.mixin],
   componentWillMount: function(){
-
+    var self = this;
     var query = new Parse.Query("User");
     query.include("favorites");
     query.get(this.props.profileId).then(function(user){
       // set location and current parse park object in state
-      console.log(user);
+      console.log(this.props.profileId);
       this.setState({
         "user": user
       });
@@ -41,10 +41,15 @@ var ProfileComponent = React.createClass({
     }
     var body;
     var user = this.state.user;
-    var profilePicture = user.get("avatar").url();
+    var posterAvatar;
+    if(user.get("avatar")){
+      posterAvatar = user.get("avatar").url();
+    } else {
+      posterAvatar = "images/fbook.jpg";
+    }
     //if full favorites grid chosen, display full card grid
     if(this.state.fullFavorites){
-      body=( <UserFavoritesComponent toggleFull={this.toggleFull} fullFavorites={this.state.fullFavorites} profileId={this.props.profileId} user={this.props.user} />)
+      body=( <UserFavoritesComponent toggleFull={this.toggleFull} fullFavorites={this.state.fullFavorites} profileId={this.props.profileId} user={this.state.user} />)
     }
     //if full favorites grid not chosen, display normal profile card
     if(!this.state.fullFavorites){
@@ -55,7 +60,7 @@ var ProfileComponent = React.createClass({
          <div className="container profile-container">
            <div className="row">
                 <div className="col-md-12 image-column">
-                  <img className="profile-card-image img-responsive center-block" src={profilePicture} alt="" />                             </div>
+                  <img className="profile-card-image img-responsive center-block" src={posterAvatar} alt="" />                             </div>
               </div>
             <div className="row">
               <div className="col-md-12 info-column">
@@ -69,7 +74,7 @@ var ProfileComponent = React.createClass({
                       park={this.props.park}
                       toggleFavorite={this.props.toggleFavorite}
                       favorite={this.props.favorite}
-                      user={this.props.user}
+                      user={this.state.user}
                     />
                   </div>
                   <div className="col-md-12 profile-description park-card-description">
@@ -80,7 +85,7 @@ var ProfileComponent = React.createClass({
            </div>
            <div className="row">
              <div className="col-md-12 reviews-column">
-               <UserReviewComponent user={this.props.user} />
+               <UserReviewComponent user={this.state.user} />
                <a className="all-reviews-link pull-right">see all reviews...</a>
              </div>
            </div>
@@ -90,7 +95,7 @@ var ProfileComponent = React.createClass({
                  toggleFull={this.toggleFull}
                  profileId={this.props.profileId}
                  park={this.props.park}
-                 user={this.props.user}
+                 user={this.state.user}
                 />
              </div>
              </div>

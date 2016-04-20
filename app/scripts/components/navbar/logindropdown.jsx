@@ -14,7 +14,7 @@ var LoginDropdownComponent = React.createClass({
     if(this.props.user){
       dropdown = (
         <ul id="login-dropdown" className="dropdown-menu">
-          <li><a className="dropdown-menu-links" href={"#profile/" + this.props.user.id }>profile</a></li>
+          <li><a className="dropdown-menu-links" href={"#profile/" + this.props.user.id} onClick={this.props.handleProfile}>profile</a></li>
           <li onClick={this.props.logout}><a className="dropdown-menu-links" href="#">logout</a></li>
         </ul>
       )

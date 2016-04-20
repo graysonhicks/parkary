@@ -71,7 +71,7 @@ var NavbarComponent = React.createClass({
           if(this.props.page == "search"){
             accountLinks = (
               <ul className="nav navbar-nav navbar-right right-nav">
-                <LoginDropdownComponent logout={this.props.logout} user={this.props.user} />
+                <LoginDropdownComponent handleProfile={this.props.handleProfile} logout={this.props.logout} user={this.props.user} />
               </ul>
             )}
           // if on the profile, or park page
@@ -80,7 +80,7 @@ var NavbarComponent = React.createClass({
             accountLinks = (
               <ul className="nav navbar-nav navbar-right right-nav">
                 <li><a id="search-link" href="#search">search</a></li>
-                <LoginDropdownComponent logout={this.props.logout} user={this.props.user}  />
+                <LoginDropdownComponent handleProfile={this.props.handleProfile} logout={this.props.logout} user={this.props.user}  />
               </ul>
             )}
           // if on parks grid or map page
@@ -113,7 +113,7 @@ var NavbarComponent = React.createClass({
                 sortPopularity={this.props.sortPopularity}
                 parks={this.props.parks}
               />
-              <LoginDropdownComponent logout={this.props.logout} user={this.props.user}  />
+              <LoginDropdownComponent handleProfile={this.props.handleProfile} logout={this.props.logout} user={this.props.user}  />
             </ul>
             )
             }
