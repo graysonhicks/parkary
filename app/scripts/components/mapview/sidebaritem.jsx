@@ -35,9 +35,12 @@ var SidebarItemComponent = React.createClass({
     var active = "";
     if(park === this.props.activeMarker){
       active = "active";
+     $('.sidebar-column').animate({
+            scrollTop: $(this.el).offset().top + 'px'
+        }, 'fast');
     };
     // grab active marker and scroll to top of offset
-    
+
     // set icon based on counter to match
     var icon = {
       url: "images/mapmarkers/mapmarker" + this.props.counter + ".png"

@@ -74,7 +74,7 @@ var ParkMap = React.createClass({
     }
     // set zoom to 16 for close up on park, and center as newCenter
     this.setState({
-      zoom: 16,
+      zoom: 13,
       center: newCenter
     });
     // set active marker to bubble up show list can highlight list item
