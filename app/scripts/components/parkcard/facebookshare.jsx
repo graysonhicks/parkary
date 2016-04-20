@@ -14,7 +14,7 @@ var FacebookShareComponent = React.createClass({
     var facebookTooltip = (
       <Tooltip id="facebook-tooltip">Share with Facebook</Tooltip>
     )
-    var shareUrl = 'https://parkary.com/' + Backbone.history.fragment;
+    var shareUrl = 'http://parkary.com/#' + Backbone.history.fragment;
     var message;
     var title;
     if(this.props.page === "park"){

@@ -203,6 +203,7 @@ var InterfaceComponent = React.createClass({
       )
     }
     if(this.state.router.current == "search"){
+      //if user goes back to search page, reset any search filters to empty array
       this.filterAmenities = [];
       console.log('filterAmenities', this.filterAmenities);
       body = (

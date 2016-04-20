@@ -12,7 +12,7 @@ var Tooltip = require('react-bootstrap').Tooltip;
 var TwitterShareComponent = React.createClass({
   mixins: [Backbone.React.Component.mixin],
   render: function() {
-    var shareUrl = 'https://parkary.com/' + Backbone.history.fragment;
+    var shareUrl = 'http://www.parkary.com/#' + Backbone.history.fragment;
     var message = "Check out this awesome park I found on parkary.com!"
     var twitterTooltip = (
       <Tooltip id="twitter-tooltip">Share with Twitter</Tooltip>
