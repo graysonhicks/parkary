@@ -707,7 +707,10 @@ div.row.park-sidebar-list-item.active {
     padding-bottom: 0px; }
 
   .all-reviews-link {
-    float: none; } }
+    float: none; }
+
+  .profile-card {
+    max-width: 100%; } }
 @media(max-width: 569px) {
   .park-thumbnails {
     height: 400px; } }
