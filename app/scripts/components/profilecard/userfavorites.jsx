@@ -91,7 +91,7 @@ var UserFavoritesComponent = React.createClass({
             numberOfGridColumns = 3;
           }
         return(
-            <div className={"favorite-images-columns col-xs-6 col-md-6"}>
+            <div className={"favorite-images-columns col-md-6"}>
                 <a href={"#park/" + favorite.id} onMouseOver={this.hover} onMouseLeave={this.leave} className="favorite-park-thumbnail thumbnail">
                   <div className={"favorite-thumbnail" + full}>
                     <img className={"favorite-image" + full} src={favoriteImageUrl} alt="..." />

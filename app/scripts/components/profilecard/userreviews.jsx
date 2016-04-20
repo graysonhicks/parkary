@@ -43,13 +43,16 @@ var UserReviewComponent = React.createClass({
     if(!reviews){
       return(<div>You don't have any reviews yet.</div>)
     }
+
     // mapped review with fields set
     var userReview = function(review){
+      var reviewPoster = review.get("userId").get("username");
+      var posterAvatar = review.get("userId").get("avatar").url();
       return(
       <div className="review">
         <div className="row">
           <div className="col-md-2">
-            <img src="images/fbook.jpg"></img>
+              <a href={"#profile/" + review.get("userId").id}><img src={posterAvatar}></img></a>
           </div>
           <div className="col-md-10">
             <div className="row">

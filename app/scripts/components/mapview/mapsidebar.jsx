@@ -30,8 +30,8 @@ var MapSidebarComponent = React.createClass({
       )}
 
     return (
-    <div>
-      <span> Parks</span>
+      <div>
+      <span> search results ({this.props.parks.length})</span>
       <div className="mapped-parks">
         <div className="mapped-park">
           {this.props.parks.map(sidebarItem.bind(this))}
