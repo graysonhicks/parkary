@@ -267,7 +267,15 @@
   padding-right: 10px; }
 
 .reviews-column {
-  padding-right: 30px; }
+  padding-right: 15px; }
+
+.review {
+  max-width: 100%;
+  padding-left: 12px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid #B3B3B3;
+  margin-bottom: 3px;
+  margin-top: 3px; }
 
 .reviews-column.all {
   overflow-y: scroll;
@@ -290,7 +298,11 @@
   margin-bottom: 10px; }
 
 a.park-card-location {
-  font-size: 12px; }
+  font-size: 12px;
+  color: black; }
+  a.park-card-location:hover {
+    text-decoration: none;
+    color: #575555; }
 
 .social-icons {
   font-size: 22px; }
@@ -355,7 +367,11 @@ li.social-icon-list-items {
   cursor: pointer; }
 
 .add-review-button {
-  cursor: pointer; }
+  cursor: pointer;
+  color: black; }
+  .add-review-button:hover {
+    text-decoration: none;
+    color: #575555; }
 
 .all-reviews-link {
   cursor: pointer; }
@@ -373,6 +389,12 @@ li.social-icon-list-items {
   font-weight: 300;
   font-size: 12px; }
 
+.review-username {
+  color: black; }
+  .review-username:hover {
+    text-decoration: none;
+    color: #575555; }
+
 .review-content {
   margin-bottom: 0px; }
 
@@ -384,7 +406,9 @@ li.social-icon-list-items {
 
 .profile-container {
   margin-top: 10px;
-  max-width: 90%; }
+  max-width: 95%;
+  padding-left: 0px;
+  padding-right: 0px; }
 
 .profile-card {
   max-width: 60%;
@@ -394,6 +418,9 @@ li.social-icon-list-items {
   .profile-card .reviews-column,
   .profile-card .profile-favorites-column {
     min-height: 225px; }
+  .profile-card .reviews-column {
+    padding-right: 15px;
+    padding-left: 30px; }
 
 .admin-edit-btn {
   padding: 4px 6px; }
@@ -441,6 +468,17 @@ a.favorite-park-thumbnail:hover {
   .all-reviews-link:hover {
     color: #575555;
     text-decoration: none; }
+
+.review.profile {
+  background-color: rgba(237, 237, 237, 0.7);
+  max-width: 95%; }
+
+.review-content.profile {
+  padding-top: 15px;
+  margin-right: 10px; }
+
+.review-image-and-rating-row {
+  padding-bottom: 5px; }
 
 .favorite-park-name {
   font-size: 12px;
@@ -833,4 +871,5 @@ img {
           animation-duration: 1s;
   -webkit-animation-delay: 0.2s;
           animation-delay: 0.2s; }
+
 /*# sourceMappingURL=app.css.map */
