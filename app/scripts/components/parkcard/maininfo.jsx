@@ -40,7 +40,7 @@ var MainInfoComponent = React.createClass({
       <div>
         <div className="col-xs-6 col-md-6 park-card-name-and-location-container">
           <div className="park-card-name">{park.get("name")}</div>
-          <div className="park-card-location">Greenville, SC</div>
+          <a href={"https://maps.google.com/maps?q=" + park.get("address")}className="park-card-location">{park.get("address")}</a>
           {adminEditBtn}
           <SocialIconsComponent
             park={this.props.park}

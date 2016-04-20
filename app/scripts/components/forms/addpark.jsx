@@ -39,10 +39,21 @@ var AddParkComponent = React.createClass({
     // pulling all amenities down to populate checkbox options
 		var self = this;
     //if no one is logged in, show warning modal
+    var query = (new Parse.Query(Parse.Role));
     if(!Parse.User.current()){
-      self.setState({
-        showModal: true
-      })
+      self.setState({"showModal": true})
+    }
+    if(Parse.User.current()){
+      query.equalTo("name", "Administrator");
+      query.equalTo("users", Parse.User.current());
+      query.first().then(function(adminRole) {
+          if (adminRole) {
+              console.log("user is an admin");
+          } else {
+              self.setState({"showModal": true})
+              console.log("user is not an admin");
+          }
+      });
     }
 		var Amenities = Parse.Object.extend("Amenities");
 		var query = new Parse.Query( Amenities );

@@ -153,6 +153,7 @@ var DynamicMapComponent = React.createClass({
       <i className="fa fa-spinner fa-spin fa-5x map-loading-spinner" aria-hidden="true"></i>
     </div>
     }
+
   return (
     <div className="">
       <ParkMap

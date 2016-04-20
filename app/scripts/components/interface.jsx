@@ -143,7 +143,6 @@ var InterfaceComponent = React.createClass({
     // lets lat and lng in state and navigates to results with lat and lng in url
     var lat = this.state.mapCenter.latitude;
     var lng = this.state.mapCenter.longitude;
-    console.log(lat);
     Backbone.history.navigate("parks/" + lat + "/" + lng, {trigger: true});
   },
   signUp: function(userObj){

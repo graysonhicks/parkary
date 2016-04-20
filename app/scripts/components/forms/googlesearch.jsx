@@ -22,14 +22,17 @@ var GoogleSearchComponent = React.createClass({
     //when place is changed, get location from google api
     google.maps.event.addListener(searchInput, 'place_changed', function (){
           var place = searchInput.getPlace();
+          console.log("place", place);
           var lat = place.geometry.location.lat();
           var lng = place.geometry.location.lng();
+          var placeName = place.formatted_address;
           var name = place.name;
           // build an object to pass back up and set in interface state
           var locationObj = {
             "name": name,
             "lat": lat,
-            "lng": lng
+            "lng": lng,
+            "placeName": placeName
           };
           //function to set in state
           this.props.search(locationObj, "searchBar");
