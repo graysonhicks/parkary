@@ -52,36 +52,40 @@ var ProfileComponent = React.createClass({
   <div>
     <i onClick={this.closeProfileCard} className="pull-right fa fa-times close-profile-card-btn"></i>
       <div className="panel-body">
-         <div className="container-fluid">
+         <div className="container profile-container">
            <div className="row">
-            <div className="col-md-4 image-column">
-                <img className="profile-card-image img-responsive center-block" src={profilePicture} alt="" />                               </div>
-            <div className="col-md-8 info-column">
-                <div className="col-md-6 username-and-location-container park-card-name-and-location-container">
-                  <div className="user-card-name park-card-name">{user.get("firstname")} {user.get("lastname")}</div>
-                  <div className="user-card-location park-card-location">{user.get("username")}</div>
-                </div>
-                <div className="col-md-6 profile-social-container">
-                  <SocialIconsComponent
-                    page={this.props.page}
-                    park={this.props.park}
-                    toggleFavorite={this.props.toggleFavorite}
-                    favorite={this.props.favorite}
-                    user={this.props.user}
-                  />
-                </div>
-                <div className="col-md-12 profile-description park-card-description">
-                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                <div className="col-md-12 image-column">
+                  <img className="profile-card-image img-responsive center-block" src={profilePicture} alt="" />                             </div>
+              </div>
+            <div className="row">
+              <div className="col-md-12 info-column">
+                  <div className="username-and-location-container park-card-name-and-location-container">
+                    <div className="user-card-name park-card-name">{user.get("firstname")} {user.get("lastname")}</div>
+                    <div className="user-card-location park-card-location">{user.get("username")}</div>
+                  </div>
+                  <div className="profile-social-container">
+                    <SocialIconsComponent
+                      page={this.props.page}
+                      park={this.props.park}
+                      toggleFavorite={this.props.toggleFavorite}
+                      favorite={this.props.favorite}
+                      user={this.props.user}
+                    />
+                  </div>
+                  <div className="col-md-12 profile-description park-card-description">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                  </div>
                 </div>
               </div>
-            </div>
            </div>
-         <div className="container-fluid">
            <div className="row">
-             <div className="col-md-4 reviews-column">
+             <div className="col-md-12 reviews-column">
                <UserReviewComponent user={this.props.user} />
+               <a className="all-reviews-link pull-right">see all reviews...</a>
              </div>
-             <div className="col-md-8 profile-favorites-column">
+           </div>
+           <div className="row">
+             <div className="col-md-12 profile-favorites-column">
                <UserFavoritesComponent
                  toggleFull={this.toggleFull}
                  profileId={this.props.profileId}
@@ -89,10 +93,10 @@ var ProfileComponent = React.createClass({
                  user={this.props.user}
                 />
              </div>
+             </div>
            </div>
          </div>
-        </div>
-      </div>
+
       )
     }
         return (

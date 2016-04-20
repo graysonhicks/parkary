@@ -73,10 +73,9 @@ var UserReviewComponent = React.createClass({
     }
     // map over reviews
     return (
-          <div>
+          <div className="container">
             <span className="reviews-heading">My Reviews ({reviews.length})</span>
             {reviews.map(userReview.bind(this))}
-           <a className="all-reviews-link pull-right">See all reviews...</a>
           </div>
 
       )

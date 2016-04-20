@@ -23,16 +23,20 @@ var ParkCardComponent = React.createClass({
 	    };
 	},
   componentWillMount: function(){
+  var self = this;
   var query = (new Parse.Query(Parse.Role));
+  if(Parse.User.current()){
     query.equalTo("name", "Administrator");
     query.equalTo("users", Parse.User.current());
     query.first().then(function(adminRole) {
         if (adminRole) {
+          self.setState({"admin": true})
             console.log("user is an admin");
         } else {
             console.log("user is not an admin");
         }
     });
+  }
     var self = this;
     // Get users favorites to see if heart icon should show favorited
     if(this.props.user){
@@ -165,6 +169,7 @@ var ParkCardComponent = React.createClass({
                       </div>
                       <div className="col-md-6 info-column">
                         <ParkCardInfoComponent
+                          admin={this.state.admin}
                           toggleFavorite={this.toggleFavorite}
                           page={this.props.page}
                           favorite={this.state.favorite}

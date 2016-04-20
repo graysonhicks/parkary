@@ -39,6 +39,7 @@ var UserFavoritesComponent = React.createClass({
     var favorites = this.state.favorites;
     var full = "";
     var goback = "";
+    var favoriteBtnText = "see all favorites...";
     // Return early if park not received yet
     if(!this.props.user){
       return(
@@ -50,7 +51,7 @@ var UserFavoritesComponent = React.createClass({
     }
     if(this.props.fullFavorites){
       full = " full";
-
+      favoriteBtnText = "go back..."
       goback= (
         <span>
           <i onClick={this.props.toggleFull} className="pull-right fa fa-times close-profile-card-btn"></i>
@@ -63,9 +64,24 @@ var UserFavoritesComponent = React.createClass({
       return(<div>You don't have any favorites yet.</div>)
     }
     // mapped review with fields set
-      var userFavorite = function(favorite){
-          var favoriteImages = favorite.get("images");
-          var favoriteImage = favoriteImages[0];
+      var userFavorite = function(favorite, index){
+        // only show first four favorites
+        if(!this.props.fullFavorites){
+          if(index > 1){
+            return;
+          }
+        }
+        var favoriteImages;
+        var favoriteImage;
+        var favoriteImageUrl;
+        if(favorite.get("images").length < 1){
+          favoriteImageUrl = "images/noimagenotice.png";
+        } else {
+          favoriteImages = favorite.get("images");
+          favoriteImage = favoriteImages[0];
+          favoriteImageUrl = favoriteImage.url();
+        }
+
         // Check how many favorites
           var numberOfFavorites = favorites.length;
           var numberOfGridColumns;
@@ -75,16 +91,16 @@ var UserFavoritesComponent = React.createClass({
             numberOfGridColumns = 3;
           }
         return(
-            <div className={"favorite-images-columns col-xs-6 col-md-" + numberOfGridColumns}>
-                <a href={"#park/" + favorite.id} onMouseOver={this.hover} onMouseLeave={this.leave} className="thumbnail">
+            <div className={"favorite-images-columns col-xs-6 col-md-6"}>
+                <a href={"#park/" + favorite.id} onMouseOver={this.hover} onMouseLeave={this.leave} className="favorite-park-thumbnail thumbnail">
                   <div className={"favorite-thumbnail" + full}>
-                    <img className={"favorite-image" + full} src={favoriteImage.url()} alt="..." />
+                    <img className={"favorite-image" + full} src={favoriteImageUrl} alt="..." />
                   </div>
+                  <span className="favorite-park-name">{favorite.get("name")}</span>
                 </a>
             </div>
        )
       }
-
     // map over favorites
     return (
         <div>
@@ -96,7 +112,7 @@ var UserFavoritesComponent = React.createClass({
                   <div className="row">
                     {favorites.map(userFavorite.bind(this))}
                   </div>
-                  <a onClick={this.props.toggleFull} className="all-reviews-link all-favorites-link">See all favorites...</a>
+                  <a onClick={this.props.toggleFull} className="all-reviews-link all-favorites-link pull-right">{favoriteBtnText}</a>
                 </div>
               </div>
             </div>

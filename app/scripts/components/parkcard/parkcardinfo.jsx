@@ -15,6 +15,7 @@ var ParkCardInfoComponent = React.createClass({
                   <div>
                     <div>
                       <MainInfoComponent
+                        admin={this.props.admin}
                         toggleFavorite={this.props.toggleFavorite}
                         favorite={this.props.favorite}
                         park={this.props.park}

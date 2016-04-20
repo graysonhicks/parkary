@@ -101,7 +101,6 @@ var InterfaceComponent = React.createClass({
         longitude: parseFloat(center.lng)
       }
     } else if(type === "searchBar"){
-      console.log('searchbar');
       parseGeo = {latitude: center.lat, longitude: center.lng};
     } else {
       console.log("location input error", center);
@@ -117,19 +116,14 @@ var InterfaceComponent = React.createClass({
       .limit(50);
 
     //Apply amentity filter
-
-    console.log('addedAmenities', this.state.addedAmenities);
-
-
     if(filterAmenities){
       if(filterAmenities.length > 0){
          parkQuery.containsAll("newAmenities", filterAmenities);
       }
     }
-
+    // launch query
     parkQuery.find({
       success: function(parks){
-        console.log(parks);
         if(parks.length < 1){
           // search is complete and still no parks, set this flag in state so notice can be displayed
           noParks = true;
