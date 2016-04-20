@@ -1,4 +1,7 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto:400,900,700,500,300,100);
+#toggle-btn {
+  z-index: 100; }
+
 #treelogo {
   height: 35px;
   width: 35px;
@@ -70,9 +73,6 @@
     background-color: #B3B3B3;
     color: white; }
 
-.bootstrap-switch-id-map-grid-toggle-mobile {
-  display: none; }
-
 #login-dropdown {
   margin-top: 2px; }
 
@@ -80,14 +80,18 @@
 #sort-by-dropdown,
 #filter-dropdown {
   background-color: #B3B3B3; }
-  #login-dropdown a.dropdown-menu-links:hover,
-  #sort-by-dropdown a.dropdown-menu-links:hover,
-  #filter-dropdown a.dropdown-menu-links:hover {
-    background-color: #575555; }
-  #login-dropdown a.dropdown-menu-links:focus,
-  #sort-by-dropdown a.dropdown-menu-links:focus,
-  #filter-dropdown a.dropdown-menu-links:focus {
-    background-color: #575555; }
+  #login-dropdown a.dropdown-menu-links,
+  #sort-by-dropdown a.dropdown-menu-links,
+  #filter-dropdown a.dropdown-menu-links {
+    color: white; }
+    #login-dropdown a.dropdown-menu-links:hover,
+    #sort-by-dropdown a.dropdown-menu-links:hover,
+    #filter-dropdown a.dropdown-menu-links:hover {
+      background-color: #575555; }
+    #login-dropdown a.dropdown-menu-links:focus,
+    #sort-by-dropdown a.dropdown-menu-links:focus,
+    #filter-dropdown a.dropdown-menu-links:focus {
+      background-color: #575555; }
   #login-dropdown li:hover,
   #sort-by-dropdown li:hover,
   #filter-dropdown li:hover {
@@ -95,6 +99,10 @@
 
 #filter-dropdown {
   width: 600px; }
+
+.nav-switch-container {
+  padding-left: 20px;
+  display: inline-block; }
 
 .bootstrap-switch.wrapper {
   margin-top: 10px; }
@@ -281,6 +289,9 @@
 .park-card-name-and-location-container {
   margin-bottom: 10px; }
 
+a.park-card-location {
+  font-size: 12px; }
+
 .social-icons {
   font-size: 22px; }
 
@@ -376,6 +387,7 @@ li.social-icon-list-items {
   max-width: 90%; }
 
 .profile-card {
+  max-width: 60%;
   border-radius: 0px; }
   .profile-card .image-column,
   .profile-card .info-column,
@@ -383,17 +395,18 @@ li.social-icon-list-items {
   .profile-card .profile-favorites-column {
     min-height: 225px; }
 
+.admin-edit-btn {
+  padding: 4px 6px; }
+
 .profile-description {
   padding-left: 0px; }
 
 .profile-card-image {
-  width: 100%; }
+  max-width: 100%;
+  max-height: 185px; }
 
 .profile-social-container {
   text-align: right; }
-
-.profile-card-images {
-  max-height: 275px; }
 
 .close-profile-card-btn {
   cursor: pointer;
@@ -410,10 +423,34 @@ li.social-icon-list-items {
   padding-top: 8px; }
 
 .favorite-image {
+  width: 100%;
+  height: 175px;
   min-height: 125px; }
 
+a.favorite-park-thumbnail:active, a.favorite-park-thumbnail:focus {
+  border-color: #575555; }
+a.favorite-park-thumbnail:hover {
+  text-decoration: none;
+  border-color: #575555; }
+
+.all-favorites-link,
+.all-reviews-link {
+  color: black;
+  text-align: right; }
+  .all-favorites-link:hover,
+  .all-reviews-link:hover {
+    color: #575555;
+    text-decoration: none; }
+
+.favorite-park-name {
+  font-size: 12px;
+  color: black;
+  text-decoration: none; }
+  .favorite-park-name:hover {
+    text-decoration: none; }
+
 .favorite-image.full {
-  min-height: 172px; }
+  min-height: 150px; }
 
 .map-panel-body {
   padding-right: 0px; }
@@ -580,7 +617,43 @@ div.row.park-sidebar-list-item.active {
     background: rgba(0, 0, 0, 0.9);
     color: white; }
 
-@media(max-width: 768px) {
+@media(max-width: 1238px) {
+  .nav-switch-container {
+    padding-left: 20px; }
+
+  .park-thumbnails {
+    height: 365px; } }
+@media(max-width: 1024px) {
+  .park-thumbnails {
+    height: 385px; } }
+@media(max-width: 1007px) {
+  .park-thumbnails {
+    height: 365px; } }
+@media(max-width: 800px) {
+  a#treelogocontainer {
+    padding-left: 10px; } }
+@media(max-width: 767px) {
+  .account-links-dropdown {
+    background-color: #B3B3B3;
+    float: right;
+    position: relative;
+    bottom: 60px;
+    width: 75%; }
+
+  .right-nav.sort-and-filters-list {
+    padding-right: 0px; }
+
+  #filter-dropdown {
+    max-width: 100%;
+    margin-right: 0px; }
+
+  .filter-form {
+    padding-left: 0px; }
+
+  .dropdown.open {
+    display: inline-block;
+    width: 100%; }
+
   .navbar-header {
     display: inline; }
 
@@ -596,10 +669,6 @@ div.row.park-sidebar-list-item.active {
 
   #parkary-name {
     padding-top: 12px; }
-
-  .bootstrap-switch-id-map-grid-toggle-mobile {
-    display: inline-block;
-    margin-left: 10%; }
 
   .park-thumbnails {
     height: 350px; }
@@ -639,13 +708,40 @@ div.row.park-sidebar-list-item.active {
 
   .all-reviews-link {
     float: none; } }
+@media(max-width: 569px) {
+  .park-thumbnails {
+    height: 400px; } }
 @media(max-width: 480px) {
+  .nav-switch-container {
+    padding-left: 7%; }
+
+  #pagename {
+    padding-left: 5px; }
+
   .amenities {
-    width: 32%; } }
+    width: 32%; }
+
+  .park-thumbnails {
+    height: 415px; } }
 @media(max-width: 414px) {
+  #pagename {
+    display: none; }
+
+  #parkary-name {
+    padding-left: 5px; }
+
+  .nav-switch-container {
+    padding-left: 5%; }
+
   .thumbnail-columns {
     width: 95%;
     margin-left: 2.5%; }
+
+  .park-thumbnails {
+    height: 260px; }
+
+  .park-description {
+    display: none; }
 
   .park-sidebar-list-item {
     width: 100%;
@@ -662,8 +758,17 @@ div.row.park-sidebar-list-item.active {
     min-height: 275px;
     max-height: 275px; } }
 @media(max-width: 320px) {
-  .park-description {
-    display: none; }
+  #parkary-name {
+    padding-right: 5px; }
+
+  a#treelogocontainer {
+    padding-left: 20px; }
+
+  #toggle-btn {
+    margin-right: 10px; }
+
+  .nav-switch-container {
+    padding-left: 1%; }
 
   .park-thumbnails {
     height: 275px; }
@@ -725,4 +830,5 @@ img {
           animation-duration: 1s;
   -webkit-animation-delay: 0.2s;
           animation-delay: 0.2s; }
+
 /*# sourceMappingURL=app.css.map */
