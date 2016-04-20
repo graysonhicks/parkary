@@ -76,19 +76,19 @@ var InterfaceComponent = React.createClass({
   },
   filterAmenity: function(addedAmenities){
     var self = this;
-    var filterAmenities = addedAmenities;
-    this.search(this.state.mapCenter, "mapChanged", filterAmenities);
+    this.filterAmenities = addedAmenities;
+    this.search(this.state.mapCenter, "mapChanged");
 
   },
-  search: function(center, type, filterAmenities){
+  search: function(center, type){
     var self = this;
+    var filterAmenities = this.filterAmenities;
     // receiving type to determine where location is coming from and what format
     self.setState({"pending": true})
     var parseGeo;
     var noParks = false;
     // this only runs if there are no parks passed in in getInitialState
     // basically same function as setLocationObj, but is here in case someone navigates to results page by url only and doesnt use the search bar
-    var self = this;
     // if a center is passed in from drag or zoom
     if(type === "mapChanged"){
       // make it the parseGeo
@@ -203,6 +203,8 @@ var InterfaceComponent = React.createClass({
       )
     }
     if(this.state.router.current == "search"){
+      this.filterAmenities = [];
+      console.log('filterAmenities', this.filterAmenities);
       body = (
         <SearchFormComponent
           mapUrl={this.mapUrl}
