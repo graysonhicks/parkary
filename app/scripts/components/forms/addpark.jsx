@@ -64,6 +64,30 @@ var AddParkComponent = React.createClass({
 			console.log(error);
 		});
 	},
+  componentDidMount: function(){
+    var self = this;
+        // set input as google places input
+        var searchInput = new google.maps.places.Autocomplete(
+        (document.getElementById('add-park-address')), {
+            types: ['geocode']
+        });
+        //when place is changed, get location from google api
+        google.maps.event.addListener(searchInput, 'place_changed', function (){
+              var place = searchInput.getPlace();
+              console.log("place", place);
+              var lat = place.geometry.location.lat();
+              var lng = place.geometry.location.lng();
+              var address = place.formatted_address;
+              // build an object to pass back up and set in interface state
+              self.setState({
+                "lat": lat,
+                "lng": lng,
+                "address": address
+              })
+              console.log(self.state);
+              //function to set in state
+            }.bind(this))
+  },
   openModal: function(){
     this.setState({
       showModal: true
@@ -203,16 +227,16 @@ var AddParkComponent = React.createClass({
             <input valueLink={this.linkState('name')} type="text" className="form-control" id="add-park-name" />
           </fieldset>
           <fieldset className="form-group add-park-form">
+            <label className="form-label" htmlFor="add-park-address">address</label>
+            <input valueLink={this.linkState('address')} type="text" className="form-control" id="add-park-address" />
+          </fieldset>
+          <fieldset className="form-group add-park-form">
             <label className="form-label" htmlFor="add-park-lat">latitude</label>
-            <input valueLink={this.linkState('lat')} type="text" className="form-control" id="add-park-lat" />
+            <input valueLink={this.linkState('lat')} type="text" className="form-control" id="add-park-lat" disabled/>
           </fieldset>
           <fieldset className="form-group add-park-form">
             <label className="form-label" htmlFor="add-park-lng">longitude</label>
-            <input valueLink={this.linkState('lng')} type="text" className="form-control" id="add-park-lng" />
-          </fieldset>
-          <fieldset className="form-group add-park-form">
-            <label className="form-label" htmlFor="add-park-address">address</label>
-            <input valueLink={this.linkState('address')} type="text" className="form-control" id="add-park-address" />
+            <input valueLink={this.linkState('lng')} type="text" className="form-control" id="add-park-lng" disabled/>
           </fieldset>
           <fieldset className="form-group add-park-form">
             <label className="form-label" htmlFor="add-park-size">size</label>
