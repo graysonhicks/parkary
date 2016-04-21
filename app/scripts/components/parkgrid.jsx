@@ -44,6 +44,7 @@ var ParkGridComponent = React.createClass({
     }
   },
   render: function(){
+    var addParkTile;
     var toggleSwitch;
       if((this.props.page =="parks")||(this.props.page =="map")){
         // using switchState and labelText to handle the map/grid toggle switch
@@ -68,12 +69,32 @@ var ParkGridComponent = React.createClass({
                 <div className="panel panel-default center-block loading-panel">
                   <div className="panel-body loading-panel-body">
                     <h2>Sorry!</h2>
-                    <p>No parks found.</p>
+                    <h4>No parks found.</h4>
+                    <p>Click <a id="no-park-tile-link" href="#">here</a> to request a park to be added!</p>
                   </div>
                 </div>
               </div>)
     }
-      var gridItem = function(park){
+
+      var gridItem = function(park, index){
+        if(index === (this.props.parks.length - 1)){
+          addParkTile = (
+            <div className="col-xs-6 col-sm-4 col-md-3 thumbnail-columns">
+              <div className="thumbnail-link">
+              <div className="thumbnail park-thumbnails add-park-tile">
+                <div className="thumbnail-content">
+                  <div className="add-park-tile logo-heading"><img src="images/treelogo.png" /><span className="add-park-tile-parkary-park" id="parkbold">park</span><span className="add-park-tile-parkary-ary" id="parklight">ary</span></div>
+
+                  <div className="caption add-park-tile">
+                    <h3>Don't see your favorite or neighborhood park?</h3>
+                    <h5>Click <a id="add-park-tile-link" href="#">here</a> to request it to be added!</h5>
+                  </div>
+                </div>
+              </div>
+            </div>
+            </div>
+          )
+        }
         return(
         <div key={park.id}>
           <ParkTileComponent park={park} />
@@ -84,6 +105,7 @@ var ParkGridComponent = React.createClass({
         <ReactCSSTransitionGroup transitionName="fade" transitionAppear={true} transitionAppearTimeout={600} transitionEnterTimeout={500} transitionLeaveTimeout={300}>
           <div className="row thumbnail-row">
             {this.props.parks.map(gridItem.bind(this))}
+            {addParkTile}
           </div>
         </ReactCSSTransitionGroup>
          )
