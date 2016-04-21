@@ -109,21 +109,20 @@ var EditParkComponent = React.createClass({
   },
   handleCheck: function(amenity, checked){
 
-    console.log('tock', checked);
-    console.log(amenity);
+
     var addedAmenities = this.state.addedAmenities;
-    console.log(addedAmenities.length, 'orig length');
+
     // on check, add amenity to new array
     if(checked){
       // push amenity
       addedAmenities.push(amenity);
-      console.log(addedAmenities.length, 'added so now its');
+
     } else {
       //other wise find amenity and remove if unchecked
       for(var i = 0; i < addedAmenities.length; i++) {
           if (addedAmenities[i].id == amenity.id) {
             addedAmenities.splice(i, 1);
-            console.log(addedAmenities.length, 'removed so now its');
+    
           }
         }
     }
