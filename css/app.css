@@ -244,6 +244,26 @@
 .thumbnail-images {
   min-height: 215px; }
 
+.add-park-tile {
+  background-color: #B3B3B3;
+  cursor: default; }
+  .add-park-tile .caption {
+    color: white;
+    text-align: center; }
+  .add-park-tile .add-park-tile-parkary-park,
+  .add-park-tile .add-park-tile-parkary-ary {
+    color: white;
+    font-size: 22px;
+    vertical-align: bottom; }
+  .add-park-tile .logo-heading {
+    text-align: center;
+    margin-top: 60px; }
+  .add-park-tile #add-park-tile-link {
+    color: #008F00; }
+
+#no-park-tile-link {
+  color: #008F00; }
+
 .park-card {
   margin-top: 10px;
   max-width: 90%;
