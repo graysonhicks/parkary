@@ -154,11 +154,11 @@ var NavbarComponent = React.createClass({
     if(centerNavPages.indexOf(this.props.page)>(-1)){
       nav = (
           <div>
-            <div className="navbar-brand">
-              <div className="nav navbar-nav navbar-left">
+            <div className="navbar-brand center-nav-brand">
+              <div className="nav navbar-nav navbar-left center-nav-nav-left">
                   <a id="treelogocontainer" href="#"><img id="treelogo-login" src="images/treelogo.png" /></a>
               </div>
-              <div>
+              <div className="center-nav-parkary">
                  <a href="#" id="parkary-name">
                    <span id="parkbold">park</span><span id="parklight">ary</span>
                  </a>
