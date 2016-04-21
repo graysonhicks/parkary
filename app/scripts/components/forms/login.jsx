@@ -7,6 +7,8 @@ require('backbone-react-component');
 var LinkedStateMixin = require('react/lib/LinkedStateMixin');
 var ReactCSSTransitionGroup = require('../../../../node_modules/react-addons-css-transition-group');
 
+var AddedEditedUserModal = require('./addedediteduser.jsx').AddedEditedUserModal;
+
 var LoginFormComponent = React.createClass({
   mixins: [Backbone.React.Component.mixin, LinkedStateMixin],
   getInitialState: function(){
@@ -27,7 +29,24 @@ var LoginFormComponent = React.createClass({
       password: ''
     });
   },
+  openModal: function(){
+    this.setState({
+      showModal: true
+    })
+  },
+  closeModal: function(){
+    this.setState({
+      showModal: false
+    })
+    Backbone.history.navigate("", {trigger: true});
+  },
   render: function(){
+    var modal;
+    if(this.props.userLoginSuccess){
+      return (
+        <AddedEditedUserModal page={this.props.page} className="add-change-warning-modal" backdrop={true} closeButton={false} show={this.props.userLoginSuccess} closeModal={this.closeModal}/>
+      )
+    }
     return (
   <ReactCSSTransitionGroup transitionName="fade" transitionAppear={true} transitionAppearTimeout={500} transitionEnterTimeout={500} transitionLeaveTimeout={300}>
     <div className="container login-form-container">
@@ -36,6 +55,7 @@ var LoginFormComponent = React.createClass({
           <label className="form-label" htmlFor="login-username">username</label>
           <input valueLink={this.linkState('username')} type="text" className="form-control" id="login-username" />
         </fieldset>
+        {modal}
         <fieldset className="form-group">
           <label className="form-label" htmlFor="login-password">password</label>
           <input valueLink={this.linkState('password')} type="password" className="form-control" id="login-password" />

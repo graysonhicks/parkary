@@ -14,12 +14,20 @@ var LoginSignUpFormComponent = React.createClass({
     var form;
     if(this.props.page == "login"){
       form = (
-        <LoginFormComponent login={this.props.login} />
+        <LoginFormComponent
+          page={this.props.page}
+          userLoginSuccess={this.props.userLoginSuccess}
+          login={this.props.login}
+        />
       )
     }
     if(this.props.page == "signup"){
       form = (
-        <SignUpFormComponent signUp={this.props.signUp} />
+        <SignUpFormComponent
+          page={this.props.page}
+          newUser={this.props.newUser}
+          signUp={this.props.signUp}
+        />
       )
     }
     return (

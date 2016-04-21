@@ -35,22 +35,38 @@ var ProfileComponent = React.createClass({
       "fullFavorites": !this.state.fullFavorites
     })
   },
+  handleEdit: function(){
+    Backbone.history.navigate("#user/" + this.props.user.id, {trigger: true});
+  },
   render: function(){
+    // return early
     if(!this.state.user){
       return(<LoadingComponent />)
     }
     var body;
+    var userEditButton;
     var user = this.state.user;
     var posterAvatar;
+    //if they have an avatar, grab it
     if(user.get("avatar")){
       posterAvatar = user.get("avatar").url();
-    } else {
+    }
+    // otherwise set as default
+    else {
       posterAvatar = "images/fbook.jpg";
     }
     //if full favorites grid chosen, display full card grid
     if(this.state.fullFavorites){
       body=( <UserFavoritesComponent toggleFull={this.toggleFull} fullFavorites={this.state.fullFavorites} profileId={this.props.profileId} user={this.state.user} />)
     }
+    //user edit button
+    //if profile belongs to current user
+    console.log(this.props.profileId);
+    console.log(Parse.User.current().id);
+    if(this.props.profileId === Parse.User.current().id){
+      userEditButton = (<button className="btn btn-default pull-right" onClick={this.handleEdit}>edit profile <span className="glyphicon glyphicon-wrench" aria-hidden="true"></span></button>)
+    }
+    //show edit button
     //if full favorites grid not chosen, display normal profile card
     if(!this.state.fullFavorites){
       body=(
@@ -60,13 +76,16 @@ var ProfileComponent = React.createClass({
          <div className="container profile-container">
            <div className="row">
                 <div className="col-md-12 image-column">
-                  <img className="profile-card-image img-responsive center-block" src={posterAvatar} alt="" />                             </div>
+                  <img className="profile-card-image img-responsive center-block" src={posterAvatar} alt="" />                            </div>
+
               </div>
             <div className="row">
               <div className="col-md-12 info-column">
                   <div className="username-and-location-container park-card-name-and-location-container">
+                    {userEditButton}
                     <div className="user-card-name park-card-name">{user.get("firstname")} {user.get("lastname")}</div>
                     <div className="user-card-location park-card-location">{user.get("username")}</div>
+
                   </div>
                   <div className="profile-social-container">
                     <SocialIconsComponent

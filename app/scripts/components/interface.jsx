@@ -17,6 +17,8 @@ var ProfileComponent = require('./profilecard/profile.jsx').ProfileComponent;
 var ParkMapComponent = require('./mapview/parkmap.jsx').ParkMapComponent;
 var AddParkComponent = require('./forms/addpark.jsx').AddParkComponent;
 var EditParkComponent = require('./forms/editpark.jsx').EditParkComponent;
+var EditUserComponent = require('./forms/usereditform.jsx').EditUserComponent;
+var AddedEditedUserModal = require('./forms/addedediteduser.jsx').AddedEditedUserModal;
 
 Parse.initialize("parkary");
 Parse.serverURL = 'http://parkary.herokuapp.com';
@@ -158,6 +160,7 @@ var InterfaceComponent = React.createClass({
       "username": userObj.username,
       "password": userObj.password,
       "email": userObj.email,
+      "bio": userObj.bio,
       "avatar": userObj.avatar
     }
     user.set(newUser);
@@ -170,9 +173,10 @@ var InterfaceComponent = React.createClass({
         role.getUsers().add(user);
         role.save();
         // set Parse User in state
-        this.setState({user: user});
-        // then navigate home
-        Backbone.history.navigate('', {trigger: true});
+        this.setState({
+          "user": user,
+          "newUser": true
+        });
       }.bind(this),
       error: function(user, error) {
         console.log("Error: " + error.code + " " + error.message);
@@ -182,9 +186,10 @@ var InterfaceComponent = React.createClass({
   login: function(userObj){
     Parse.User.logIn(userObj.username, userObj.password, {
       success: function(user) {
-        this.setState({user: user});
-        this.forceUpdate();
-        Backbone.history.navigate('', {trigger: true});
+        this.setState({
+          "user": user,
+          "userLoginSuccess": true
+        });
       }.bind(this),
       error: function(user, error) {
         console.log('failed login', user);
@@ -193,18 +198,46 @@ var InterfaceComponent = React.createClass({
     });
   },
   logout: function(e){
+    var self = this;
     e.preventDefault();
     Parse.User.logOut().then(function(data, code, xhr){
-      this.setState({'user': null});
+      console.log('logout');
+      self.setState({
+        'user': null,
+        "userLogoutSuccess": true
+      });
     }.bind(this));
-    Backbone.history.navigate('', {trigger: true});
+  },
+  closeModal: function(){
+    this.setState({
+      "userLogoutSuccess": false
+    })
   },
   render: function(){
-
+    var modal;
     var body;
+    if(this.state.userLogoutSuccess){
+      modal = (
+        <AddedEditedUserModal
+          userLogoutSuccess={this.state.userLogoutSuccess}
+          page={this.props.page}
+          className="add-change-warning-modal"
+          backdrop={true}
+          closeButton={false}
+          show={this.state.userLogoutSuccess}
+          closeModal={this.closeModal}
+        />
+      )
+    }
     if((this.state.router.current == "login")||(this.state.router.current == "signup")){
       body = (
-        <LoginSignUpFormComponent login={this.login} signUp={this.signUp} page={this.state.router.current} />
+        <LoginSignUpFormComponent
+          newUser={this.state.newUser}
+          userLoginSuccess={this.state.userLoginSuccess}
+          login={this.login}
+          signUp={this.signUp}
+          page={this.state.router.current}
+          />
       )
     }
     if(this.state.router.current == "search"){
@@ -267,6 +300,11 @@ var InterfaceComponent = React.createClass({
         <ProfileComponent profileId={this.state.router.profileId} page={this.state.router.current} user={this.state.user}/>
       )
     }
+    if(this.state.router.current == "user"){
+      body = (
+        <EditUserComponent profileId={this.state.router.profileId} page={this.state.router.current} user={this.state.user}/>
+      )
+    }
     if(this.state.router.current == "add"){
       body = (
         <AddParkComponent page={this.state.router.current} />
@@ -295,6 +333,7 @@ var InterfaceComponent = React.createClass({
          mapview={this.state.mapview}
         />
          {body}
+         {modal}
       </div>
       )
     }
