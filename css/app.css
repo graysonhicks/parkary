@@ -744,6 +744,18 @@ div.row.park-sidebar-list-item.active {
   #parkary-name {
     padding-top: 12px; }
 
+  .center-nav-brand .center-nav-parkary {
+    padding-left: 15px; }
+  .center-nav-brand .center-nav-nav-left,
+  .center-nav-brand .center-nav-parkary {
+    display: inline-block;
+    position: relative;
+    bottom: 62px; }
+
+  .navbar-collapse .right-nav {
+    background-color: #B3B3B3;
+    margin-top: 0px; }
+
   .park-thumbnails {
     height: 350px; }
 
@@ -784,7 +796,25 @@ div.row.park-sidebar-list-item.active {
     float: none; }
 
   .profile-card {
-    max-width: 100%; } }
+    max-width: 100%; }
+
+  .edit-user-form {
+    max-width: 95%;
+    margin-top: 10px;
+    margin-bottom: 20px; }
+
+  .login-form-container {
+    margin-top: 40px; }
+
+  .signup-form-container {
+    max-width: 95%;
+    margin-top: 40px; }
+
+  .signup-btn-and-link-container {
+    padding-bottom: 20px; }
+
+  .login-form-submit-btn {
+    margin-top: 20px; } }
 @media(max-width: 569px) {
   .park-thumbnails {
     height: 400px; } }
@@ -907,4 +937,5 @@ img {
           animation-duration: 1s;
   -webkit-animation-delay: 0.2s;
           animation-delay: 0.2s; }
+
 /*# sourceMappingURL=app.css.map */
