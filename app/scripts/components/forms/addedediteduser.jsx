@@ -7,6 +7,8 @@ require('backbone-react-component');
 var Modal = require('react-bootstrap').Modal;
 var Button = require('react-bootstrap').Button;
 
+//this is used on login, sign up and logout, the logout call is located in the interface
+
 var AddedEditedUserModal = React.createClass({
   mixins: [Backbone.React.Component.mixin],
   render: function(){

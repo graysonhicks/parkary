@@ -59,7 +59,7 @@ var NavbarComponent = React.createClass({
     var nav;
     // set array of different page options
     // some require the logo on the left, others require logo in the center
-    var leftNavPages = ["home", "parks", "profile", "park", "search", "map", "add", "edit", "user"];
+    var leftNavPages = ["home", "parks", "profile", "park", "search", "map", "add", "edit", "user", "request"];
     var centerNavPages = ["login", "signup"];
 
     // if the page passed in(this.props.page) is in the left array, then render that component inside main nav
@@ -76,7 +76,7 @@ var NavbarComponent = React.createClass({
             )}
           // if on the profile, or park page
           // show search link and account dropdown
-          if((this.props.page == "profile")||(this.props.page == "park")||(this.props.page == "add")||(this.props.page == "edit")||(this.props.page == "user")){
+          if((this.props.page == "profile")||(this.props.page == "park")||(this.props.page == "add")||(this.props.page == "edit")||(this.props.page == "user")||(this.props.page == "request")){
             accountLinks = (
               <ul className="nav navbar-nav navbar-right right-nav">
                 <li><a id="search-link" href="#search">search</a></li>

@@ -30,6 +30,7 @@ var EditParkComponent = React.createClass({
         dateFounded: "",
         description: "",
         allAmenities: [],
+        originialAmenities: this.addedAmenities,
         addedAmenities: [],
         images: [],
         imageCount: 1,
@@ -37,17 +38,27 @@ var EditParkComponent = React.createClass({
     }
   },
 	componentWillMount: function() {
-    console.log(this.props.parkId);
     this.setState({
       "editMode": true
     })
     // pulling all amenities down to populate checkbox options
 		var self = this;
-    //if no one is logged in, show warning modal
+    // Query if user is an admin, otherwise show modal
+    var query = (new Parse.Query(Parse.Role));
     if(!Parse.User.current()){
-      self.setState({
-        showModal: true
-      })
+      self.setState({"showModal": true})
+    }
+    if(Parse.User.current()){
+      query.equalTo("name", "Administrator");
+      query.equalTo("users", Parse.User.current());
+      query.first().then(function(adminRole) {
+          if (adminRole) {
+              console.log("user is an admin");
+          } else {
+              self.setState({"showModal": true})
+              console.log("user is not an admin");
+          }
+      });
     }
 		var Amenities = Parse.Object.extend("Amenities");
 		var amenitiesQuery = new Parse.Query( Amenities );
@@ -64,7 +75,6 @@ var EditParkComponent = React.createClass({
       var self = this;
       // get location
       var location = park.get("location");
-
       // set state of all other park properties and set into form with linkstate here as well
       this.setState({
         "park": park,
@@ -82,11 +92,6 @@ var EditParkComponent = React.createClass({
       });
     }.bind(this));
 	},
-  openModal: function(){
-    this.setState({
-      showModal: true
-    })
-  },
   closeModal: function(){
     this.setState({
       showModal: false
@@ -103,17 +108,23 @@ var EditParkComponent = React.createClass({
     this.setState({"images": images});
   },
   handleCheck: function(amenity, checked){
+
+    console.log('tock', checked);
+    console.log(amenity);
     var addedAmenities = this.state.addedAmenities;
+    console.log(addedAmenities.length, 'orig length');
     // on check, add amenity to new array
     if(checked){
       // push amenity
       addedAmenities.push(amenity);
+      console.log(addedAmenities.length, 'added so now its');
     } else {
       //other wise find amenity and remove if unchecked
       for(var i = 0; i < addedAmenities.length; i++) {
-            if (addedAmenities[i] == amenity) {
-              addedAmenities.splice(i, 1);
-            }
+          if (addedAmenities[i].id == amenity.id) {
+            addedAmenities.splice(i, 1);
+            console.log(addedAmenities.length, 'removed so now its');
+          }
         }
     }
   },

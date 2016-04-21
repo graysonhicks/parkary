@@ -19,6 +19,8 @@ var AddParkComponent = require('./forms/addpark.jsx').AddParkComponent;
 var EditParkComponent = require('./forms/editpark.jsx').EditParkComponent;
 var EditUserComponent = require('./forms/usereditform.jsx').EditUserComponent;
 var AddedEditedUserModal = require('./forms/addedediteduser.jsx').AddedEditedUserModal;
+var RequestParkComponent = require('./forms/requestpark.jsx').RequestParkComponent;
+var WarningModal = require('./warningmodal.jsx').WarningModal;
 
 Parse.initialize("parkary");
 Parse.serverURL = 'http://parkary.herokuapp.com';
@@ -152,6 +154,15 @@ var InterfaceComponent = React.createClass({
     location.reload();
 
   },
+  handleRequest: function(){
+    if(!Parse.User.current()){
+      this.setState({
+        "showWarningModal": true
+      })
+    } else {
+      Backbone.history.navigate("#request", {trigger: true});
+    }
+  },
   signUp: function(userObj){
     var user = new Parse.User();
     var newUser = {
@@ -208,10 +219,18 @@ var InterfaceComponent = React.createClass({
       });
     }.bind(this));
   },
-  closeModal: function(){
+  closeLoginModal: function(){
     this.setState({
-      "userLogoutSuccess": false
+      "userLogoutSuccess": false,
+      "userLoginSuccess": false
     })
+    Backbone.history.navigate("", {trigger: true});
+  },
+  closeWarningModal: function(){
+    this.setState({
+      "showWarningModal": false
+    })
+    Backbone.history.navigate("", {trigger: true});
   },
   render: function(){
     var modal;
@@ -225,8 +244,13 @@ var InterfaceComponent = React.createClass({
           backdrop={true}
           closeButton={false}
           show={this.state.userLogoutSuccess}
-          closeModal={this.closeModal}
+          closeModal={this.closeLoginModal}
         />
+      )
+    }
+    if(this.state.showWarningModal){
+      modal = (
+        <WarningModal backdrop={true} show={this.state.showWarningModal} closeModal={this.closeWarningModal}/>
       )
     }
     if((this.state.router.current == "login")||(this.state.router.current == "signup")){
@@ -237,6 +261,15 @@ var InterfaceComponent = React.createClass({
           login={this.login}
           signUp={this.signUp}
           page={this.state.router.current}
+          />
+      )
+    }
+    if((this.state.router.current == "request")){
+      body = (
+        <RequestParkComponent
+            handleRequest={this.handleRequest}
+            showWarningModal={this.state.showWarningModal}
+            closeWarningModal={this.closeWarningModal}
           />
       )
     }
@@ -263,6 +296,7 @@ var InterfaceComponent = React.createClass({
           search={this.search}
           noParks={this.state.noParks}
           mapCenter={this.state.mapCenter}
+          handleRequest={this.handleRequest}
         />
       )
     }

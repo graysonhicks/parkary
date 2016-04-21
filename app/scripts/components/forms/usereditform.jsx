@@ -29,7 +29,7 @@ var EditUserComponent = React.createClass({
     var name = this.state.username + Date.now() + ".jpg";
     // pass in name and file that is passed in to function above
     var image = new Parse.File(name, file);
-    // push image to array
+
     image.save().then(function(file){
       self.setState({"avatar": file});
     });

@@ -70,7 +70,7 @@ var ParkGridComponent = React.createClass({
                   <div className="panel-body loading-panel-body">
                     <h2>Sorry!</h2>
                     <h4>No parks found.</h4>
-                    <p>Click <a id="no-park-tile-link" href="#">here</a> to request a park to be added!</p>
+                    <p>Click <a id="no-park-tile-link" onClick={this.props.handleRequest}>here</a> to request a park to be added!</p>
                   </div>
                 </div>
               </div>)
@@ -87,7 +87,7 @@ var ParkGridComponent = React.createClass({
 
                   <div className="caption add-park-tile">
                     <h3>Don't see your favorite or neighborhood park?</h3>
-                    <h5>Click <a id="add-park-tile-link" href="#">here</a> to request it to be added!</h5>
+                    <h5>Click <a id="add-park-tile-link" onClick={this.props.handleRequest}>here</a> to request it to be added!</h5>
                   </div>
                 </div>
               </div>
