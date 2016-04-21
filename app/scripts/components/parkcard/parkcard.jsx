@@ -62,6 +62,7 @@ var ParkCardComponent = React.createClass({
     var query = new Parse.Query("Parks");
     query.include("amenities");
     query.include("newAmenities");
+
     query.get(this.props.parkId).then(function(park){
       // then set location of park as google map marker location format to show park on parkcard map
       var markerLocation = park.get("location");
@@ -87,7 +88,19 @@ var ParkCardComponent = React.createClass({
   },
   closeParkCard: function(e){
     e.preventDefault();
-      Backbone.history.navigate("parks/" + this.props.router.lat + "/" + this.props.router.lng, {"trigger": true});
+    var lat;
+    var lng;
+    var loc;
+    if(this.props.router.lat){
+      lat = this.props.router.lat;
+      lng = this.props.router.lng;
+    } else {
+      loc = this.state.park.get("location");
+      lat = loc.latitude;
+      lng = loc.longitude;
+    }
+
+    Backbone.history.navigate("parks/" + lat + "/" + lng, {"trigger": true});
   },
   toggleFull: function(){
       this.setState({

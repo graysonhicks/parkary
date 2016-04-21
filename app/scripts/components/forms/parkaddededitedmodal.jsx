@@ -14,6 +14,10 @@ var AddedEditedModal = React.createClass({
     Backbone.history.navigate("#signup", {trigger: true});
   },
   render: function(){
+    var requestText;
+    if(this.props.requestMade){
+      requestText = " to the request queue"
+    }
     return (
         <div className="static-modal warning-modal">
           <Modal.Dialog>
@@ -30,7 +34,7 @@ var AddedEditedModal = React.createClass({
             <Modal.Body>
               <div className="not-logged-in-container">
                 <h3 className="not-logged-in-heading">Thanks!</h3>
-                <p>Park has been added!</p>
+                <p>Park has been added{requestText}!</p>
                 <p>Please click <a href="#" onClick={this.props.addAgain} id="warning-signup">here</a> to add another park or <a href="#" id="warning-login">here</a> to go back.</p>
               </div>
             </Modal.Body>

@@ -10,6 +10,7 @@ var Parse = require('parse');
 var ParseReact = require('parse-react');
 
 var WarningModal = require('./../warningmodal.jsx').WarningModal;
+var AddedEditedModal = require('./parkaddededitedmodal.jsx').AddedEditedModal;
 
 Parse.initialize("parkary");
 Parse.serverURL = 'http://parkary.herokuapp.com';
@@ -17,18 +18,46 @@ Parse.serverURL = 'http://parkary.herokuapp.com';
 var RequestParkComponent = React.createClass({
   mixins: [Backbone.React.Component.mixin, LinkedStateMixin],
   requestPark: function(e){
+    var self = this;
     e.preventDefault();
     var requestData = this.state;
     requestData.userId = Parse.User.current().id;
     requestData.date = Date.now();
-    console.log(requestData);
+
+    var Request = Parse.Object.extend("Requests");
+    var request = new Request();
+
+    request.set(requestData); // let geopoint location
+    //Save
+    request.save(null, {
+      success:function(newRequest) {
+        console.log(newRequest);
+        self.setState({
+          "requestMade": true
+        })
+      },
+      error:function(obj, error) {
+        console.log(error);
+      }
+    });
+  },
+  closeModal: function(){
+    console.log('close');
+    this.setState({
+      "requestMade": false
+    })
+    Backbone.history.navigate("", {trigger: true});
   },
   componentWillMount: function(){
     this.props.handleRequest();
   },
   render: function(){
       var modal;
-
+      if(this.state.requestMade){
+        return (
+          <AddedEditedModal className="add-edit-success-modal add-change-warning-modal" backdrop={true} closeButton={false} requestMade={this.state.requestMade} show={this.state.requestMade} closeModal={this.closeModal}/>
+        )
+      }
       if(this.props.showWarningModal){
         return (
           <WarningModal className="add-change-warning-modal" backdrop={true} closeButton={false} show={this.state.showModal} closeModal={this.props.closeWarningModal}/>)
@@ -68,7 +97,7 @@ var RequestParkComponent = React.createClass({
               </div>
             </form>
           </div>
-          <div className="signup-btn-and-link-container">
+          <div className="signup-btn-and-link-container fade-in">
             <button form="signup-form" type="submit" id="login-form-submit-btn" className="btn btn-primary">send request</button>
           </div>
         </div>

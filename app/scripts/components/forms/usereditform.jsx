@@ -7,18 +7,24 @@ require('backbone-react-component');
 var LinkedStateMixin = require('react/lib/LinkedStateMixin');
 var Parse = require('parse');
 
+var WarningModal = require('./../warningmodal.jsx').WarningModal;
 
 var EditUserComponent = React.createClass({
   mixins: [Backbone.React.Component.mixin, LinkedStateMixin],
-  getInitialState: function(){
-    return {
-      username: this.props.user.get("username"),
-      email: this.props.user.get("email"),
-      firstname: this.props.user.get("firstname"),
-      lastname: this.props.user.get("lastname"),
-      avatar: this.props.user.get("avatar")
-
-    }
+  componentWillMount: function(){
+    // if user gets to this endpoint but isnt logged in, start modal
+      if(!this.props.user){
+        this.setState({"showModal": true})
+        return
+      }
+      //otherwise prefill form with their info
+      this.setState({
+        username: this.props.user.get("username"),
+        email: this.props.user.get("email"),
+        firstname: this.props.user.get("firstname"),
+        lastname: this.props.user.get("lastname"),
+        avatar: this.props.user.get("avatar")
+      })
   },
   handleChange: function(e){
     var self = this;
@@ -29,7 +35,7 @@ var EditUserComponent = React.createClass({
     var name = this.state.username + Date.now() + ".jpg";
     // pass in name and file that is passed in to function above
     var image = new Parse.File(name, file);
-
+    // save new image and set it as their avatar
     image.save().then(function(file){
       self.setState({"avatar": file});
     });
@@ -44,10 +50,13 @@ var EditUserComponent = React.createClass({
         email: this.state.email,
         avatar: this.state.avatar
     }
+    // set user
     this.props.user.set(newUser);
+    //save user
     this.props.user.save(null, {
       success:function(updatedUser) {
         console.log(updatedUser);
+        // flag the state to trigger modal
         self.setState({
           "userEdited": true
         })
@@ -64,15 +73,29 @@ var EditUserComponent = React.createClass({
       email: ''
     });
   },
+  closeModal: function(){
+    //close modal and navigate home
+    this.setState({
+      showModal: false
+    })
+    Backbone.history.navigate("", {trigger: true});
+  },
   render: function(){
     var mainImage;
     var mainImageUrl;
+    // modal catches here
+    if(this.state.showModal){
+      return (
+        <WarningModal className="add-change-warning-modal" backdrop={true} closeButton={false} show={this.state.showModal} closeModal={this.closeModal}/>)
+    }
+    //if the user already has an avatar user it
     if(this.state.avatar){
+
       mainImage = this.state.avatar;
       mainImageUrl = mainImage.url();
     } else {
-      mainImage = this.props.user.get("avatar");
-      mainImageUrl = mainImage.url();
+      //or use default
+      mainImageUrl = "images/fbook.jpg";
     }
 
     return (

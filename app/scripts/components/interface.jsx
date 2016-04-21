@@ -204,7 +204,7 @@ var InterfaceComponent = React.createClass({
       }.bind(this),
       error: function(user, error) {
         console.log('failed login', user);
-        console.log('failed login error: ', error );
+        alert('failed login error: ', error );
       }
     });
   },
