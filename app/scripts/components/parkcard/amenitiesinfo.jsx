@@ -31,9 +31,9 @@ var AmenitiesInfoComponent = React.createClass({
       )
     }
 
-    var newAmenity = function(amenity){
+    var newAmenity = function(amenity, index){
       return (
-        <AmenityItemComponent key={amenity.objectId} amenity={amenity}/>
+        <AmenityItemComponent key={index} amenity={amenity}/>
       )
     }
     // map over amenities array

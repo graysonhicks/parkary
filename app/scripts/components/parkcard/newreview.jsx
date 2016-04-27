@@ -57,6 +57,9 @@ var NewReviewComponent = React.createClass({
     e.preventDefault();
     var self = this;
     // on submit, start new review model
+    var acl = new Parse.ACL();
+    acl.setPublicReadAccess(true);
+    acl.setWriteAccess(Parse.User.current().id, true);
     var Review = Parse.Object.extend("Reviews");
     var review = new Review();
     // get current park
@@ -110,6 +113,7 @@ var NewReviewComponent = React.createClass({
     // set review with new review data
     review.set(newReviewData);
     // save the review
+    review.setACL(acl);
     review.save(null, {
       success:function(newReview) {
         // on success, add the new review to the park's reviews array

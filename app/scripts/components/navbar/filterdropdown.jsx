@@ -51,9 +51,9 @@ var FilterDropdownComponent = React.createClass({
     if(!this.state.allAmenities){
       return(<h1>Loading</h1>)
     }
-      var newAmenity = function(amenity){
+      var newAmenity = function(amenity, index){
         return (
-          <div key={amenity.objectId}>
+          <div key={index}>
             <FilterCheckboxComponent handleCheck={this.handleCheck} addedAmenities={this.state.addedAmenities} amenity={amenity}/>
           </div>
         )

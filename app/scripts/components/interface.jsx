@@ -372,6 +372,7 @@ var InterfaceComponent = React.createClass({
       )
     }
 });
+
 module.exports = {
   InterfaceComponent: InterfaceComponent
 }

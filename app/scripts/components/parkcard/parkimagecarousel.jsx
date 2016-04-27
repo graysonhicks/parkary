@@ -38,9 +38,9 @@ var ParkImageCarouselComponent = React.createClass({
       )
     }
 
-    var newImage = function(image){
+    var newImage = function(image, index){
       return (
-          <Carousel.Item>
+          <Carousel.Item key={index}>
             <img className="carousel-images" src={image.url()}/>
           </Carousel.Item>
       )

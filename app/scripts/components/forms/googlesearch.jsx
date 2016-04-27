@@ -22,7 +22,6 @@ var GoogleSearchComponent = React.createClass({
     //when place is changed, get location from google api
     google.maps.event.addListener(searchInput, 'place_changed', function (){
           var place = searchInput.getPlace();
-          console.log("place", place);
           var lat = place.geometry.location.lat();
           var lng = place.geometry.location.lng();
           var placeName = place.formatted_address;

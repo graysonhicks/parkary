@@ -11,6 +11,8 @@ var Rater = require('react-rater').default;
 Parse.initialize("parkary");
 Parse.serverURL = 'http://parkary.herokuapp.com';
 
+var DeleteReviewModal = require('./deletereview.jsx').DeleteReviewModal;
+
 var ExistingReviewComponent = React.createClass({
   mixins: [Backbone.React.Component.mixin],
   getInitialState: function(){
@@ -19,7 +21,6 @@ var ExistingReviewComponent = React.createClass({
     }
   },
   componentWillMount: function(){
-
     this.setState({
       "reviews": this.props.reviews
     })
@@ -29,8 +30,24 @@ var ExistingReviewComponent = React.createClass({
       "reviews": nextProps.reviews
     })
   },
+  deleteReview: function(){
+    console.log('deleted');
+  },
+  openModal: function(){
+    console.log('open');
+    this.setState({
+      showModal: true
+    })
+  },
+  closeModal: function(){
+    this.setState({
+      showModal: false
+    })
+  },
   render: function(){
+    var modal;
     var warning;
+    var deleteButton;
     var reviews = this.state.reviews;
     var allReviewsBtnText;
     var reviewColumns = "";
@@ -56,6 +73,7 @@ var ExistingReviewComponent = React.createClass({
     } else {
       allReviewsBtnText = "Show all reviews...";
     }
+
     // mapped review with fields set
     var existingReview = function(review, index){
       if(!this.props.allReviews){
@@ -63,6 +81,20 @@ var ExistingReviewComponent = React.createClass({
           return;
         }
       }
+
+      if(this.state.showModal){
+        modal = (<DeleteReviewModal backdrop={true} review={review} show={this.state.showModal} closeModal={this.closeModal}/>)
+      }
+
+      if(Parse.User.current()){
+        if(review.get("userId").id === Parse.User.current().id){
+          console.log("Match");
+          deleteButton = (
+              <i onClick={this.openModal} className="fa fa-times pull-right delete-review-btn"></i>
+          )
+        }
+      }
+
       var posterAvatar;
       if(review.get("userId").get("avatar")){
         posterAvatar = review.get("userId").get("avatar").url();
@@ -72,7 +104,7 @@ var ExistingReviewComponent = React.createClass({
       var reviewPoster = review.get("userId").get("username");
 
       return(
-      <div className={"review " + reviewColumns}>
+      <div key={index} className={"review " + reviewColumns}>
         <div className="row">
           <div className="col-md-2">
             <a href={"#profile/" + review.get("userId").id}><img src={posterAvatar}></img></a>
@@ -81,6 +113,7 @@ var ExistingReviewComponent = React.createClass({
             <div className="row">
               <a className="review-username parkcard" href={"#profile/" + review.get("userId").id}><span>{reviewPoster}</span></a>
               <span className="review-date">January 29, 2016</span>
+              {deleteButton}
             </div>
             <div className="row">
               <span>
@@ -88,6 +121,7 @@ var ExistingReviewComponent = React.createClass({
                </span>
             </div>
           </div>
+          {modal}
         </div>
         <div className="row">
           <div className="col-md-12">
