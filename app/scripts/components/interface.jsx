@@ -180,6 +180,7 @@ var InterfaceComponent = React.createClass({
       success: function(user) {
         // set new role of basic user to user that signsup
         var roleACL = new Parse.ACL();
+        roleACL.setPublicReadAccess(true);
         var role = new Parse.Role("BasicUser", roleACL);
         role.getUsers().add(user);
         role.save();

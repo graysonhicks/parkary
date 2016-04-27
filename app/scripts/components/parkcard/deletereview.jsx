@@ -10,10 +10,43 @@ var Button = require('react-bootstrap').Button;
 var DeleteReviewModal = React.createClass({
   mixins: [Backbone.React.Component.mixin],
   deleteReview: function(){
-    (this.props.review).destroy({});
-    this.setState({
-      "deleted": true
-    })
+    var self = this;
+    var newAverageParkRating;
+    var newAggregateParkRating;
+    var park = this.props.park;
+    var review = this.props.review;
+    var reviewUser = review.get("userId");
+    var deletedReviewRating = review.get("rating");
+    var oldAverageParkRating = park.get("rating");
+
+    var oldAggregateParkRating = park.get("aggregateRating");
+
+    var currentNumberOfReviews;
+
+    currentNumberOfReviews = (park.get("reviews").length) - 1;
+
+    newAggregateParkRating = oldAggregateParkRating - deletedReviewRating;
+    newAverageParkRating = parseFloat(newAggregateParkRating / currentNumberOfReviews).toFixed(2);
+    if(currentNumberOfReviews === 0){
+      newAverageParkRating = "0";
+    }
+    park.set("rating", newAverageParkRating);
+    // set park aggregate as the new aggregate
+    park.set("aggregateRating", newAggregateParkRating);
+    reviewUser.remove("reviews", review);
+    park.remove("reviews", review);
+    review.destroy({});
+    park.save(null, {
+      success:function(updatedPark) {
+        self.setState({
+          "deleted": true
+        })
+      },
+      error:function(obj, error) {
+        console.log(error);
+      }
+    });
+
   },
   render: function(){
     var body;

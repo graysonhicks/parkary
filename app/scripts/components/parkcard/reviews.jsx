@@ -61,11 +61,20 @@ var ReviewsComponent = React.createClass({
     }
     // if adding review, show form
     if(this.state.addReview){
-      body = (<NewReviewComponent allReviews={this.props.allReviews} park={this.props.park} cancelReview={this.cancelReview}/>)
+      body = (<NewReviewComponent
+        allReviews={this.props.allReviews}
+        park={this.props.park}
+        cancelReview={this.cancelReview}
+      />)
     }
     //else show existing reviews
     if(!this.state.addReview) {
-      body = (<ExistingReviewComponent toggleAllReviews={this.props.toggleAllReviews} allReviews={this.props.allReviews} reviews={this.state.reviews}/>)
+      body = (<ExistingReviewComponent
+        toggleAllReviews={this.props.toggleAllReviews}
+        allReviews={this.props.allReviews}
+        reviews={this.state.reviews}
+        park={this.props.park}
+      />)
     }
     if(this.props.allReviews){
       columnsClass = "col-md-12 reviews-column all";

@@ -45,7 +45,7 @@ var UserReviewComponent = React.createClass({
     }
 
     // mapped review with fields set
-    var userReview = function(review){
+    var userReview = function(review, index){
       var parkInReview = review.get("parkId");
       var parkInReviewImages;
       var mainParkImage;
@@ -62,7 +62,7 @@ var UserReviewComponent = React.createClass({
       }
 
       return(
-      <div className="review profile">
+      <div key={index} className="review profile">
         <div className="row review-image-and-rating-row">
           <div className="col-md-2">
               <a href={"#park/" + parkInReview.id}><img src={mainParkImage}></img></a>

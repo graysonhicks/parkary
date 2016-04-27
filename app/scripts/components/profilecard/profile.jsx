@@ -18,8 +18,6 @@ var ProfileComponent = React.createClass({
     var query = new Parse.Query("User");
     query.include("favorites");
     query.get(this.props.profileId).then(function(user){
-      // set location and current parse park object in state
-      console.log(this.props.profileId);
       this.setState({
         "user": user
       });

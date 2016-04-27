@@ -7,6 +7,7 @@ require('backbone-react-component');
 var Parse = require('parse');
 var ParseReact = require('parse-react');
 var Rater = require('react-rater').default;
+var moment = require('moment');
 
 Parse.initialize("parkary");
 Parse.serverURL = 'http://parkary.herokuapp.com';
@@ -83,7 +84,14 @@ var ExistingReviewComponent = React.createClass({
       }
 
       if(this.state.showModal){
-        modal = (<DeleteReviewModal backdrop={true} review={review} show={this.state.showModal} closeModal={this.closeModal}/>)
+        modal = (<DeleteReviewModal
+          backdrop={true}
+          review={review}
+          show={this.state.showModal}
+          closeModal={this.closeModal}
+          park={this.props.park}
+          reviews={reviews}
+        />)
       }
 
       if(Parse.User.current()){
@@ -94,7 +102,8 @@ var ExistingReviewComponent = React.createClass({
           )
         }
       }
-
+      var reviewDate = review.get("date");
+      reviewDate = moment(reviewDate).format("MMMM Do YYYY, h:mm:ss a");
       var posterAvatar;
       if(review.get("userId").get("avatar")){
         posterAvatar = review.get("userId").get("avatar").url();
@@ -112,7 +121,7 @@ var ExistingReviewComponent = React.createClass({
           <div className="col-md-10">
             <div className="row">
               <a className="review-username parkcard" href={"#profile/" + review.get("userId").id}><span>{reviewPoster}</span></a>
-              <span className="review-date">January 29, 2016</span>
+              <span className="review-date">{reviewDate}</span>
               {deleteButton}
             </div>
             <div className="row">

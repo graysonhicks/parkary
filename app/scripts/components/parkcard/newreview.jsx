@@ -130,7 +130,7 @@ var NewReviewComponent = React.createClass({
     });
   },
   render: function(){
-    console.log('park', this.props.park);
+
     var editRatingButton;
     var addedReviewComponent;
 
