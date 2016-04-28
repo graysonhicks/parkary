@@ -19,7 +19,8 @@ var Router = Backbone.Router.extend({
     "add": "add",
     "edit/(:id)": "edit",
     "user/(:id)": "user",
-    "request": "request"
+    "request": "request",
+    "admin": "admin"
   },
   login: function(){
     this.current = "login";
@@ -62,6 +63,9 @@ var Router = Backbone.Router.extend({
   },
   request: function(){
     this.current="request";
+  },
+  admin: function(){
+    this.current="admin";
   },
   search: function(){
     this.current = "search";

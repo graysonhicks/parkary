@@ -20,6 +20,7 @@ var EditParkComponent = require('./forms/editpark.jsx').EditParkComponent;
 var EditUserComponent = require('./forms/usereditform.jsx').EditUserComponent;
 var AddedEditedUserModal = require('./forms/addedediteduser.jsx').AddedEditedUserModal;
 var RequestParkComponent = require('./forms/requestpark.jsx').RequestParkComponent;
+var AdminPageComponent = require('./forms/adminpage.jsx').AdminPageComponent;
 var WarningModal = require('./warningmodal.jsx').WarningModal;
 
 Parse.initialize("parkary");
@@ -338,6 +339,11 @@ var InterfaceComponent = React.createClass({
     if(this.state.router.current == "user"){
       body = (
         <EditUserComponent profileId={this.state.router.profileId} page={this.state.router.current} user={this.state.user}/>
+      )
+    }
+    if(this.state.router.current == "admin"){
+      body = (
+        <AdminPageComponent page={this.state.router.current} />
       )
     }
     if(this.state.router.current == "add"){

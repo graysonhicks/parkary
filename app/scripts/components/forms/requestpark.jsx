@@ -21,7 +21,7 @@ var RequestParkComponent = React.createClass({
     var self = this;
     e.preventDefault();
     var requestData = this.state;
-    requestData.userId = Parse.User.current().id;
+    requestData.userId = Parse.User.current();
     requestData.date = Date.now();
 
     var Request = Parse.Object.extend("Requests");

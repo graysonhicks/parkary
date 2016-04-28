@@ -209,9 +209,9 @@ var AddParkComponent = React.createClass({
         imageInputs.push(<ImageInputComponent removeImage={this.removeImage} handleFile={this.handleFile} key={count} count={count} ref={"formset"+count}/>);
       }
       // loop over allAmenities and print options to screen as checkboxes
-      var newAmenity = function(amenity){
+      var newAmenity = function(amenity, index){
         return (
-          <div key={amenity.objectId}>
+          <div key={index}>
             <AddCheckboxComponent addedAmenities={this.state.addedAmenities} handleCheck={this.handleCheck} amenity={amenity}/>
           </div>
         )

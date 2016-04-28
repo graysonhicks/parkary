@@ -41,7 +41,7 @@ var NavLeftComponent = React.createClass({
         )}
       // if on the profile, or park page
       // show search link and account dropdown
-      if((this.props.page == "profile")||(this.props.page == "park")||(this.props.page == "add")||(this.props.page == "edit")||(this.props.page == "user")||(this.props.page == "request")){
+      if((this.props.page == "profile")||(this.props.page == "park")||(this.props.page == "add")||(this.props.page == "edit")||(this.props.page == "user")||(this.props.page == "request")||(this.props.page == "admin")){
         accountLinks = (
           <ul className="nav navbar-nav navbar-right right-nav">
             <li><a id="search-link" href="#search">search</a></li>
