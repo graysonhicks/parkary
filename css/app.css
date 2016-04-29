@@ -699,6 +699,12 @@ div.row.park-sidebar-list-item.active {
   max-width: 50%;
   margin-top: 50px; }
 
+@media(max-width: 1920px) {
+  .park-thumbnails {
+    height: 465px; } }
+@media(max-width: 1440px) {
+  .park-thumbnails {
+    height: 365px; } }
 @media(max-width: 1238px) {
   .nav-switch-container {
     padding-left: 20px; }
@@ -906,6 +912,46 @@ div.row.park-sidebar-list-item.active {
     padding-bottom: 8px;
     padding-top: 8px;
     padding-right: 4px; } }
+.admin-btn-links {
+  color: white; }
+  .admin-btn-links:hover {
+    text-decoration: none;
+    color: #575555; }
+
+.admin-btns {
+  margin-top: 20px;
+  width: 25%;
+  margin-left: 5px;
+  margin-right: 5px; }
+
+.admin-btns-column {
+  text-align: center; }
+
+.admin-stats-column {
+  background-color: #B3B3B3;
+  margin-top: 20px;
+  padding-bottom: 15px;
+  text-align: center;
+  border-radius: 6px; }
+
+.admin-stats {
+  color: white; }
+
+.user-requests-column {
+  background-color: #B3B3B3;
+  margin-top: 20px;
+  padding-bottom: 15px;
+  border-radius: 6px; }
+
+.admin-request {
+  margin-bottom: 5px;
+  border-bottom: 1px solid white; }
+
+.user-request-name-link {
+  color: white; }
+  .user-request-name-link:hover {
+    color: #575555; }
+
 *,
 *::before,
 *::after {
@@ -945,4 +991,5 @@ img {
           animation-duration: 1s;
   -webkit-animation-delay: 0.2s;
           animation-delay: 0.2s; }
+
 /*# sourceMappingURL=app.css.map */
