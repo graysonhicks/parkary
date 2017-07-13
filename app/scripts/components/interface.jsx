@@ -127,6 +127,7 @@ var InterfaceComponent = React.createClass({
     }
     // launch query
     parkQuery.find({
+      useMasterKey: true,
       success: function(parks){
         if(parks.length < 1){
           // search is complete and still no parks, set this flag in state so notice can be displayed
