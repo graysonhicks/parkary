@@ -34,7 +34,7 @@
     "sass": "sass --style compressed --update app/styles:dist/css",
     "autoprefixer": "postcss -u autoprefixer -r dist/css/*.css",
     "lint": "eslint app/scripts",
-    "browserify": "browserify app/scripts/index.js | uglifyjs -c sequences=true,dead_code=true,conditionals=true,booleans=true,unused=true,if_return=true,join_vars=true,drop_console=true > dist/js/bundle.js",
+    "browserify": "browserify app/scripts/index.js | uglifyjs -c sequences=true,dead_code=true,conditionals=true,booleans=true,unused=true,if_return=true,join_vars=true,drop_console=true -m > dist/js/bundle.js",
     "imagemin": "imagemin app/images dist/images -p",
     "favicon": "cp app/favicon.ico dist/",
     "build:css": "npm run sass && npm run autoprefixer",
