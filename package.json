@@ -34,7 +34,7 @@
     "sass": "sass --style compressed --update app/styles:dist/css",
     "autoprefixer": "postcss -u autoprefixer -r dist/css/*.css",
     "lint": "eslint app/scripts",
-    "browserify": "browserify app/scripts/index.js | uglifyjs -c sequences=true,dead_code=true,conditionals=true,booleans=true,unused=true,if_return=true,join_vars=true,drop_console=true -m > dist/js/bundle.js",
+    "browserify": "browserify app/scripts/index.js | uglifyjs -c sequences=true,dead_code=true,conditionals=true,booleans=true,unused=true,if_return=true,join_vars=true,drop_console=true > dist/js/bundle.js",
     "imagemin": "imagemin app/images dist/images -p",
     "favicon": "cp app/favicon.ico dist/",
     "build:css": "npm run sass && npm run autoprefixer",
@@ -47,7 +47,8 @@
     "watch:html": "npm run html && onchange 'app/**/*.html' -- npm run html",
     "watch:images": "npm run build:images && onchange 'app/images/*' -- npm run build:images",
     "server": "live-server --open='dist'",
-    "watch": "parallelshell 'npm run watch:html' 'npm run watch:sass' 'npm run watch:images' 'npm run watch:js' 'npm run server'"
+    "watch": "parallelshell 'npm run watch:html' 'npm run watch:sass' 'npm run watch:images' 'npm run watch:js' 'npm run server'",
+    "gzipjs": "gzip -9 dist/js/bundle.js"
   },
   "browserify": {
     "transform": [
