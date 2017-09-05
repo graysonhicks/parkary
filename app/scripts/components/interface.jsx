@@ -85,6 +85,7 @@ var InterfaceComponent = React.createClass({
 
   },
   search: function(center, type){
+
     var self = this;
     var filterAmenities = this.filterAmenities;
     // receiving type to determine where location is coming from and what format
@@ -138,6 +139,11 @@ var InterfaceComponent = React.createClass({
           "parks": parks,
           "pending": false,
           "mapCenter": parseGeo
+        }, function () {
+          if(type === "searchBar"){
+            this.mapUrl()
+          }
+
         })
       }
     })
