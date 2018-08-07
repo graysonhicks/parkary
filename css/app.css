@@ -112,7 +112,6 @@
 
 .fade-enter.fade-enter-active {
   opacity: 1;
-  -webkit-transition: opacity 300ms ease-in;
   transition: opacity 300ms ease-in; }
 
 .fade-leave {
@@ -123,12 +122,10 @@
 
 .fade-appear.fade-appear-active {
   opacity: 1;
-  -webkit-transition: opacity 300ms ease-in;
   transition: opacity 300ms ease-in; }
 
 .fade-leave.fade-leave-active {
   opacity: 0.01;
-  -webkit-transition: opacity 300ms ease-in;
   transition: opacity 300ms ease-in; }
 
 .login-form-container {
@@ -233,15 +230,18 @@
 .park-description {
   font-size: 12px; }
 
-.park-stars span {
-  color: #737373; }
-  .park-stars span:hover {
-    text-decoration: none; }
-.park-stars .is-active {
-  color: #DAD10E; }
-.park-stars .will-be-active {
-  text-decoration: none;
-  color: #DAD10E; }
+.park-stars {
+  display: -ms-flexbox;
+  display: flex; }
+  .park-stars span {
+    color: #737373; }
+    .park-stars span:hover {
+      text-decoration: none; }
+  .park-stars .is-active {
+    color: #DAD10E; }
+  .park-stars .will-be-active {
+    text-decoration: none;
+    color: #DAD10E; }
 
 .thumbnail-link:hover {
   text-decoration: none; }
@@ -272,7 +272,8 @@
 .park-card {
   margin-top: 10px;
   max-width: 90%;
-  border-radius: 0px; }
+  border-radius: 0px;
+  height: calc(100vh - 100px); }
 
 .park-card-name {
   font-size: 16px;
@@ -373,7 +374,11 @@ li.social-icon-list-items {
   color: #737373; }
 
 .park-card-stars {
-  font-size: 18px; }
+  font-size: 18px;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: end;
+      justify-content: flex-end; }
   .park-card-stars span {
     color: #737373; }
   .park-card-stars .is-active {
@@ -526,7 +531,8 @@ a.favorite-park-thumbnail:hover {
   min-height: 150px; }
 
 .map-panel-body {
-  padding-right: 0px; }
+  padding-right: 0px;
+  height: calc(100vh - 100px); }
 
 .map-container {
   margin-top: 20px;
@@ -535,7 +541,14 @@ a.favorite-park-thumbnail:hover {
 
 .map-column {
   padding-left: 0px;
-  padding-right: 0px; }
+  padding-right: 0px;
+  display: inline-block;
+  height: 100%; }
+
+#map-section {
+  height: 100%;
+  width: 100%;
+  display: inline-block; }
 
 .mapped-park-image {
   height: 40px;
@@ -572,7 +585,9 @@ a.favorite-park-thumbnail:hover {
   color: #B3B3B3; }
 
 .mapped-park-stars {
-  font-size: 16px; }
+  font-size: 16px;
+  display: -ms-flexbox;
+  display: flex; }
   .mapped-park-stars span {
     color: #737373; }
     .mapped-park-stars span:hover {
@@ -973,12 +988,6 @@ img {
   font-family: Roboto;
   padding-top: 50px; }
 
-@-webkit-keyframes fadeIn {
-  from {
-    opacity: 0; }
-  to {
-    opacity: 1; } }
-
 @keyframes fadeIn {
   from {
     opacity: 0; }
@@ -986,12 +995,9 @@ img {
     opacity: 1; } }
 .fade-in {
   opacity: 0;
-  -webkit-animation: fadeIn ease-in 1s;
-          animation: fadeIn ease-in 1s;
-  -webkit-animation-fill-mode: forwards;
-          animation-fill-mode: forwards;
-  -webkit-animation-duration: 1s;
-          animation-duration: 1s;
-  -webkit-animation-delay: 0.2s;
-          animation-delay: 0.2s; }
+  animation: fadeIn ease-in 1s;
+  animation-fill-mode: forwards;
+  animation-duration: 1s;
+  animation-delay: 0.2s; }
+
 /*# sourceMappingURL=app.css.map */
