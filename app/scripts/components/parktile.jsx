@@ -31,7 +31,7 @@ var ParkTileComponent = React.createClass({
                   <img className="thumbnail-images" src={thumbnail} alt="" />
                   <div className="caption">
                     <span className="park-name">{park.get("name")}</span>
-                    <span className="pull-right park-rating">
+                    <span className="park-rating">
                       <Rater className="park-stars" interactive={false} total={5} rating={park.get("rating")}/>
                     </span>
                     <p className="park-description">{park.get("description")}</p>

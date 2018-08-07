@@ -112,8 +112,8 @@ var ParkMap = React.createClass({
    }.bind(this));
 
     return (
-      <section id="map-section" style={{
-          height: "525px"}}>
+      <div id="map-section" style={{
+          height: "100%", width: "100%"}}>
 
       <GoogleMapLoader
         containerElement={
@@ -138,7 +138,7 @@ var ParkMap = React.createClass({
           </GoogleMap>
         }
       />
-    </section>
+    </div>
     );
   }
 });
@@ -147,15 +147,17 @@ var DynamicMapComponent = React.createClass({
   mixins: [Backbone.React.Component.mixin],
   render: function(){
   // Return early
-    if(!this.props.park){
-    <div>
-      <h2>Loading...</h2>
-      <i className="fa fa-spinner fa-spin fa-5x map-loading-spinner" aria-hidden="true"></i>
-    </div>
-    }
+    // if(!this.props.park){
+    //   return (
+    //     <div className="map-section">
+    //     <h2>Loading...</h2>
+    //     <i className="fa fa-spinner fa-spin fa-5x map-loading-spinner" aria-hidden="true"></i>
+    //   </div>
+    //   )
+    // }
 
   return (
-    <div className="">
+    <span>
       <ParkMap
         setMapBounds={this.props.setMapBounds}
         setActiveMarker={this.props.setActiveMarker}
@@ -165,7 +167,7 @@ var DynamicMapComponent = React.createClass({
         lng={this.props.lng}
         allReviews={this.props.allReviews}
       />
-    </div>
+    </span>
     )
   }
 });
