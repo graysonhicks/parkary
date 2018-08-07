@@ -24,7 +24,7 @@ var AdminPageComponent = require('./forms/adminpage.jsx').AdminPageComponent;
 var WarningModal = require('./warningmodal.jsx').WarningModal;
 
 Parse.initialize("parkary");
-Parse.serverURL = 'http://parkary.herokuapp.com';
+Parse.serverURL = 'https://parkary.herokuapp.com';
 
 var InterfaceComponent = React.createClass({
   mixins: [Backbone.React.Component.mixin],
